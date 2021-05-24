@@ -1,27 +1,27 @@
-import React, {useState, useContext} from 'react';
-import {useLocation, useHistory} from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { render } from 'react-dom';
-import formik, {Formik, Field, Form} from 'formik';
+import formik, { Formik, Field, Form } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
-import {Context} from './context';
+import { Context } from './context';
 
 const Authorization = () => {
   const history = useHistory();
   const location = useLocation();
-  
+
   const [isAuthorized, setAuthorized] = useState(true);
   const feedbackStyle = {
-    display: (isAuthorized) ? 'none' : 'block'
+    display: (isAuthorized) ? 'none' : 'block',
   };
 
   return (
     <div className="container-fluid">
       <div className="row justify-content-center pt-5">
-        <div className="col-sm-4">         
+        <div className="col-sm-4">
           <Formik
-            initialValues={{username: '', password: ''}}
+            initialValues={{ username: '', password: '' }}
             onSubmit={(values, handlers) => {
               console.log('submit values: ', values);
               const schema = yup.object().shape({
@@ -32,16 +32,16 @@ const Authorization = () => {
                 username: values.username,
                 password: values.password,
               };
-              
+
               const authorizeUser = async () => {
                 try {
                   await schema.validate(values);
-                  
+
                   const response = await axios.post('/api/v1/login', messagePost);
-                  const {from} = location.state || { from: {pathname: '/'} };
+                  const { from } = location.state || { from: { pathname: '/' } };
                   localStorage.setItem('token', response.data.token);
                   localStorage.setItem('username', values.username);
-                  
+
                   history.replace(from);
                   setAuthorized(true);
                 } catch (e) {
@@ -49,7 +49,7 @@ const Authorization = () => {
                   setAuthorized(false);
                 }
               };
-              
+
               authorizeUser();
             }}
           >
@@ -67,7 +67,7 @@ const Authorization = () => {
               <div className="d-flex flex-column align-items-center"><span className="small mb-2">{i18next.t('authorizationComponent.noAccount')}</span> <a href="/signup">{i18next.t('authorizationComponent.signup')}</a></div>
             </Form>
           </Formik>
-          
+
         </div>
       </div>
     </div>
@@ -75,4 +75,3 @@ const Authorization = () => {
 };
 
 export default Authorization;
-

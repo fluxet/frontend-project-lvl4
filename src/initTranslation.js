@@ -8,13 +8,13 @@ export default () => {
       ru: {
         translation: {
           password: 'Пароль',
-          
+
           authorizationComponent: {
             username: 'Ваш ник',
             invalidFeedback: 'Неверные имя пользователя или пароль',
             login: 'Войти',
             noAccount: 'Нет аккаунта?',
-            signup: 'Регистрация',   
+            signup: 'Регистрация',
           },
           signupComponent: {
             username: 'Имя пользователя',
@@ -24,9 +24,9 @@ export default () => {
             confirmPassword: 'Подтвердите пароль',
             confirmPasswordFeedback: 'Пароли должны совпадать',
             signup: 'Зарегистрироваться',
-          }
-        }
-      }
-    }
-  })
+          },
+        },
+      },
+    },
+  });
 };

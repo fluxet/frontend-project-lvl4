@@ -1,11 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-const NotFound = () => {
-  return (
+const NotFound = () => (
     <div>NOT FOUND!</div>
-  );
-};
+);
 
 export default NotFound;
-

@@ -1,4 +1,8 @@
-import React, {createContext, useState, useContext, useEffect} from 'react';
+/* eslint-disable no-console */
+
+import React, {
+  createContext, useState, useContext, useEffect,
+} from 'react';
 import { render } from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -8,45 +12,52 @@ import {
   Redirect,
   useLocation,
 } from 'react-router-dom';
-import {Button, Navbar, Nav} from 'react-bootstrap';
+import { Button, Navbar, Nav } from 'react-bootstrap';
 import Authorization from './Authorization.jsx';
 import NotFound from './NotFound.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Signup.jsx';
 import initTranslation from './initTranslation';
-import {Context} from './context';
+import { Context } from './context';
 
 const AuthProvider = (props) => {
-  const {children} = props;
+  const { children } = props;
   const [localToken, setLocalToken] = useState('null');
   const [localUsername, setLocalUsername] = useState('null');
-  
+
   const writeToken = (token) => setLocalToken(token);
   const writeUsername = (username) => setLocalUsername(username);
-  
-  console.log('localToken: ', localToken);
+
+  if (!localToken) {
+    setLocalToken('null');
+    localStorage.setItem('token', 'null');
+  }
+
+  console.log('localToken: ', [localToken]);
   console.log('localUsername: ', localUsername);
-  
+
   return (
-    <Context.Provider value={{ token: localToken, username: localUsername, writeToken, writeUsername}}>
+    <Context.Provider value={{
+      token: localToken, username: localUsername, writeToken, writeUsername,
+    }}>
       {children}
     </Context.Provider>
   );
 };
 
-const ChatRoute = ({children, path}) => {
+const ChatRoute = ({ children, path }) => {
   const ctx = useContext(Context);
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
   console.log('ctx: ', ctx);
   console.log('Route token: ', token);
-  
+
   useEffect(() => {
     ctx.writeToken(token);
     ctx.writeUsername(username);
   }, []);
-  
-  return(
+
+  return (
     <Route path={path}
       render={(privateRouteArgs) => {
         console.log('privateRouteArgs: ', privateRouteArgs);
@@ -83,4 +94,3 @@ const App = () => {
 };
 
 export default App;
-

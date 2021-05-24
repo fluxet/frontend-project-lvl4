@@ -6,8 +6,8 @@ import '../assets/application.scss';
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import { Provider } from 'react-redux';
 import store from './store.js';
-import {Provider} from 'react-redux';
 import App from './App.jsx';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -39,5 +39,5 @@ ReactDom.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('chat')
+  document.getElementById('chat'),
 );
