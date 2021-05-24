@@ -15,9 +15,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:hexlet-components/projects-frontend-l4-server.git"
+    "url": "git@github.com/fluxet/frontend-project-lvl4"
   },
-  "author": "Kirill Mokevnin",
+  "author": "fluxet",
   "license": "ISC",
   "homepage": "",
   "dependencies": {
