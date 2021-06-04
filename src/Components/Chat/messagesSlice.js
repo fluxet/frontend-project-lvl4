@@ -6,14 +6,14 @@ export const messagesSlice = createSlice({
     value: [],
   },
   reducers: {
-    setData: (state, action) => {
+    setMessages: (state, action) => {
       state.value = action.payload;
     },
-    setCurrentChannelId: (state, action) => {
-      state.value.currentChannelId = action.payload.currentChannelId;
+    addMessage: (state, action) => {
+      state.value.push(action.payload);
     },
   },
 });
 
-export const { setData, setCurrentChannelId } = channelsSlice.actions;
-export default channelsSlice.reducer;
+export const { addMessage, setMessages } = messagesSlice.actions;
+export default messagesSlice.reducer;

@@ -33,8 +33,6 @@ card.append(cardBody);
 const container = document.querySelector('#chat');
 container.append(card);
 
-console.log('it works!');
-
 ReactDom.render(
   <Provider store={store}>
     <App />

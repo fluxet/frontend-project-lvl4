@@ -1,19 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { render } from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import formik, { Formik, Field, Form } from 'formik';
-import axios from 'axios';
-import * as yup from 'yup';
-import i18next from 'i18next';
 import _ from 'lodash';
-import cn from 'classnames';
-import { addChannel } from './channelsSlice.js';
-import { Context } from '../../context';
 
-const Messages = (props) => {
-  const data = useSelector((state) => state);
-  const { messages } = data.channels.value;
+const Messages = () => {
+  const data = useSelector((state) => state.messages.value);
+  const channelId = useSelector((state) => state.channels.value.currentChannelId);
+  console.log('messages channelId: ', channelId);
+  const messages = data.filter(message => message.data.attributes.channelId === channelId);
+  console.log('data: ', data);
   console.log('Messages : ', messages);
 
   return (

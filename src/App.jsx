@@ -1,9 +1,6 @@
 /* eslint-disable no-console */
 
-import React, {
-  createContext, useState, useContext, useEffect,
-} from 'react';
-import { render } from 'react-dom';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,20 +22,20 @@ const AuthProvider = (props) => {
   const [localToken, setLocalToken] = useState('null');
   const [localUsername, setLocalUsername] = useState('null');
 
-  const writeToken = (token) => setLocalToken(token);
-  const writeUsername = (username) => setLocalUsername(username);
+  const writeToken = (token) => setLocalToken(token); // ?
+  const writeUsername = (username) => setLocalUsername(username); // ?
 
   if (!localToken) {
     setLocalToken('null');
     localStorage.setItem('token', 'null');
   }
 
-  console.log('localToken: ', [localToken]);
-  console.log('localUsername: ', localUsername);
-
   return (
     <Context.Provider value={{
-      token: localToken, username: localUsername, writeToken, writeUsername,
+      token: localToken,
+      username: localUsername,
+      writeToken,
+      writeUsername,
     }}>
       {children}
     </Context.Provider>
@@ -49,8 +46,6 @@ const ChatRoute = ({ children, path }) => {
   const ctx = useContext(Context);
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
-  console.log('ctx: ', ctx);
-  console.log('Route token: ', token);
 
   useEffect(() => {
     ctx.writeToken(token);
@@ -59,8 +54,7 @@ const ChatRoute = ({ children, path }) => {
 
   return (
     <Route path={path}
-      render={(privateRouteArgs) => {
-        console.log('privateRouteArgs: ', privateRouteArgs);
+      render={() => {
         return (token === 'null') ? <Redirect to="/login" /> : <Home />;
       }}
     />
