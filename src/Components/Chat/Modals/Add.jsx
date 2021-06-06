@@ -3,7 +3,6 @@ import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import io from 'socket.io-client';
 import axios from 'axios';
-import cn from 'classnames';
 import {setChannels} from "../channelsSlice";
 import {setMessages} from "../messagesSlice";
 import {useDispatch} from "react-redux";
@@ -17,6 +16,11 @@ const Add = (props) => {
   const ctx = useContext(Context);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
 
+  const inputEl = useRef(null);
+  useEffect(() => {
+    inputEl.current.focus();
+  }, []);
+
   return (
     <>
       <div className="fade modal-backdrop show"></div>
@@ -29,17 +33,12 @@ const Add = (props) => {
             <Formik
               initialValues={{name: ''}}
               onSubmit={(values, actions) => {
-                console.log('modal add values: ', values);
-
                 socket.emit('newChannel', {
                   name: values.name,
                 }, (response) => {
-                  console.log('socket response: ', response);
                   showModal('closing')();
-
                   axios.get('/api/v1/data', options)
                     .then((resp) => {
-                      console.log('modalAdd get response: ', resp);
                       dispatch(setChannels(resp.data));
                       dispatch(setMessages(resp.data.messages));
                     })
@@ -51,8 +50,8 @@ const Add = (props) => {
             >
               <Form>
                 <FormGroup>
-                  <Field name="name" autoFocus={true} data-testid="add-channel" className="mb-2 form-control" required />
-                  <button type="button" className="me-2 btn btn-secondary">Отменить</button>
+                  <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
+                  <button type="button" onClick={showModal('closing')} className="me-2 btn btn-secondary">Отменить</button>
                   <button type="submit" className="btn btn-primary">Отправить</button>
                 </FormGroup>
               </Form>

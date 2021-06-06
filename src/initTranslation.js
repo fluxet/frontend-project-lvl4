@@ -23,6 +23,7 @@ export default () => {
             passwordPlaceholder: 'Не менее 6 символов',
             confirmPassword: 'Подтвердите пароль',
             confirmPasswordFeedback: 'Пароли должны совпадать',
+            userAlreadyExist: 'Такой пользователь уже существует',
             signup: 'Зарегистрироваться',
           },
         },

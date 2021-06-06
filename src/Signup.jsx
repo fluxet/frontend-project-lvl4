@@ -14,7 +14,7 @@ import { Context } from './context';
 const Signup = () => {
   const history = useHistory();
   const location = useLocation();
-
+  const [isUsernameOccupied, setIsUsernameOccupied] = useState(false);
   const [fieldVals, setFieldVals] = useState({
     username: '',
     password: '',
@@ -49,6 +49,20 @@ const Signup = () => {
     'is-invalid': !(fieldValidity[fieldName] || fieldVals[fieldName] === ''),
   });
 
+  const invalidFeedBackContent = (isUsernameOccupied)
+    ? {
+      name: i18next.t('signupComponent.userAlreadyExist'),
+      password: i18next.t('signupComponent.userAlreadyExist'),
+      confirmPassword: i18next.t('signupComponent.userAlreadyExist'),
+    }
+    : {
+      name: i18next.t('signupComponent.invalidFeedback'),
+      password: i18next.t('signupComponent.invalidFeedback'),
+      confirmPassword: i18next.t('signupComponent.signup'),
+    };
+
+  const feedbackStyle = (isUsernameOccupied) ? { display: 'block' } : {};
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center pt-5">
@@ -77,6 +91,10 @@ const Signup = () => {
                   history.replace(from);
                 } catch (e) {
                   console.log('error from catch', e);
+                  const statusCode = +e.message.split(' ').reverse()[0];
+                  if (statusCode === 409) {
+                    setIsUsernameOccupied(true);
+                  }
                 }
               };
 
@@ -87,17 +105,17 @@ const Signup = () => {
               <div className="form-group">
                 <label className="form-label" htmlFor="username">{i18next.t('signupComponent.username')}</label>
                 <Field placeholder={i18next.t('signupComponent.usernamePlaceholder')} name="username" autoComplete="username" validate={validateUsername} id="username" className={getFieldClassNames('username')} required />
-                <div className="invalid-feedback">{i18next.t('signupComponent.invalidFeedback')}</div>
+                <div className="invalid-feedback" style={feedbackStyle}>{invalidFeedBackContent.name}</div>
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="password">{i18next.t('password')}</label>
                 <Field placeholder={i18next.t('signupComponent.passwordPlaceholder')} name="password" autoComplete="new-password" validate={validatePassword} type="password" id="password" className={getFieldClassNames('password')} required />
-                <div className="invalid-feedback">{i18next.t('signupComponent.invalidFeedback')}</div>
+                <div className="invalid-feedback" style={feedbackStyle}>{invalidFeedBackContent.password}</div>
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="confirmPassword">{i18next.t('signupComponent.confirmPassword')}</label>
                 <Field placeholder={i18next.t('signupComponent.confirmPasswordFeedback')} name="confirmPassword" autoComplete="new-password" validate={validateConfirmation} className={getFieldClassNames('confirm')} type="password" id="confirmPassword" required />
-                <div className="invalid-feedback">{i18next.t('signupComponent.confirmPasswordFeedback')}</div>
+                <div className="invalid-feedback" style={feedbackStyle}>{invalidFeedBackContent.confirmPassword}</div>
               </div>
               <button type="submit" className="w-100 btn btn-outline-primary">{i18next.t('signupComponent.signup')}</button>
             </Form>
@@ -110,6 +128,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-//----------------------------------------------------------------------
-// <CustomField placeholder="Пароли должны совпадать" name="confirmPassword" autoComplete="new-password"onChange={onConfirmChange} value={confirmationVal} validate={validateConfirmation} type="password" id="confirmPassword" className={confirmationFieldClassNames} required />

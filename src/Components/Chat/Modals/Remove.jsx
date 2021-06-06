@@ -23,7 +23,7 @@ const Remove = (props) => {
       <div role="dialog" aria-modal="true" className="fade modal show" tabIndex="-1" style={{ display: 'block' }}>
         <Modal.Dialog>
           <Modal.Header closeButton onClick={showModal('closing')}>
-            <Modal.Title>Переименовать канал</Modal.Title>
+            <Modal.Title>Удалить канал</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Formik
@@ -49,8 +49,9 @@ const Remove = (props) => {
             >
               <Form>
                 <FormGroup>
-                  <button type="button" className="me-2 btn btn-secondary">Отменить</button>
-                  <button type="submit" className="btn btn-primary">Отправить</button>
+                  <div>Уверены?</div>
+                  <button type="button" onClick={showModal('closing')} className="me-2 btn btn-secondary">Отменить</button>
+                  <button type="submit" className="btn btn-danger">Удалить</button>
                 </FormGroup>
               </Form>
             </Formik>

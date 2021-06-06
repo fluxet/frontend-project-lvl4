@@ -8,6 +8,7 @@ import {
   Link,
   Redirect,
   useLocation,
+  useHistory,
 } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap';
 import Authorization from './Authorization.jsx';
@@ -21,7 +22,6 @@ const AuthProvider = (props) => {
   const { children } = props;
   const [localToken, setLocalToken] = useState('null');
   const [localUsername, setLocalUsername] = useState('null');
-
   const writeToken = (token) => setLocalToken(token); // ?
   const writeUsername = (username) => setLocalUsername(username); // ?
 
@@ -64,24 +64,31 @@ const ChatRoute = ({ children, path }) => {
 const App = () => {
   initTranslation();
 
+  const onExitClick = () => {
+    localStorage.clear();
+  };
+
   return (
     <AuthProvider>
       <Router>
-          <div className="d-flex flex-column">
-            <nav className="mb-3 navbar navbar-expand-lg navbar-light bg-light">
-              <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
-            </nav>
-          </div>
-          <Switch>
-            <Route path="/login">
-              <Authorization />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <ChatRoute path ="/">
-            </ChatRoute>
-          </Switch>
+        <div className="d-flex flex-column">
+          <Navbar>
+            <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
+            <Nav>
+              <Button variant="primary" as={Link} to="/login" onClick={onExitClick}>Выход</Button>
+            </Nav>
+          </Navbar>
+        </div>
+        <Switch>
+          <Route path="/login">
+            <Authorization />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <ChatRoute path ="/">
+          </ChatRoute>
+        </Switch>
       </Router>
     </AuthProvider>
   );

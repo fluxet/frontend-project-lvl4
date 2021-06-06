@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { setCurrentChannelId } from './channelsSlice.js';
-import Add from './Modals/Add.jsx';
 import Rename from './Modals/Rename.jsx';
+import Add from './Modals/Add.jsx';
 import Remove from './Modals/Remove.jsx';
 
 const Channels = () => {
@@ -22,8 +22,8 @@ const Channels = () => {
     console.log('type: ', type);
     return (
       <>
-        {(type === 'adding') && <Add showModal={showModal} id={currentChannelId} />}
         {(type === 'renaming') && <Rename showModal={showModal} id={currentChannelId} />}
+        {(type === 'adding') && <Add showModal={showModal} id={currentChannelId} />}
         {(type === 'removing') && <Remove showModal={showModal} id={currentChannelId} />}
       </>
     );
@@ -33,8 +33,8 @@ const Channels = () => {
     const { name, id, removable } = item;
     const btnVariant = (id === currentChannelId) ? 'secondary' : '';
     return (
-      <Dropdown key={id} as={ButtonGroup}>
-        <Button onClick={onChannelClick(id)} variant={btnVariant}>{name}</Button>
+      <Dropdown key={id} as={ButtonGroup} onClick={onChannelClick(id)}>
+        <Button variant={btnVariant}>{name}</Button>
         {removable && <>
           <Dropdown.Toggle split variant={btnVariant}/>
           <Dropdown.Menu>
