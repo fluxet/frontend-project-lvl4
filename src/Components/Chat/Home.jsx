@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Context } from '../../context';
@@ -15,15 +15,17 @@ const Home = () => {
   const ctx = useContext(Context);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
 
-  if (ctx.token !== 'null') {
-    axios.get('/api/v1/data', options)
-      .then((resp) => {
-        console.log('home get response: ', resp);
-        dispatch(setChannels(resp.data));
-        dispatch(setMessages(resp.data.messages));
-      })
-      .catch((err) => console.log('home get error: ', err));
-  }
+  useEffect(() => {
+    if (ctx.token !== 'null') {
+      axios.get('/api/v1/data', options)
+        .then((resp) => {
+          console.log('home get response: ', resp);
+          dispatch(setChannels(resp.data));
+          dispatch(setMessages(resp.data.messages));
+        })
+        .catch((err) => console.log('home get error: ', err));
+    }
+  });
 
   return (
     <div className="row flex-grow-1 h-75 pb-3">

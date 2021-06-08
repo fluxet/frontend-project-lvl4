@@ -1,21 +1,25 @@
 /* eslint-disable no-console */
 import React, { useState, useContext, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage } from "./messagesSlice";
 import formik, { Formik, Field, Form } from 'formik';
 import io from 'socket.io-client';
+import { addMessage } from './messagesSlice';
 import { Context } from '../../context';
 
 const ChatForm = () => {
   const socket = io();
   const dispatch = useDispatch();
   const channelId = useSelector(state => state.channels.value.currentChannelId);
-  const { username } = useContext(Context);
+  const { username, wasChatFormMount, setWasChatFormMount } = useContext(Context);
 
   useEffect(() => {
+    console.log('********wasChatFormMount: ', wasChatFormMount);
+    if (wasChatFormMount) { return; }
+
     socket.on('newMessage', (message) => {
       dispatch((addMessage(message)));
     });
+    setWasChatFormMount(true);
   }, []);
 
   return (

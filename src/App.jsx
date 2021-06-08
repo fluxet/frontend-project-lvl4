@@ -24,6 +24,7 @@ const AuthProvider = (props) => {
   const [localUsername, setLocalUsername] = useState('null');
   const writeToken = (token) => setLocalToken(token); // ?
   const writeUsername = (username) => setLocalUsername(username); // ?
+  const [wasChatFormMount, setWasChatFormMount] = useState(false);
 
   if (!localToken) {
     setLocalToken('null');
@@ -36,6 +37,8 @@ const AuthProvider = (props) => {
       username: localUsername,
       writeToken,
       writeUsername,
+      wasChatFormMount,
+      setWasChatFormMount,
     }}>
       {children}
     </Context.Provider>

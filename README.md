@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+* [Heroku CLI](https://gentle-meadow-56740.herokuapp.com/)
 
 ## Install
 
