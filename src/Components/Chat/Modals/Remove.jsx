@@ -1,13 +1,15 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, {
+  useState, useContext, useRef, useEffect,
+} from 'react';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import io from 'socket.io-client';
 import axios from 'axios';
 import cn from 'classnames';
-import {setChannels} from "../channelsSlice";
-import {setMessages} from "../messagesSlice";
-import {useDispatch} from "react-redux";
-import {Context} from "../../../context";
+import { useDispatch } from 'react-redux';
+import { setChannels } from '../channelsSlice';
+import { setMessages } from '../messagesSlice';
+import { Context } from '../../../context';
 
 const Remove = (props) => {
   const socket = io();
@@ -27,7 +29,7 @@ const Remove = (props) => {
           </Modal.Header>
           <Modal.Body>
             <Formik
-              initialValues={{name: ''}}
+              initialValues={{ name: '' }}
               onSubmit={(values, actions) => {
                 socket.emit('removeChannel', {
                   id,

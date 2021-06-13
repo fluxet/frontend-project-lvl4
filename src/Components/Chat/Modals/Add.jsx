@@ -1,12 +1,14 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, {
+  useState, useContext, useRef, useEffect,
+} from 'react';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import io from 'socket.io-client';
 import axios from 'axios';
-import {setChannels} from "../channelsSlice";
-import {setMessages} from "../messagesSlice";
-import {useDispatch} from "react-redux";
-import {Context} from "../../../context";
+import { useDispatch } from 'react-redux';
+import { setChannels } from '../channelsSlice';
+import { setMessages } from '../messagesSlice';
+import { Context } from '../../../context';
 
 const Add = (props) => {
   const socket = io();
@@ -31,7 +33,7 @@ const Add = (props) => {
           </Modal.Header>
           <Modal.Body>
             <Formik
-              initialValues={{name: ''}}
+              initialValues={{ name: '' }}
               onSubmit={(values, actions) => {
                 socket.emit('newChannel', {
                   name: values.name,

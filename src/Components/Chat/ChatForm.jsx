@@ -9,11 +9,10 @@ import { Context } from '../../context';
 const ChatForm = () => {
   const socket = io();
   const dispatch = useDispatch();
-  const channelId = useSelector(state => state.channels.value.currentChannelId);
+  const channelId = useSelector((state) => state.channels.value.currentChannelId);
   const { username, wasChatFormMount, setWasChatFormMount } = useContext(Context);
 
   useEffect(() => {
-    console.log('********wasChatFormMount: ', wasChatFormMount);
     if (wasChatFormMount) { return; }
 
     socket.on('newMessage', (message) => {

@@ -5,7 +5,7 @@ import _ from 'lodash';
 const Messages = () => {
   const data = useSelector((state) => state.messages.value);
   const channelId = useSelector((state) => state.channels.value.currentChannelId);
-  const messages = data.filter(message => message.data.attributes.channelId === channelId);
+  const messages = data.filter((message) => message.data.attributes.channelId === channelId);
 
   console.log('messages channelId: ', channelId);
   console.log('data: ', data);

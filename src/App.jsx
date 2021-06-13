@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, {
+  createContext, useState, useContext, useEffect,
+} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -57,9 +59,7 @@ const ChatRoute = ({ children, path }) => {
 
   return (
     <Route path={path}
-      render={() => {
-        return (token === 'null') ? <Redirect to="/login" /> : <Home />;
-      }}
+      render={() => ((token === 'null') ? <Redirect to="/login" /> : <Home />)}
     />
   );
 };
@@ -76,7 +76,7 @@ const App = () => {
       <Router>
         <div className="d-flex flex-column">
           <Navbar>
-            <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
+            <Link className="mr-auto navbar-brand" to="/">Hexlet-Chat</Link>
             <Nav>
               <Button variant="primary" as={Link} to="/login" onClick={onExitClick}>Выход</Button>
             </Nav>
