@@ -1,11 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { render } from 'react-dom';
-import formik, { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
-import { Context } from './context';
 
 const Authorization = () => {
   const history = useHistory();
@@ -22,7 +20,7 @@ const Authorization = () => {
         <div className="col-sm-4">
           <Formik
             initialValues={{ username: '', password: '' }}
-            onSubmit={(values, handlers) => {
+            onSubmit={(values) => {
               console.log('submit values: ', values);
               const schema = yup.object().shape({
                 username: yup.string(),

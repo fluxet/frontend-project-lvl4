@@ -26,6 +26,27 @@ export default () => {
             userAlreadyExist: 'Такой пользователь уже существует',
             signup: 'Зарегистрироваться',
           },
+          channels: {
+            rename: 'Переименовать',
+            remove: 'Удалить',
+            channelsTitle: 'Каналы',
+          },
+          modals: {
+            cancel: 'Отменить',
+            add: {
+              title: 'Добавить канал',
+              submit: 'Отправить',
+            },
+            rename: {
+              title: 'Переименовать канал',
+              submit: 'Отправить',
+            },
+            remove: {
+              title: 'Удалить канал',
+              warning: 'Уверены?',
+              submit: 'Удалить',
+            },
+          },
         },
       },
     },

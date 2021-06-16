@@ -1,15 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { render } from 'react-dom';
-import formik, {
-  Formik, Field, Form, useFormikContext, useField,
+
+import {
+  Formik, Field, Form,
 } from 'formik';
 import cn from 'classnames';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
 import _ from 'lodash';
-import { Context } from './context';
 
 const Signup = () => {
   const history = useHistory();
@@ -26,6 +25,14 @@ const Signup = () => {
     confirm: true,
   });
 
+  const validateField = (fieldName, fieldValue, schema) => {
+    setFieldVals((oldFieldVals) => ({ ...oldFieldVals, [fieldName]: fieldValue }));
+    schema.isValid(fieldValue)
+      .then((isValid) => {
+        setFieldValidity((oldFieldValidity) => ({ ...oldFieldValidity, [fieldName]: isValid }));
+      });
+  };
+
   const validateUsername = (username) => {
     const schema = yup.string().min(3).max(20);
     validateField('username', username, schema);
@@ -37,12 +44,6 @@ const Signup = () => {
   const validateConfirmation = (confirm) => {
     const schema = yup.string().oneOf([fieldVals.password]);
     validateField('confirm', confirm, schema);
-  };
-
-  const validateField = (fieldName, fieldValue, schema) => {
-    setFieldVals((fieldVals) => ({ ...fieldVals, [fieldName]: fieldValue }));
-    schema.isValid(fieldValue)
-      .then((isValid) => setFieldValidity((fieldValidity) => ({ ...fieldValidity, [fieldName]: isValid })));
   };
 
   const getFieldClassNames = (fieldName) => cn('form-control', {
@@ -75,7 +76,8 @@ const Signup = () => {
               console.log('onSubmit values: ', values);
               console.log('onSubmit handlers: ', handlers);
 
-              const isFormValid = Object.values(fieldValidity).every((isFieldValid) => isFieldValid);
+              const isFormValid = Object.values(fieldValidity)
+                .every((isFieldValid) => isFieldValid);
               console.log('isFormValid: ', isFormValid);
               if (!isFormValid) { return; }
 

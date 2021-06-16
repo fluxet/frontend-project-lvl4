@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
-import React, { useState, useContext, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useContext, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Context } from '../../context';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';
-import { setChannels } from './channelsSlice.js';
-import { setMessages } from './messagesSlice.js';
+import { setChannels } from './channelsSlice';
+import { setMessages } from './messagesSlice';
 // import getChannelsInfo from '../../utils';
 
 const Home = () => {

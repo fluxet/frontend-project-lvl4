@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+  useContext, useEffect, useRef,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import formik, { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import io from 'socket.io-client';
 import { addMessage } from './messagesSlice';
 import { Context } from '../../context';
@@ -11,6 +13,11 @@ const ChatForm = () => {
   const dispatch = useDispatch();
   const channelId = useSelector((state) => state.channels.value.currentChannelId);
   const { username, wasChatFormMount, setWasChatFormMount } = useContext(Context);
+
+  const inputEl = useRef('');
+  useEffect(() => {
+    inputEl.current.focus();
+  });
 
   useEffect(() => {
     if (wasChatFormMount) { return; }
@@ -43,7 +50,7 @@ const ChatForm = () => {
       >
         <Form noValidate="" className="">
           <div className="input-group">
-            <Field type="text" name="body" aria-label="body" className="form-control" />
+            <Field innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" required />
             <div className="input-group-append"><button type="submit" className="btn btn-primary">Отправить</button></div>
           </div>
         </Form>

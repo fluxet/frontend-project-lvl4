@@ -4,6 +4,7 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 import '../assets/application.scss';
 import Rollbar from 'rollbar';
+
 import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
@@ -15,7 +16,8 @@ const rollbar = new Rollbar({
   captureUncaught: true,
   captureUnhandledRejections: true,
 });
-rollbar.log('hello');
+
+rollbar.log('Hello');
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';

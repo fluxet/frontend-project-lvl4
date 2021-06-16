@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React, {
-  createContext, useState, useContext, useEffect,
+  useState, useContext, useEffect,
 } from 'react';
 import {
   BrowserRouter as Router,
@@ -9,12 +9,9 @@ import {
   Route,
   Link,
   Redirect,
-  useLocation,
-  useHistory,
 } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap';
 import Authorization from './Authorization.jsx';
-import NotFound from './NotFound.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Signup.jsx';
 import initTranslation from './initTranslation';
@@ -47,7 +44,7 @@ const AuthProvider = (props) => {
   );
 };
 
-const ChatRoute = ({ children, path }) => {
+const ChatRoute = ({ path }) => {
   const ctx = useContext(Context);
   const token = localStorage.getItem('token');
   const username = localStorage.getItem('username');
@@ -76,7 +73,7 @@ const App = () => {
       <Router>
         <div className="d-flex flex-column">
           <Navbar>
-            <Link className="mr-auto navbar-brand" to="/">Hexlet-Chat</Link>
+            <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
             <Nav>
               <Button variant="primary" as={Link} to="/login" onClick={onExitClick}>Выход</Button>
             </Nav>

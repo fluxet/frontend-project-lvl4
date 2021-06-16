@@ -1,13 +1,13 @@
 import React, {
-  useState, useContext, useRef, useEffect,
+  useContext, useRef, useEffect,
 } from 'react';
-import { Modal, FormGroup, FormControl } from 'react-bootstrap';
+import { Modal, FormGroup } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import io from 'socket.io-client';
 import axios from 'axios';
+import i18next from 'i18next';
 import { useDispatch } from 'react-redux';
 import { setChannels } from '../channelsSlice';
-import { setMessages } from '../messagesSlice';
 import { Context } from '../../../context';
 
 const Add = (props) => {
@@ -23,13 +23,29 @@ const Add = (props) => {
     inputEl.current.focus();
   }, []);
 
+  const updateChannelsInfo = (response) => {
+    console.log('socket response: ', response);
+    showModal('closing')();
+
+    const getChannelsInfo = async () => {
+      try {
+        const channelsInfo = await axios.get('/api/v1/data', options);
+        dispatch(setChannels(channelsInfo.data));
+      } catch (err) {
+        console.log('home get error: ', err);
+      }
+    };
+
+    getChannelsInfo();
+  };
+
   return (
     <>
       <div className="fade modal-backdrop show"></div>
       <div role="dialog" aria-modal="true" className="fade modal show" tabIndex="-1" style={{ display: 'block' }}>
         <Modal.Dialog>
           <Modal.Header closeButton onClick={showModal('closing')}>
-            <Modal.Title>Добавить канал</Modal.Title>
+            <Modal.Title>{i18next.t('modals.add.title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Formik
@@ -37,15 +53,7 @@ const Add = (props) => {
               onSubmit={(values, actions) => {
                 socket.emit('newChannel', {
                   name: values.name,
-                }, (response) => {
-                  showModal('closing')();
-                  axios.get('/api/v1/data', options)
-                    .then((resp) => {
-                      dispatch(setChannels(resp.data));
-                      dispatch(setMessages(resp.data.messages));
-                    })
-                    .catch((err) => console.log('home get error: ', err));
-                });
+                }, updateChannelsInfo);
 
                 console.log('formik actions: ', actions);
               }}
@@ -53,8 +61,8 @@ const Add = (props) => {
               <Form>
                 <FormGroup>
                   <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
-                  <button type="button" onClick={showModal('closing')} className="me-2 btn btn-secondary">Отменить</button>
-                  <button type="submit" className="btn btn-primary">Отправить</button>
+                  <button type="button" onClick={showModal('closing')} className="me-2 btn btn-secondary">{i18next.t('modals.cancel')}</button>
+                  <button type="submit" className="btn btn-primary">{i18next.t('modals.add.submit')}</button>
                 </FormGroup>
               </Form>
             </Formik>
