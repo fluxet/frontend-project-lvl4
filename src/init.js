@@ -1,5 +1,4 @@
 // @ts-check
-
 import Rollbar from 'rollbar';
 import React from 'react';
 import ReactDom from 'react-dom';
@@ -7,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store.js';
 import App from './App.jsx';
 
-export default (wsClient) => {
+export default async (wsClient) => {
   const socket = wsClient;
 
   const rollbar = new Rollbar({
@@ -41,10 +40,11 @@ export default (wsClient) => {
   const container = document.querySelector('#chat');
   container.append(card);
 
-  ReactDom.render(
-        <Provider store={store}>
+  const vdom = (
+    <Provider store={store}>
         <App wsClient={socket}/>
-        </Provider>,
-        document.getElementById('chat'),
+    </Provider>
   );
+
+  return vdom;
 };

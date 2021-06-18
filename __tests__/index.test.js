@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import RegeneratorRuntime from 'regenerator-runtime';
 
 import io from 'socket.io-client';
