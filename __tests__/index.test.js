@@ -1,13 +1,15 @@
 import React from 'react';
+import RegeneratorRuntime from 'regenerator-runtime';
+
 import io from 'socket.io-client';
 import testingLibrary from '@testing-library/react';
-import init from '../src/index';
+import init from '../src/init.js';
 
 const { render, screen } = testingLibrary;
 const socket = io();
 
-beforeEach(async () => {
-  const vdom = await init(socket);
+beforeEach(() => {
+  const vdom = init(socket);
   render(vdom);
 });
 
