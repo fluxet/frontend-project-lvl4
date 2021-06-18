@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
-import i18next from "i18next";
-import { setCurrentChannelId } from './channelsSlice';
+import i18next from 'i18next';
+import axios from 'axios';
+import { setChannels, setCurrentChannelId } from './channelsSlice';
 import Modal from './Modals/index';
+import { Context } from '../../context';
 
 const Channels = () => {
   const data = useSelector((state) => state.channels.value);
@@ -17,6 +19,25 @@ const Channels = () => {
 
   const showModal = (type) => () => {
     setModalType(type);
+  };
+
+  const ctx = useContext(Context);
+  const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
+
+  const updateChannelsInfo = (dispatchCb) => (response) => {
+    console.log('socket response: ', response);
+    showModal('closing')();
+
+    const getChannelsInfo = async () => {
+      try {
+        const channelsInfo = await axios.get('/api/v1/data', options);
+        dispatchCb(setChannels(channelsInfo.data));
+      } catch (err) {
+        console.log('home get error: ', err);
+      }
+    };
+
+    getChannelsInfo();
   };
 
   const renderChannelItem = (item) => {
@@ -48,7 +69,7 @@ const Channels = () => {
         </ul>
       </div>
 
-      <Modal type={modalType} showModal={showModal} id={currentChannelId} />
+      <Modal type={modalType} showModal={showModal} id={currentChannelId} updateChannelsInfo={updateChannelsInfo}/>
     </>
   );
 };

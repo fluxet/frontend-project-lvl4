@@ -1,43 +1,22 @@
 import React, {
-  useContext, useRef, useEffect,
+  useRef, useEffect, useContext,
 } from 'react';
 import { Modal, FormGroup } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
-import io from 'socket.io-client';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import i18next from 'i18next';
-import { setChannels } from '../channelsSlice';
 import { Context } from '../../../context';
 
 const Rename = (props) => {
-  const socket = io();
-  const { showModal, id } = props;
-
-  const dispatch = useDispatch();
   const ctx = useContext(Context);
-  const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
+  const socket = ctx.wsClient;
+  const { showModal, id, updateChannelsInfo } = props;
+  const dispatch = useDispatch();
 
   const inputEl = useRef(null);
   useEffect(() => {
     inputEl.current.focus();
   }, []);
-
-  const updateChannelsInfo = (response) => {
-    console.log('socket response: ', response);
-    showModal('closing')();
-
-    const getChannelsInfo = async () => {
-      try {
-        const channelsInfo = await axios.get('/api/v1/data', options);
-        dispatch(setChannels(channelsInfo.data));
-      } catch (err) {
-        console.log('home get error: ', err);
-      }
-    };
-
-    getChannelsInfo();
-  };
 
   return (
     <>
@@ -54,7 +33,7 @@ const Rename = (props) => {
                 socket.emit('renameChannel', {
                   name: values.name,
                   id,
-                }, updateChannelsInfo);
+                }, updateChannelsInfo(dispatch));
 
                 console.log('formik actions: ', actions);
               }}

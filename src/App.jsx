@@ -18,7 +18,7 @@ import initTranslation from './initTranslation';
 import { Context } from './context';
 
 const AuthProvider = (props) => {
-  const { children } = props;
+  const { children, wsClient } = props;
   const [localToken, setLocalToken] = useState('null');
   const [localUsername, setLocalUsername] = useState('null');
   const writeToken = (token) => setLocalToken(token); // ?
@@ -38,6 +38,7 @@ const AuthProvider = (props) => {
       writeUsername,
       wasChatFormMount,
       setWasChatFormMount,
+      wsClient,
     }}>
       {children}
     </Context.Provider>
@@ -61,7 +62,7 @@ const ChatRoute = ({ path }) => {
   );
 };
 
-const App = () => {
+const App = ({ wsClient }) => {
   initTranslation();
 
   const onExitClick = () => {
@@ -69,7 +70,7 @@ const App = () => {
   };
 
   return (
-    <AuthProvider>
+    <AuthProvider wsClient={wsClient}>
       <Router>
         <div className="d-flex flex-column">
           <Navbar>

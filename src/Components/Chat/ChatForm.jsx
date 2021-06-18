@@ -4,15 +4,16 @@ import React, {
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
-import io from 'socket.io-client';
 import { addMessage } from './messagesSlice';
 import { Context } from '../../context';
 
 const ChatForm = () => {
-  const socket = io();
   const dispatch = useDispatch();
   const channelId = useSelector((state) => state.channels.value.currentChannelId);
-  const { username, wasChatFormMount, setWasChatFormMount } = useContext(Context);
+  const {
+    username, wasChatFormMount, setWasChatFormMount, wsClient,
+  } = useContext(Context);
+  const socket = wsClient;
 
   const inputEl = useRef('');
   useEffect(() => {

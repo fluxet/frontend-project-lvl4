@@ -9,10 +9,15 @@ const componentByType = {
   renaming: Rename,
 };
 
-const Modal = ({ type, showModal, id }) => {
+const Modal = (
+  {
+    type, showModal, id, updateChannelsInfo,
+  },
+) => {
   const ModalComponent = componentByType[type];
   const isModalType = Object.keys(componentByType).includes(type);
-  return isModalType && <ModalComponent showModal={showModal} id={id} />;
+  return isModalType
+    && <ModalComponent showModal={showModal} id={id} updateChannelsInfo={updateChannelsInfo} />;
 };
 
 export default Modal;

@@ -1,35 +1,15 @@
 import React, { useContext } from 'react';
 import { Modal, FormGroup } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
-import io from 'socket.io-client';
-import axios from 'axios';
 import i18next from 'i18next';
 import { useDispatch } from 'react-redux';
-import { setChannels } from '../channelsSlice';
 import { Context } from '../../../context';
 
 const Remove = (props) => {
-  const socket = io();
-  const { showModal, id } = props;
-  const dispatch = useDispatch();
   const ctx = useContext(Context);
-  const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
-
-  const updateChannelsInfo = (response) => {
-    console.log('socket response: ', response);
-    showModal('closing')();
-
-    const getChannelsInfo = async () => {
-      try {
-        const channelsInfo = await axios.get('/api/v1/data', options);
-        dispatch(setChannels(channelsInfo.data));
-      } catch (err) {
-        console.log('home get error: ', err);
-      }
-    };
-
-    getChannelsInfo();
-  };
+  const socket = ctx.wsClient;
+  const { showModal, id, updateChannelsInfo } = props;
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -45,7 +25,7 @@ const Remove = (props) => {
               onSubmit={(values, actions) => {
                 socket.emit('removeChannel', {
                   id,
-                }, updateChannelsInfo);
+                }, updateChannelsInfo(dispatch));
 
                 console.log('formik actions: ', actions);
               }}
