@@ -27,6 +27,6 @@ deploy:
 	git push heroku
 
 test:
-	npm test -s
+	npx jest --colors
 
 .PHONY: test
