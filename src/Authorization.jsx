@@ -54,11 +54,11 @@ const Authorization = () => {
             <Form className="p-3">
               <div className="form-group">
                 <label className="form-label" htmlFor="username">{i18next.t('authorizationComponent.username')}</label>
-                <Field id="username" type="text" name="username" className="form-control" autoComplete="username" required/>
+                <Field id="username" data-testid="username" type="text" name="username" className="form-control" autoComplete="username" required/>
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="password">{i18next.t('password')}</label>
-                <Field name="password" autoComplete="current-password" required type="password" id="password" className="form-control"/>
+                <Field name="password" data-testid="password" autoComplete="current-password" required type="password" id="password" className="form-control"/>
                 <div className="invalid-feedback" style={feedbackStyle}>{i18next.t('authorizationComponent.invalidFeedback')}</div>
               </div>
               <button type="submit" className="w-100 mb-3 btn btn-outline-primary">{i18next.t('authorizationComponent.login')}</button>
