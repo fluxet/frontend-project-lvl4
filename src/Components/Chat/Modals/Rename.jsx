@@ -40,7 +40,7 @@ const Rename = (props) => {
             >
               <Form>
                 <FormGroup>
-                  <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
+                  <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
                   <button type="button" className="me-2 btn btn-secondary" onClick={showModal('closing')}>{i18next.t('modals.cancel')}</button>
                   <button type="submit" className="btn btn-primary">{i18next.t('modals.rename.submit')}</button>
                 </FormGroup>

@@ -30,7 +30,6 @@ describe('authorization', () => {
     const { getByTestId, findByText } = container;
     const name = getByTestId(/username/i);
     const password = getByTestId(/password/i);
-
     expect(name).toBeInTheDocument();
     expect(password).toBeInTheDocument();
 

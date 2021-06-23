@@ -39,7 +39,6 @@ const Authorization = () => {
                   await schema.validate(values);
 
                   const response = await restClient.post('/api/v1/login', messagePost);
-                  console.log('--------------response: ', JSON.stringify(response));
                   const { from } = location.state || { from: { pathname: '/' } };
                   localStorage.setItem('token', response.data.token);
                   localStorage.setItem('username', values.username);

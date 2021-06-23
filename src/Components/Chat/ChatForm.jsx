@@ -51,7 +51,7 @@ const ChatForm = () => {
       >
         <Form noValidate="" className="">
           <div className="input-group">
-            <Field innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" required />
+            <Field innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" data-testid="new-message" required />
             <div className="input-group-append"><button type="submit" className="btn btn-primary">Отправить</button></div>
           </div>
         </Form>
