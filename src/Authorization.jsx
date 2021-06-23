@@ -4,8 +4,11 @@ import { Formik, Field, Form } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
+import { Context } from './context';
+import { useContext } from 'react';
 
 const Authorization = () => {
+  const { restClient } = useContext(Context);
   const history = useHistory();
   const location = useLocation();
 
@@ -35,7 +38,8 @@ const Authorization = () => {
                 try {
                   await schema.validate(values);
 
-                  const response = await axios.post('/api/v1/login', messagePost);
+                  const response = await restClient.post('/api/v1/login', messagePost);
+                  console.log('--------------response: ', JSON.stringify(response));
                   const { from } = location.state || { from: { pathname: '/' } };
                   localStorage.setItem('token', response.data.token);
                   localStorage.setItem('username', values.username);
