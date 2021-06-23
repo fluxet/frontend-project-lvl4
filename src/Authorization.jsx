@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
 import { Context } from './context';
-import { useContext } from 'react';
 
 const Authorization = () => {
   const { restClient } = useContext(Context);
