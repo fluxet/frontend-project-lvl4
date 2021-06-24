@@ -4,7 +4,7 @@ import RegeneratorRuntime from 'regenerator-runtime';
 
 import io from 'socket.io-client';
 import '@testing-library/jest-dom/extend-expect';
-import { render, screen } from '@testing-library/react';
+import { findByTestId, render, screen } from '@testing-library/react';
 import userEvent, { specialChars } from '@testing-library/user-event';
 import init from '../src/init.js';
 
@@ -40,6 +40,10 @@ const fakeAxios = {
 };
 
 const socket = io();
+// const fakeSocketIo = {
+//   on: (message) => message,
+//   emit:
+// };
 
 // beforeEach(async () => {
 //   const vdom = await init(socket);
@@ -51,7 +55,7 @@ describe('authorization', () => {
     //  screen.debug();
     const vdom = await init(socket, fakeAxios);
     const container = render(vdom);
-    const { getByTestId, findByText } = container;
+    const { getByTestId, findByTestId } = container;
     const name = getByTestId(/username/i);
     const password = getByTestId(/password/i);
     expect(name).toBeInTheDocument();
@@ -60,8 +64,11 @@ describe('authorization', () => {
     userEvent.type(name, 'admin');
     userEvent.type(password, `admin${specialChars.enter}`);
 
-    const channelsTitle = await findByText(/Каналы/i);
-    expect(channelsTitle).toBeInTheDocument();
+    const messageInput = await findByTestId('new-message');
+    expect(messageInput).toBeInTheDocument();
+    // screen.debug();
+
+    // userEvent.type(messageInput, `testMessage${specialChars.enter}`);
     // screen.debug();
   });
 });

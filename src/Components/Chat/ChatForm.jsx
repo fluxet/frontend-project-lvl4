@@ -43,7 +43,7 @@ const ChatForm = () => {
               },
             },
           }, (response) => {
-            console.log('socket response: ', response);
+            console.log('socket emit response: ', response);
           });
 
           actions.resetForm();
