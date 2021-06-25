@@ -12,13 +12,6 @@ export default async (wsClient, restClient = axios) => {
     localStorage.debug = 'chat:*';
   }
 
-  const rollbar = new Rollbar({
-    accessToken: '6a1bca2b15284ca8b12e0edc8adcd0d8',
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-  });
-  rollbar.log('run rollbar');
-
   const vdom = (
     <Provider store={store}>
         <App wsClient={wsClient} restClient={restClient}/>
