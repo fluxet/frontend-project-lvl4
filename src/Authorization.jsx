@@ -61,7 +61,7 @@ const Authorization = () => {
               <div className="form-group">
                 <label className="form-label" htmlFor="password">{i18next.t('password')}</label>
                 <Field name="password" data-testid="password" autoComplete="current-password" required type="password" id="password" className="form-control"/>
-                <div className="invalid-feedback" style={feedbackStyle}>{i18next.t('authorizationComponent.invalidFeedback')}</div>
+                {!isAuthorized && <div className="invalid-feedback" style={{ display: 'block' }}>{i18next.t('authorizationComponent.invalidFeedback')}</div>}
               </div>
               <button type="submit" className="w-100 mb-3 btn btn-outline-primary">{i18next.t('authorizationComponent.login')}</button>
               <div className="d-flex flex-column align-items-center"><span className="small mb-2">{i18next.t('authorizationComponent.noAccount')}</span> <a href="/signup">{i18next.t('authorizationComponent.signup')}</a></div>
