@@ -84,9 +84,7 @@ describe('authorization', () => {
   test('events', async () => {
     nock(/localhost/)
       .post(/\/api\/v1\/login/)
-      .reply(200, fakeResponsePost);
-
-    nock(/localhost/)
+      .reply(200, fakeResponsePost)
       .get(/\/api\/v1\/data/)
       .reply(200, fakeResponseGet);
 
