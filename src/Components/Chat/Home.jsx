@@ -19,7 +19,7 @@ const Home = () => {
     if (ctx.token !== 'null') {
       axios.get('/api/v1/data', options)
         .then((resp) => {
-          console.log('home get response: ', resp);
+          console.log('----------------------------home get response: ', resp);
           dispatch(setChannels(resp.data));
           dispatch(setMessages(resp.data.messages));
         })

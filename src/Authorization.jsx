@@ -1,20 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
-import { Context } from './context';
 
 const Authorization = () => {
-  const { restClient } = useContext(Context);
   const history = useHistory();
   const location = useLocation();
 
   const [isAuthorized, setAuthorized] = useState(true);
-  const feedbackStyle = {
-    display: (isAuthorized) ? 'none' : 'block',
-  };
 
   return (
     <div className="container-fluid">
@@ -37,7 +32,7 @@ const Authorization = () => {
                 try {
                   await schema.validate(values);
 
-                  const response = await restClient.post('/api/v1/login', messagePost);
+                  const response = await axios.post('/api/v1/login', messagePost);
                   const { from } = location.state || { from: { pathname: '/' } };
                   localStorage.setItem('token', response.data.token);
                   localStorage.setItem('username', values.username);

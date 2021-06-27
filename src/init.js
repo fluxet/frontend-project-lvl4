@@ -7,14 +7,14 @@ import { Provider } from 'react-redux';
 import store from './store.js';
 import App from './App.jsx';
 
-export default async (wsClient, restClient = axios) => {
+export default async (wsClient) => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }
 
   const vdom = (
     <Provider store={store}>
-        <App wsClient={wsClient} restClient={restClient}/>
+        <App wsClient={wsClient}/>
     </Provider>
   );
 

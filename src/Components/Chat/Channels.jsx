@@ -69,7 +69,10 @@ const Channels = () => {
         </ul>
       </div>
 
-      <Modal type={modalType} showModal={showModal} id={currentChannelId} updateChannelsInfo={updateChannelsInfo}/>
+      <Modal
+        type={modalType}
+        showModal={showModal} id={currentChannelId} updateChannelsInfo={updateChannelsInfo}
+      />
     </>
   );
 };
