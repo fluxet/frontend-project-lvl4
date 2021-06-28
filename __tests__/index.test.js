@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import RegeneratorRuntime from 'regenerator-runtime';
-import nock from 'nock';
+// import nock from 'nock';
 
 import io from 'socket.io-client';
 import '@testing-library/jest-dom/extend-expect';
-import { findByTestId, render, screen, waitFor } from '@testing-library/react';
+import { findByTestId, getByText, render, screen, waitFor } from '@testing-library/react';
 import userEvent, { specialChars } from '@testing-library/user-event';
 import init from '../src/init.js';
 
@@ -82,35 +82,36 @@ const socket = io();
 
 describe('authorization', () => {
   test('events', async () => {
-    nock(/localhost/)
-      .post(/\/api\/v1\/login/)
-      .reply(200, fakeResponsePost)
-      .get(/\/api\/v1\/data/)
-      .reply(200, fakeResponseGet);
+  //   nock(/localhost/)
+  //     .post(/\/api\/v1\/login/)
+  //     .reply(200, fakeResponsePost)
+  //     .get(/\/api\/v1\/data/)
+  //     .reply(200, fakeResponseGet);
 
     const vdom = await init(socket);
     const container = render(vdom);
-    const { getByTestId, findByTestId } = container;
+    const { getByTestId, findByTestId, getByText } = container;
+
     const name = getByTestId(/username/i);
     const password = getByTestId(/password/i);
+    // const btnSignup = getByText('Регистрация');
     expect(name).toBeInTheDocument();
     expect(password).toBeInTheDocument();
+    // expect(btnSignup).toBeInTheDocument();
 
-    userEvent.type(name, 'admin');
-    userEvent.type(password, `admin${specialChars.enter}`);
-
-    await waitFor(async () => {
-      const messageInput = await findByTestId('new-message');
-      expect(messageInput).toBeInTheDocument();
-      screen.debug();
+    userEvent.click(await screen.findByRole('link', { name: /Регистрация/i }));
+    await waitFor(() => {
+      expect(window.location.pathname).toBe('/signup');
     });
-    // container.debug();
 
-    // const messageInput = await findByTestId('new-message');
-    // expect(messageInput).toBeInTheDocument();
-    // // screen.debug();
+    // userEvent.type(name, 'admin');
+    // userEvent.type(password, `admin${specialChars.enter}`);
 
-    // userEvent.type(messageInput, `testMessage${specialChars.enter}`);
-    // screen.debug();
+    // await waitFor(async () => {
+    //   const messageInput = await findByTestId('new-message');
+    //   expect(messageInput).toBeInTheDocument();
+    //   await screen.debug();
+    //   console.log('window.location.pathname: ', window.location.pathname);
+    // });
   });
 });

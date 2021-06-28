@@ -8,7 +8,6 @@ import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';
 import { setChannels } from './channelsSlice';
 import { setMessages } from './messagesSlice';
-// import getChannelsInfo from '../../utils';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const Home = () => {
     if (ctx.token !== 'null') {
       axios.get('/api/v1/data', options)
         .then((resp) => {
-          console.log('----------------------------home get response: ', resp);
+          // console.log('----------------------------home get response: ', resp);
           dispatch(setChannels(resp.data));
           dispatch(setMessages(resp.data.messages));
         })
