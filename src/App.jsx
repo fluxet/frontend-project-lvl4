@@ -14,7 +14,6 @@ import { Button, Navbar, Nav } from 'react-bootstrap';
 import Authorization from './Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Signup.jsx';
-import initTranslation from './initTranslation';
 import { Context } from './context';
 
 const AuthProvider = (props) => {
@@ -63,8 +62,6 @@ const ChatRoute = ({ path }) => {
 };
 
 const App = ({ wsClient }) => {
-  initTranslation();
-
   const onExitClick = () => {
     localStorage.clear();
   };

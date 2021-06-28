@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
 import { Provider } from 'react-redux';
+import initTranslation from './initTranslation.js';
 import store from './store.js';
 import App from './App.jsx';
 
@@ -11,6 +12,8 @@ export default async (wsClient) => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }
+
+  initTranslation();
 
   const vdom = (
     <Provider store={store}>
