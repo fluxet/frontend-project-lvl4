@@ -11,6 +11,15 @@ const Authorization = () => {
 
   const [isAuthorized, setAuthorized] = useState(true);
 
+  const onSignupClick = (evt) => {
+    // window.location.pathname = '/signup';
+    location.pathname = '/signup';
+    history.push('/signup');
+    console.log('location.state: ', location);
+    // console.log(window.location.pathname);
+    evt.preventDefault();
+  };
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center pt-5">
@@ -59,7 +68,7 @@ const Authorization = () => {
                 {!isAuthorized && <div className="invalid-feedback" style={{ display: 'block' }}>{i18next.t('authorizationComponent.invalidFeedback')}</div>}
               </div>
               <button type="submit" className="w-100 mb-3 btn btn-outline-primary">{i18next.t('authorizationComponent.login')}</button>
-              <div className="d-flex flex-column align-items-center"><span className="small mb-2">{i18next.t('authorizationComponent.noAccount')}</span> <a href="/signup">{i18next.t('authorizationComponent.signup')}</a></div>
+              <div className="d-flex flex-column align-items-center"><span className="small mb-2">{i18next.t('authorizationComponent.noAccount')}</span> <a onClick={onSignupClick} href="/signup">{i18next.t('authorizationComponent.signup')}</a></div>
             </Form>
           </Formik>
 

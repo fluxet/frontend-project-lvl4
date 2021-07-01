@@ -5,7 +5,9 @@ import RegeneratorRuntime from 'regenerator-runtime';
 
 import io from 'socket.io-client';
 import '@testing-library/jest-dom/extend-expect';
-import { findByTestId, getByText, render, screen, waitFor } from '@testing-library/react';
+import {
+  findByTestId, getByText, render, screen, waitFor,
+} from '@testing-library/react';
 import userEvent, { specialChars } from '@testing-library/user-event';
 import init from '../src/init.js';
 
