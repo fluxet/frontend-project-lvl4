@@ -11,7 +11,7 @@ import io from 'socket.io-client';
 import init from './init.js';
 
 const rollbar = new Rollbar({
-  accessToken: '6a1bca2b15284ca8b12e0edc8adcd0d8',
+  accessToken: process.env.TOKEN,
   captureUncaught: true,
   captureUnhandledRejections: true,
 });
