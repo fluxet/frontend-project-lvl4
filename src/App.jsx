@@ -16,7 +16,7 @@ import Home from './Components/Chat/Home.jsx';
 import Signup from './Signup.jsx';
 import { Context } from './context';
 
-const AuthProvider = (props) => {
+const ContextProvider = (props) => {
   const { children, wsClient } = props;
   const [localToken, setLocalToken] = useState('null');
   const [localUsername, setLocalUsername] = useState('null');
@@ -67,7 +67,7 @@ const App = ({ wsClient }) => {
   };
 
   return (
-    <AuthProvider wsClient={wsClient}>
+    <ContextProvider wsClient={wsClient}>
       <Router>
         <div className="d-flex flex-column">
           <Navbar>
@@ -88,7 +88,7 @@ const App = ({ wsClient }) => {
           </ChatRoute>
         </Switch>
       </Router>
-    </AuthProvider>
+    </ContextProvider>
   );
 };
 

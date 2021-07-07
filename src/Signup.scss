@@ -1,0 +1,13 @@
+$error-color: rgba(116, 20, 29, 0.9);
+
+.field-error {
+  border-color: rgb(104, 18, 26);
+}
+.error-tooltip {
+  padding: .25rem .5rem;
+  margin-top: .1rem;
+  font-size: .875rem;
+  color: #fff;
+  background-color: rgba(220,53,69,0.9);
+  border-radius: .25rem
+}
