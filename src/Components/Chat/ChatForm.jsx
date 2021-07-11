@@ -2,32 +2,21 @@
 import React, {
   useContext, useEffect, useRef,
 } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
-import { addMessage } from './messagesSlice';
+import { ContextWs } from '../../contextWs';
 import { Context } from '../../context';
 
 const ChatForm = () => {
-  const dispatch = useDispatch();
   const channelId = useSelector((state) => state.channels.value.currentChannelId);
-  const {
-    username, wasChatFormMount, setWasChatFormMount, wsClient,
-  } = useContext(Context);
+  const { username } = useContext(Context);
+  const { wsClient } = useContext(ContextWs);
   const socket = wsClient;
 
   const inputEl = useRef('');
   useEffect(() => {
     inputEl.current.focus();
   });
-
-  useEffect(() => {
-    if (wasChatFormMount) { return; }
-
-    socket.on('newMessage', (message) => {
-      dispatch((addMessage(message)));
-    });
-    setWasChatFormMount(true);
-  }, []);
 
   return (
     <div className="mt-auto">

@@ -11,18 +11,18 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap';
+
 import Authorization from './Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Signup.jsx';
 import { Context } from './context';
 
 const ContextProvider = (props) => {
-  const { children, wsClient } = props;
+  const { children } = props;
   const [localToken, setLocalToken] = useState('null');
   const [localUsername, setLocalUsername] = useState('null');
   const writeToken = (token) => setLocalToken(token); // ?
   const writeUsername = (username) => setLocalUsername(username); // ?
-  const [wasChatFormMount, setWasChatFormMount] = useState(false);
 
   if (!localToken) {
     setLocalToken('null');
@@ -35,9 +35,6 @@ const ContextProvider = (props) => {
       username: localUsername,
       writeToken,
       writeUsername,
-      wasChatFormMount,
-      setWasChatFormMount,
-      wsClient,
     }}>
       {children}
     </Context.Provider>
@@ -61,13 +58,13 @@ const ChatRoute = ({ path }) => {
   );
 };
 
-const App = ({ wsClient }) => {
+const App = () => {
   const onExitClick = () => {
     localStorage.clear();
   };
 
   return (
-    <ContextProvider wsClient={wsClient}>
+    <ContextProvider>
       <Router>
         <div className="d-flex flex-column">
           <Navbar>

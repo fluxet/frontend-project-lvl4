@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Context } from '../../context';
@@ -10,19 +11,20 @@ import { setChannels } from './channelsSlice';
 import { setMessages } from './messagesSlice';
 
 const Home = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const ctx = useContext(Context);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
 
-  useEffect(() => {
-    if (ctx.token !== 'null') {
-      axios.get('/api/v1/data', options)
-        .then((resp) => {
-          // console.log('----------------------------home get response: ', resp);
-          dispatch(setChannels(resp.data));
-          dispatch(setMessages(resp.data.messages));
-        })
-        .catch((err) => console.log('home get error: ', err));
+  useEffect(async () => {
+    const resp = await axios.get('/api/v1/data', options);
+    try {
+      console.log('----------------------------home get response: ', resp);
+      dispatch(setChannels(resp.data));
+      dispatch(setMessages(resp.data.messages));
+    } catch (err) {
+      console.log('home get error: ', err);
+      history.replace({ pathname: '/' });
     }
   });
 
