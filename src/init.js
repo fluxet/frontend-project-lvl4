@@ -8,12 +8,13 @@ import { Provider, useDispatch } from 'react-redux';
 import store from './store.js';
 import App from './App.jsx';
 import { addMessage } from './Components/Chat/messagesSlice.js';
-import { addChannel, removeChannel, setCurrentChannelId } from './Components/Chat/channelsSlice.js';
+import { addChannel, removeChannel, setCurrentChannelId, renameChannel } from './Components/Chat/channelsSlice.js';
 import { ContextWs } from './contextWs.js';
 
 const WsProvider = ({ wsClient }) => {
   const dispatch = useDispatch();
   const socket = wsClient;
+
   socket.on('newMessage', (message) => {
     dispatch((addMessage(message)));
   });
@@ -23,6 +24,9 @@ const WsProvider = ({ wsClient }) => {
   socket.on('removeChannel', (channel) => {
     dispatch(removeChannel(channel));
     dispatch(setCurrentChannelId({ currentChannelId: 1 }));
+  });
+  socket.on('renameChannel', (channel) => {
+    dispatch(renameChannel(channel));
   });
 
   return (
