@@ -8,6 +8,7 @@ import Modal from './Modals/index';
 import { Context } from '../../context';
 
 const Channels = () => {
+  const ctx = useContext(Context);
   const data = useSelector((state) => state.channels.value);
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
@@ -21,7 +22,6 @@ const Channels = () => {
     setModalType(type);
   };
 
-  const ctx = useContext(Context);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
 
   const updateChannelsInfo = (dispatchCb) => (response) => {

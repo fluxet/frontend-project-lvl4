@@ -4,13 +4,14 @@ import React, {
 import { Modal, FormGroup } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import i18next from 'i18next';
-import { useDispatch } from 'react-redux';
-import { Context } from '../../../context';
+import { useDispatch, useSelector } from 'react-redux';
+import { ContextWs } from '../../../contextWs';
+import { setCurrentChannelId } from '../channelsSlice';
 
 const Add = (props) => {
-  const ctx = useContext(Context);
+  const ctx = useContext(ContextWs);
   const socket = ctx.wsClient;
-  const { showModal, updateChannelsInfo } = props;
+  const { showModal } = props;
   const dispatch = useDispatch();
 
   const inputEl = useRef(null);
@@ -32,9 +33,11 @@ const Add = (props) => {
               onSubmit={(values, actions) => {
                 socket.emit('newChannel', {
                   name: values.name,
-                }, updateChannelsInfo(dispatch));
-
-                console.log('formik actions: ', actions);
+                }, (response) => {
+                  showModal('closing')();
+                  dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
+                });
+                // updateChannelsInfo(dispatch)
               }}
             >
               <Form>

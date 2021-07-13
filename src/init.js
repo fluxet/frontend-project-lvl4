@@ -3,12 +3,12 @@ import Rollbar from 'rollbar';
 import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
-import { Provider } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import initTranslation from './initTranslation.js';
+import { Provider, useDispatch } from 'react-redux';
+
 import store from './store.js';
 import App from './App.jsx';
 import { addMessage } from './Components/Chat/messagesSlice.js';
+import { addChannel, removeChannel, setCurrentChannelId } from './Components/Chat/channelsSlice.js';
 import { ContextWs } from './contextWs.js';
 
 const WsProvider = ({ wsClient }) => {
@@ -16,6 +16,13 @@ const WsProvider = ({ wsClient }) => {
   const socket = wsClient;
   socket.on('newMessage', (message) => {
     dispatch((addMessage(message)));
+  });
+  socket.on('newChannel', (channel) => {
+    dispatch(addChannel(channel));
+  });
+  socket.on('removeChannel', (channel) => {
+    dispatch(removeChannel(channel));
+    dispatch(setCurrentChannelId({ currentChannelId: 1 }));
   });
 
   return (
@@ -29,8 +36,6 @@ export default async (wsClient) => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }
-
-  initTranslation();
 
   const vdom = (
     <Provider store={store}>

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Formik, Field, Form } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
+import { Context } from './context.js';
 
 const Authorization = () => {
+  const ctx = useContext(Context);
   const history = useHistory();
   const location = useLocation();
 
@@ -43,9 +45,12 @@ const Authorization = () => {
 
                   const response = await axios.post('/api/v1/login', messagePost);
                   const { from } = location.state || { from: { pathname: '/' } };
+                  // ----------------useEffect ?---------------------------
                   localStorage.setItem('token', response.data.token);
                   localStorage.setItem('username', values.username);
-
+                  ctx.setToken(response.data.token);
+                  ctx.setUsername(values.username);
+                  // ----------------------------------------------------------
                   history.replace(from);
                   setAuthorized(true);
                 } catch (e) {

@@ -5,10 +5,10 @@ import { Modal, FormGroup } from 'react-bootstrap';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch } from 'react-redux';
 import i18next from 'i18next';
-import { Context } from '../../../context';
+import { ContextWs } from '../../../contextWs';
 
 const Rename = (props) => {
-  const ctx = useContext(Context);
+  const ctx = useContext(ContextWs);
   const socket = ctx.wsClient;
   const { showModal, id, updateChannelsInfo } = props;
   const dispatch = useDispatch();

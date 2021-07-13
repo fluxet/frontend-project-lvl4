@@ -10,12 +10,12 @@ import '../assets/application.scss';
 import io from 'socket.io-client';
 import init from './init.js';
 
-const rollbar = new Rollbar({
-  accessToken: process.env.TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-});
-rollbar.log('rollbar debug v1');
+// const rollbar = new Rollbar({
+//   accessToken: process.env.TOKEN,
+//   captureUncaught: true,
+//   captureUnhandledRejections: true,
+// });
+// rollbar.log('rollbar debug v1');
 
 const rendering = async () => {
   const socket = io();

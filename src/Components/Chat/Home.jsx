@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -15,6 +15,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const ctx = useContext(Context);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
+  const [status, setStatus] = useState('disconnected');
 
   useEffect(async () => {
     const resp = await axios.get('/api/v1/data', options);
@@ -22,13 +23,14 @@ const Home = () => {
       console.log('----------------------------home get response: ', resp);
       dispatch(setChannels(resp.data));
       dispatch(setMessages(resp.data.messages));
+      setStatus('connected');
     } catch (err) {
       console.log('home get error: ', err);
       history.replace({ pathname: '/' });
     }
   });
 
-  return (
+  const vdomResponseSuccess = (
     <div className="row flex-grow-1 h-75 pb-3">
       <Channels />
       <div className="col h-100">
@@ -39,6 +41,10 @@ const Home = () => {
       </div>
     </div>
   );
+
+  const vdomWaiting = <div>...Loading</div>;
+
+  return (status === 'connected') ? vdomResponseSuccess : vdomWaiting;
 };
 
 export default Home;

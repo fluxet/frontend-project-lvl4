@@ -11,30 +11,31 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap';
+import initTranslation from './initTranslation.js';
 
 import Authorization from './Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Signup.jsx';
 import { Context } from './context';
 
-const ContextProvider = (props) => {
-  const { children } = props;
-  const [localToken, setLocalToken] = useState('null');
-  const [localUsername, setLocalUsername] = useState('null');
-  const writeToken = (token) => setLocalToken(token); // ?
-  const writeUsername = (username) => setLocalUsername(username); // ?
+const ContextProvider = ({children}) => {
+  const [token, setToken] = useState(localStorage.getItem('token') || 'null');
+  const [username, setUsername] = useState(localStorage.getItem('username') || 'null');
 
-  if (!localToken) {
-    setLocalToken('null');
-    localStorage.setItem('token', 'null');
-  }
+  useEffect(() => {
+    localStorage.setItem('token', token);
+  }, [token]);
+
+  useEffect(() => {
+    localStorage.setItem('username', username);
+  }, [username]);
 
   return (
     <Context.Provider value={{
-      token: localToken,
-      username: localUsername,
-      writeToken,
-      writeUsername,
+      token,
+      username,
+      setToken,
+      setUsername,
     }}>
       {children}
     </Context.Provider>
@@ -43,13 +44,8 @@ const ContextProvider = (props) => {
 
 const ChatRoute = ({ path }) => {
   const ctx = useContext(Context);
-  const token = localStorage.getItem('token');
-  const username = localStorage.getItem('username');
-
-  useEffect(() => {
-    ctx.writeToken(token);
-    ctx.writeUsername(username);
-  }, []);
+  console.log('context: ', ctx);
+  const { token } = ctx;
 
   return (
     <Route path={path}
@@ -59,6 +55,8 @@ const ChatRoute = ({ path }) => {
 };
 
 const App = () => {
+  initTranslation();
+
   const onExitClick = () => {
     localStorage.clear();
   };

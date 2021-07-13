@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import {
@@ -10,8 +10,10 @@ import i18next from 'i18next';
 import _ from 'lodash';
 
 import './Signup.scss';
+import { Context } from './context.js';
 
 const Signup = () => {
+  const ctx = useContext(Context);
   const history = useHistory();
   const location = useLocation();
   const [passValue, setPassValue] = useState(null);
@@ -41,16 +43,17 @@ const Signup = () => {
                 try {
                   const response = await axios.post('/api/v1/signup', message);
                   const { from } = location.state || { from: { pathname: '/' } };
-                  localStorage.setItem('token', response.data.token);
-                  localStorage.setItem('username', values.username);
+                  ctx.setToken(response.data.token);
+                  ctx.setUsername(values.username);
+                  console.log('signup ctx: ', ctx);
                   history.replace(from);
                 } catch (e) {
                   console.log('error from catch', e);
                   const statusCode = +e.message.split(' ').reverse()[0];
                   if (statusCode === 409) {
                     handlers.setErrors({
-                      username: '',
-                      password: '',
+                      username: ' ',
+                      password: ' ',
                       confirmPassword: i18next.t('signupComponent.userAlreadyExist'),
                     });
                   }
