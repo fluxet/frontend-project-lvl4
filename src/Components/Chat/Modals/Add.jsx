@@ -2,7 +2,9 @@ import React, {
   useRef, useEffect, useContext,
 } from 'react';
 import { Modal, FormGroup } from 'react-bootstrap';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {
+  Formik, Form, Field, ErrorMessage,
+} from 'formik';
 import * as yup from 'yup';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';

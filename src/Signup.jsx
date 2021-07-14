@@ -11,6 +11,7 @@ import _ from 'lodash';
 
 import './Signup.scss';
 import { Context } from './context.js';
+import routes from './routes.js';
 
 const Signup = () => {
   const ctx = useContext(Context);
@@ -41,7 +42,7 @@ const Signup = () => {
 
               const signupUser = async () => {
                 try {
-                  const response = await axios.post('/api/v1/signup', message);
+                  const response = await axios.post(routes.signupPathName, message);
                   const { from } = location.state || { from: { pathname: '/' } };
                   ctx.setToken(response.data.token);
                   ctx.setUsername(values.username);

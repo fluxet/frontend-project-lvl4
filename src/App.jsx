@@ -17,8 +17,9 @@ import Authorization from './Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Signup.jsx';
 import { Context } from './context';
+import routes from './routes.js';
 
-const ContextProvider = ({children}) => {
+const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || 'null');
   const [username, setUsername] = useState(localStorage.getItem('username') || 'null');
 
@@ -68,15 +69,15 @@ const App = () => {
           <Navbar>
             <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
             <Nav>
-              <Button variant="primary" as={Link} to="/login" onClick={onExitClick}>Выход</Button>
+              <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={onExitClick}>Выход</Button>
             </Nav>
           </Navbar>
         </div>
         <Switch>
-          <Route path="/login">
+          <Route path={routes.loginPathName()}>
             <Authorization />
           </Route>
-          <Route path="/signup">
+          <Route path={routes.signupPathName()}>
             <Signup />
           </Route>
           <ChatRoute path ="/">

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { setChannels, setCurrentChannelId } from './channelsSlice';
 import Modal from './Modals/index';
 import { Context } from '../../context';
+import routes from '../../routes';
 
 const Channels = () => {
   const ctx = useContext(Context);
@@ -30,7 +31,7 @@ const Channels = () => {
 
     const getChannelsInfo = async () => {
       try {
-        const channelsInfo = await axios.get('/api/v1/data', options);
+        const channelsInfo = await axios.get(routes.dataPath(), options);
         dispatchCb(setChannels(channelsInfo.data));
       } catch (err) {
         console.log('home get error: ', err);

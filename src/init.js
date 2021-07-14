@@ -8,7 +8,9 @@ import { Provider, useDispatch } from 'react-redux';
 import store from './store.js';
 import App from './App.jsx';
 import { addMessage } from './Components/Chat/messagesSlice.js';
-import { addChannel, removeChannel, setCurrentChannelId, renameChannel } from './Components/Chat/channelsSlice.js';
+import {
+  addChannel, removeChannel, setCurrentChannelId, renameChannel,
+} from './Components/Chat/channelsSlice.js';
 import { ContextWs } from './contextWs.js';
 
 const WsProvider = ({ wsClient }) => {

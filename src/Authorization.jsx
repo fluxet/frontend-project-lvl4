@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {
+  Formik, Field, Form, ErrorMessage,
+} from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
 import { Context } from './context.js';
+import routes from './routes.js';
 
 const Authorization = () => {
   const ctx = useContext(Context);
@@ -17,8 +20,8 @@ const Authorization = () => {
   });
 
   const onSignupClick = (evt) => {
-    location.pathname = '/signup';
-    history.push('/signup');
+    location.pathname = routes.signupPathName();
+    history.push(routes.signupPathName());
     console.log('location.state: ', location);
     evt.preventDefault();
   };
@@ -38,7 +41,7 @@ const Authorization = () => {
 
               const authorizeUser = async () => {
                 try {
-                  const response = await axios.post('/api/v1/login', messagePost);
+                  const response = await axios.post(routes.loginPath(), messagePost);
                   const { from } = location.state || { from: { pathname: '/' } };
                   // ----------------useEffect ?---------------------------
                   localStorage.setItem('token', response.data.token);
