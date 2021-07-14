@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import i18next from 'i18next';
@@ -11,14 +11,15 @@ const Authorization = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const [isAuthorized, setAuthorized] = useState(true);
+  const authorizationSchema = yup.object().shape({
+    username: yup.string().required().min(3, i18next.t('signupComponent.usernamePlaceholder')).max(20, i18next.t('signupComponent.usernamePlaceholder')),
+    password: yup.string().required().min(3, i18next.t('signupComponent.passwordPlaceholder')).max(20),
+  });
 
   const onSignupClick = (evt) => {
-    // window.location.pathname = '/signup';
     location.pathname = '/signup';
     history.push('/signup');
     console.log('location.state: ', location);
-    // console.log(window.location.pathname);
     evt.preventDefault();
   };
 
@@ -28,12 +29,8 @@ const Authorization = () => {
         <div className="col-sm-4">
           <Formik
             initialValues={{ username: '', password: '' }}
-            onSubmit={(values) => {
-              console.log('submit values: ', values);
-              const schema = yup.object().shape({
-                username: yup.string(),
-                password: yup.string().min(3).max(20),
-              });
+            validationSchema={authorizationSchema}
+            onSubmit={(values, handlers) => {
               const messagePost = {
                 username: values.username,
                 password: values.password,
@@ -41,8 +38,6 @@ const Authorization = () => {
 
               const authorizeUser = async () => {
                 try {
-                  await schema.validate(values);
-
                   const response = await axios.post('/api/v1/login', messagePost);
                   const { from } = location.state || { from: { pathname: '/' } };
                   // ----------------useEffect ?---------------------------
@@ -52,10 +47,12 @@ const Authorization = () => {
                   ctx.setUsername(values.username);
                   // ----------------------------------------------------------
                   history.replace(from);
-                  setAuthorized(true);
                 } catch (e) {
                   console.log('error from catch: ', e);
-                  setAuthorized(false);
+                  handlers.setErrors({
+                    username: '',
+                    password: i18next.t('authorizationComponent.invalidFeedback'),
+                  });
                 }
               };
 
@@ -66,11 +63,12 @@ const Authorization = () => {
               <div className="form-group">
                 <label className="form-label" htmlFor="username">{i18next.t('authorizationComponent.username')}</label>
                 <Field id="username" data-testid="username" type="text" name="username" className="form-control" autoComplete="username" required/>
+                <ErrorMessage name="username" component="div" className="error-tooltip" />
               </div>
               <div className="form-group">
                 <label className="form-label" htmlFor="password">{i18next.t('password')}</label>
                 <Field name="password" data-testid="password" autoComplete="current-password" required type="password" id="password" className="form-control"/>
-                {!isAuthorized && <div className="invalid-feedback" style={{ display: 'block' }}>{i18next.t('authorizationComponent.invalidFeedback')}</div>}
+                <ErrorMessage name="password" component="div" className="error-tooltip" />
               </div>
               <button type="submit" className="w-100 mb-3 btn btn-outline-primary">{i18next.t('authorizationComponent.login')}</button>
               <div className="d-flex flex-column align-items-center"><span className="small mb-2">{i18next.t('authorizationComponent.noAccount')}</span> <a onClick={onSignupClick} href="/signup">{i18next.t('authorizationComponent.signup')}</a></div>

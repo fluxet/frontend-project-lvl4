@@ -2,7 +2,8 @@ import React, {
   useRef, useEffect, useContext,
 } from 'react';
 import { Modal, FormGroup } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { ContextWs } from '../../../contextWs';
@@ -19,6 +20,10 @@ const Add = (props) => {
     inputEl.current.focus();
   }, []);
 
+  const fieldSchema = yup.object().shape({
+    name: yup.string().required().max(20, i18next.t('modals.maxNameLength')),
+  });
+
   return (
     <>
       <div className="fade modal-backdrop show"></div>
@@ -30,6 +35,7 @@ const Add = (props) => {
           <Modal.Body>
             <Formik
               initialValues={{ name: '' }}
+              validationSchema={fieldSchema}
               onSubmit={(values, actions) => {
                 socket.emit('newChannel', {
                   name: values.name,
@@ -43,6 +49,7 @@ const Add = (props) => {
               <Form>
                 <FormGroup>
                   <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
+                  <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
                   <button type="button" onClick={showModal('closing')} className="me-2 btn btn-secondary">{i18next.t('modals.cancel')}</button>
                   <button type="submit" className="btn btn-primary">{i18next.t('modals.add.submit')}</button>
                 </FormGroup>

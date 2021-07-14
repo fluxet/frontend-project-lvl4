@@ -2,7 +2,8 @@ import React, {
   useRef, useEffect, useContext,
 } from 'react';
 import { Modal, FormGroup } from 'react-bootstrap';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import i18next from 'i18next';
 import { ContextWs } from '../../../contextWs';
@@ -18,6 +19,10 @@ const Rename = (props) => {
     inputEl.current.focus();
   }, []);
 
+  const fieldSchema = yup.object().shape({
+    name: yup.string().required().max(20, i18next.t('modals.maxNameLength')),
+  });
+
   return (
     <>
       <div className="fade modal-backdrop show"></div>
@@ -29,6 +34,7 @@ const Rename = (props) => {
           <Modal.Body>
             <Formik
               initialValues={{ name: '' }}
+              validationSchema={fieldSchema}
               onSubmit={(values, actions) => {
                 socket.emit('renameChannel', {
                   name: values.name,
@@ -41,6 +47,7 @@ const Rename = (props) => {
               <Form>
                 <FormGroup>
                   <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
+                  <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
                   <button type="button" className="me-2 btn btn-secondary" onClick={showModal('closing')}>{i18next.t('modals.cancel')}</button>
                   <button type="submit" className="btn btn-primary">{i18next.t('modals.rename.submit')}</button>
                 </FormGroup>
