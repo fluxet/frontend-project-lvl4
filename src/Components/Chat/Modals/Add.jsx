@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { ContextWs } from '../../../contextWs';
+import { setType } from '../modalTypeSlice';
 import { setCurrentChannelId } from '../channelsSlice';
 
 const Add = (props) => {
@@ -42,7 +43,7 @@ const Add = (props) => {
                 socket.emit('newChannel', {
                   name: values.name,
                 }, (response) => {
-                  showModal('closing')();
+                  dispatch(setType('closing'));
                   dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
                 });
                 // updateChannelsInfo(dispatch)

@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import i18next from 'i18next';
 import axios from 'axios';
 import { setChannels, setCurrentChannelId } from './channelsSlice';
+import { setType } from './modalTypeSlice';
 import Modal from './Modals/index';
 import { Context } from '../../context';
 import routes from '../../routes';
@@ -11,23 +12,22 @@ import routes from '../../routes';
 const Channels = () => {
   const ctx = useContext(Context);
   const data = useSelector((state) => state.channels.value);
+  const modalType = useSelector((state) => state.modalType.value);
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
 
   const onChannelClick = (id) => () => {
     dispatch(setCurrentChannelId({ currentChannelId: id }));
   };
-  const [modalType, setModalType] = useState(null);
 
-  const showModal = (type) => () => {
-    setModalType(type);
-  };
+  // const showModal = (type) => () => dispatch(setType(type));
 
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
 
   const updateChannelsInfo = (dispatchCb) => (response) => {
     console.log('socket response: ', response);
-    showModal('closing')();
+    dispatch(setType('closing'));
+    // showModal('closing')();
 
     const getChannelsInfo = async () => {
       try {
@@ -50,8 +50,8 @@ const Channels = () => {
         {removable && <>
           <Dropdown.Toggle split variant={btnVariant}/>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={showModal('removing')} href="#">{i18next.t('channels.remove')}</Dropdown.Item>
-            <Dropdown.Item onClick={showModal('renaming')} href="#">{i18next.t('channels.rename')}</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setType('removing'))} href="#">{i18next.t('channels.remove')}</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setType('renaming'))} href="#">{i18next.t('channels.rename')}</Dropdown.Item>
           </Dropdown.Menu>
         </>}
       </Dropdown>
@@ -63,7 +63,7 @@ const Channels = () => {
       <div className="col-3 border-right">
         <div className="d-flex mb-2">
           <span>{i18next.t('channels.channelsTitle')}</span>
-          <button type="button" className="ml-auto p-0 btn btn-link" onClick={showModal('adding')}>+</button>
+          <button type="button" className="ml-auto p-0 btn btn-link" onClick={() => dispatch(setType('adding'))}>+</button>
         </div>
         <ul className="nav flex-column nav-pills nav-fill">
           {!!data.channels && data.channels.map((item) => renderChannelItem(item))}
@@ -72,7 +72,9 @@ const Channels = () => {
 
       <Modal
         type={modalType}
-        showModal={showModal} id={currentChannelId} updateChannelsInfo={updateChannelsInfo}
+        showModal={(type) => () => dispatch(setType(type))}
+        id={currentChannelId}
+        updateChannelsInfo={updateChannelsInfo}
       />
     </>
   );

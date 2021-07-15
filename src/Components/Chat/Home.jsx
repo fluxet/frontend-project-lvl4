@@ -9,6 +9,7 @@ import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';
 import { setChannels } from './channelsSlice';
 import { setMessages } from './messagesSlice';
+import routes from '../../routes.js';
 
 const Home = () => {
   const history = useHistory();
@@ -18,7 +19,7 @@ const Home = () => {
   const [status, setStatus] = useState('disconnected');
 
   useEffect(async () => {
-    const resp = await axios.get('/api/v1/data', options);
+    const resp = await axios.get(routes.dataPath(), options);
     try {
       console.log('----------------------------home get response: ', resp);
       dispatch(setChannels(resp.data));
@@ -26,6 +27,7 @@ const Home = () => {
       setStatus('connected');
     } catch (err) {
       console.log('home get error: ', err);
+      setStatus('disconnected');
       history.replace({ pathname: '/' });
     }
   });
