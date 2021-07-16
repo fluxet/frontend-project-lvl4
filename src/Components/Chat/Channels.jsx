@@ -1,44 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import i18next from 'i18next';
-import axios from 'axios';
-import { setChannels, setCurrentChannelId } from './channelsSlice';
+import { setCurrentChannelId } from './channelsSlice';
 import { setType } from './modalTypeSlice';
 import Modal from './Modals/index';
-import { Context } from '../../context';
-import routes from '../../routes';
 
 const Channels = () => {
-  const ctx = useContext(Context);
   const data = useSelector((state) => state.channels.value);
-  const modalType = useSelector((state) => state.modalType.value);
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
 
   const onChannelClick = (id) => () => {
     dispatch(setCurrentChannelId({ currentChannelId: id }));
-  };
-
-  // const showModal = (type) => () => dispatch(setType(type));
-
-  const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
-
-  const updateChannelsInfo = (dispatchCb) => (response) => {
-    console.log('socket response: ', response);
-    dispatch(setType('closing'));
-    // showModal('closing')();
-
-    const getChannelsInfo = async () => {
-      try {
-        const channelsInfo = await axios.get(routes.dataPath(), options);
-        dispatchCb(setChannels(channelsInfo.data));
-      } catch (err) {
-        console.log('home get error: ', err);
-      }
-    };
-
-    getChannelsInfo();
   };
 
   const renderChannelItem = (item) => {
@@ -70,12 +44,7 @@ const Channels = () => {
         </ul>
       </div>
 
-      <Modal
-        type={modalType}
-        showModal={(type) => () => dispatch(setType(type))}
-        id={currentChannelId}
-        updateChannelsInfo={updateChannelsInfo}
-      />
+      <Modal id={currentChannelId} />
     </>
   );
 };
