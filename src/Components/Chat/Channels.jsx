@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
-import i18next from 'i18next';
+// import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId } from './channelsSlice';
 import { setType } from './modalTypeSlice';
 import Modal from './Modals/index';
 
 const Channels = () => {
+  const { t } = useTranslation();
   const data = useSelector((state) => state.channels.value);
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
@@ -24,8 +26,8 @@ const Channels = () => {
         {removable && <>
           <Dropdown.Toggle split variant={btnVariant}/>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => dispatch(setType('removing'))} href="#">{i18next.t('channels.remove')}</Dropdown.Item>
-            <Dropdown.Item onClick={() => dispatch(setType('renaming'))} href="#">{i18next.t('channels.rename')}</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setType('removing'))} href="#">{t('channels.remove')}</Dropdown.Item>
+            <Dropdown.Item onClick={() => dispatch(setType('renaming'))} href="#">{t('channels.rename')}</Dropdown.Item>
           </Dropdown.Menu>
         </>}
       </Dropdown>
@@ -36,7 +38,7 @@ const Channels = () => {
     <>
       <div className="col-3 border-right">
         <div className="d-flex mb-2">
-          <span>{i18next.t('channels.channelsTitle')}</span>
+          <span>{t('channels.channelsTitle')}</span>
           <button type="button" className="ml-auto p-0 btn btn-link" onClick={() => dispatch(setType('adding'))}>+</button>
         </div>
         <ul className="nav flex-column nav-pills nav-fill">

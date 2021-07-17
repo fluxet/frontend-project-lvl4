@@ -7,11 +7,12 @@ import {
 } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { setType } from '../modalTypeSlice';
 import { ContextWs } from '../../../contextWs';
 
 const Rename = (props) => {
+  const { t } = useTranslation();
   const ctx = useContext(ContextWs);
   const socket = ctx.wsClient;
   const { id } = props;
@@ -23,7 +24,7 @@ const Rename = (props) => {
   }, []);
 
   const fieldSchema = yup.object().shape({
-    name: yup.string().required().max(20, i18next.t('modals.maxNameLength')),
+    name: yup.string().required().max(20, t('modals.maxNameLength')),
   });
 
   return (
@@ -32,7 +33,7 @@ const Rename = (props) => {
       <div role="dialog" aria-modal="true" className="fade modal show" tabIndex="-1" style={{ display: 'block' }}>
         <Modal.Dialog>
           <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
-            <Modal.Title>{i18next.t('modals.rename.title')}</Modal.Title>
+            <Modal.Title>{t('modals.rename.title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Formik
@@ -51,8 +52,8 @@ const Rename = (props) => {
                 <FormGroup>
                   <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
                   <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
-                  <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(setType('closing'))}>{i18next.t('modals.cancel')}</button>
-                  <button type="submit" className="btn btn-primary">{i18next.t('modals.rename.submit')}</button>
+                  <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(setType('closing'))}>{t('modals.cancel')}</button>
+                  <button type="submit" className="btn btn-primary">{t('modals.rename.submit')}</button>
                 </FormGroup>
               </Form>
             </Formik>

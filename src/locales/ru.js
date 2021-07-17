@@ -19,6 +19,9 @@ export default {
       userAlreadyExist: 'Такой пользователь уже существует',
       signup: 'Зарегистрироваться',
     },
+    nav: {
+      exit: 'Выход',
+    },
     channels: {
       rename: 'Переименовать',
       remove: 'Удалить',
@@ -40,6 +43,9 @@ export default {
         warning: 'Уверены?',
         submit: 'Удалить',
       },
+    },
+    chatForm: {
+      submit: 'Отправить',
     },
   },
 };

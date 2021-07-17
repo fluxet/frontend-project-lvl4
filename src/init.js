@@ -1,9 +1,9 @@
 // @ts-check
-import Rollbar from 'rollbar';
 import React from 'react';
 import ReactDom from 'react-dom';
-import axios from 'axios';
 import { Provider, useDispatch } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n.js';
 
 import store from './store.js';
 import App from './App.jsx';
@@ -44,9 +44,11 @@ export default async (wsClient) => {
   }
 
   const vdom = (
-    <Provider store={store}>
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
         <WsProvider wsClient={wsClient}/>
-    </Provider>
+      </Provider>
+    </I18nextProvider>
   );
 
   return vdom;

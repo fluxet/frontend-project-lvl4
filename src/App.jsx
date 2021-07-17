@@ -11,7 +11,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Button, Navbar, Nav } from 'react-bootstrap';
-import initTranslation from './initTranslation.js';
+import { useTranslation } from 'react-i18next';
+// import initTranslation from './initTranslation.js';
 
 import Authorization from './Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
@@ -56,7 +57,7 @@ const ChatRoute = ({ path }) => {
 };
 
 const App = () => {
-  initTranslation();
+  const { t } = useTranslation();
 
   const onExitClick = () => {
     localStorage.clear();
@@ -69,7 +70,7 @@ const App = () => {
           <Navbar>
             <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
             <Nav>
-              <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={onExitClick}>Выход</Button>
+              <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={onExitClick}>{t('nav.exit')}</Button>
             </Nav>
           </Navbar>
         </div>

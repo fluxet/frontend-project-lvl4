@@ -4,10 +4,12 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { ContextWs } from '../../contextWs';
 import { Context } from '../../context';
 
 const ChatForm = () => {
+  const { t } = useTranslation();
   const channelId = useSelector((state) => state.channels.value.currentChannelId);
   const { username } = useContext(Context);
   const { wsClient } = useContext(ContextWs);
@@ -41,7 +43,7 @@ const ChatForm = () => {
         <Form noValidate="" className="">
           <div className="input-group">
             <Field innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" data-testid="new-message" required />
-            <div className="input-group-append"><button type="submit" className="btn btn-primary">Отправить</button></div>
+            <div className="input-group-append"><button type="submit" className="btn btn-primary">{t('chatForm.submit')}</button></div>
           </div>
         </Form>
       </Formik>
