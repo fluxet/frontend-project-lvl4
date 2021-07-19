@@ -30,7 +30,7 @@ const Home = () => {
       setStatus('disconnected');
       history.replace({ pathname: '/' });
     }
-  });
+  }, [status]);
 
   const vdomResponseSuccess = (
     <div className="row flex-grow-1 h-75 pb-3">
