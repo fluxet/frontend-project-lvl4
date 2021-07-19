@@ -43,7 +43,7 @@ const Signup = () => {
 
               const signupUser = async () => {
                 try {
-                  const response = await axios.post(routes.signupPathName, message);
+                  const response = await axios.post(routes.signupPath(), message);
                   const { from } = location.state || { from: { pathname: '/' } };
                   ctx.setToken(response.data.token);
                   ctx.setUsername(values.username);
