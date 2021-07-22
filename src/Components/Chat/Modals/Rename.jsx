@@ -29,37 +29,34 @@ const Rename = (props) => {
 
   return (
     <>
-      <div className="fade modal-backdrop show"></div>
-      <div role="dialog" aria-modal="true" className="fade modal show" tabIndex="-1" style={{ display: 'block' }}>
-        <Modal.Dialog>
-          <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
-            <Modal.Title>{t('modals.rename.title')}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Formik
-              initialValues={{ name: '' }}
-              validationSchema={fieldSchema}
-              onSubmit={(values) => {
-                socket.emit('renameChannel', {
-                  name: values.name,
-                  id,
-                }, () => {
-                  dispatch(setType('closing'));
-                });
-              }}
-            >
-              <Form>
-                <FormGroup>
-                  <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
-                  <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
-                  <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(setType('closing'))}>{t('modals.cancel')}</button>
-                  <button type="submit" className="btn btn-primary">{t('modals.rename.submit')}</button>
-                </FormGroup>
-              </Form>
-            </Formik>
-          </Modal.Body>
-        </Modal.Dialog>
-      </div>
+      <Modal.Dialog>
+        <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
+          <Modal.Title>{t('modals.rename.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Formik
+            initialValues={{ name: '' }}
+            validationSchema={fieldSchema}
+            onSubmit={(values) => {
+              socket.emit('renameChannel', {
+                name: values.name,
+                id,
+              }, () => {
+                dispatch(setType('closing'));
+              });
+            }}
+          >
+            <Form>
+              <FormGroup>
+                <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
+                <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
+                <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(setType('closing'))}>{t('modals.cancel')}</button>
+                <button type="submit" className="btn btn-primary">{t('modals.rename.submit')}</button>
+              </FormGroup>
+            </Form>
+          </Formik>
+        </Modal.Body>
+      </Modal.Dialog>
     </>
   );
 };

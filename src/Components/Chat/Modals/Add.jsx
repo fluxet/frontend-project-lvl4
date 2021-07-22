@@ -30,37 +30,34 @@ const Add = () => {
 
   return (
     <>
-      <div className="fade modal-backdrop show"></div>
-      <div role="dialog" aria-modal="true" className="fade modal show" tabIndex="-1" style={{ display: 'block' }}>
-        <Modal.Dialog>
-          <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
-            <Modal.Title>{t('modals.add.title')}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Formik
-              initialValues={{ name: '' }}
-              validationSchema={fieldSchema}
-              onSubmit={(values) => {
-                socket.emit('newChannel', {
-                  name: values.name,
-                }, (response) => {
-                  dispatch(setType('closing'));
-                  dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
-                });
-              }}
-            >
-              <Form>
-                <FormGroup>
-                  <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
-                  <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
-                  <button type="button" onClick={() => dispatch(setType('closing'))} className="me-2 btn btn-secondary">{t('modals.cancel')}</button>
-                  <button type="submit" className="btn btn-primary">{t('modals.add.submit')}</button>
-                </FormGroup>
-              </Form>
-            </Formik>
-          </Modal.Body>
-        </Modal.Dialog>
-      </div>
+      <Modal.Dialog>
+        <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
+          <Modal.Title>{t('modals.add.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Formik
+            initialValues={{ name: '' }}
+            validationSchema={fieldSchema}
+            onSubmit={(values) => {
+              socket.emit('newChannel', {
+                name: values.name,
+              }, (response) => {
+                dispatch(setType('closing'));
+                dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
+              });
+            }}
+          >
+            <Form>
+              <FormGroup>
+                <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
+                <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
+                <button type="button" onClick={() => dispatch(setType('closing'))} className="me-2 btn btn-secondary">{t('modals.cancel')}</button>
+                <button type="submit" className="btn btn-primary">{t('modals.add.submit')}</button>
+              </FormGroup>
+            </Form>
+          </Formik>
+        </Modal.Body>
+      </Modal.Dialog>
     </>
   );
 };

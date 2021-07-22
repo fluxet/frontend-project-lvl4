@@ -15,34 +15,31 @@ const Remove = (props) => {
 
   return (
     <>
-      <div className="fade modal-backdrop show"></div>
-      <div role="dialog" aria-modal="true" className="fade modal show" tabIndex="-1" style={{ display: 'block' }}>
-        <Modal.Dialog>
-          <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
-            <Modal.Title>{t('modals.remove.title')}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Formik
-              initialValues={{ name: '' }}
-              onSubmit={() => {
-                socket.emit('removeChannel', {
-                  id,
-                }, () => {
-                  dispatch(setType('closing'));
-                });
-              }}
-            >
-              <Form>
-                <FormGroup>
-                  <div>{t('modals.remove.warning')}</div>
-                  <button type="button" onClick={() => dispatch(setType('closing'))} className="me-2 btn btn-secondary">{t('modals.cancel')}</button>
-                  <button type="submit" className="btn btn-danger">{t('modals.remove.submit')}</button>
-                </FormGroup>
-              </Form>
-            </Formik>
-          </Modal.Body>
-        </Modal.Dialog>
-      </div>
+      <Modal.Dialog>
+        <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
+          <Modal.Title>{t('modals.remove.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Formik
+            initialValues={{ name: '' }}
+            onSubmit={() => {
+              socket.emit('removeChannel', {
+                id,
+              }, () => {
+                dispatch(setType('closing'));
+              });
+            }}
+          >
+            <Form>
+              <FormGroup>
+                <div>{t('modals.remove.warning')}</div>
+                <button type="button" onClick={() => dispatch(setType('closing'))} className="me-2 btn btn-secondary">{t('modals.cancel')}</button>
+                <button type="submit" className="btn btn-danger">{t('modals.remove.submit')}</button>
+              </FormGroup>
+            </Form>
+          </Formik>
+        </Modal.Body>
+      </Modal.Dialog>
     </>
   );
 };

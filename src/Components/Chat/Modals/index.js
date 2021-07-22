@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Modal as ModalB } from 'react-bootstrap';
 import Rename from './Rename.jsx';
 import Remove from './Remove.jsx';
 import Add from './Add.jsx';
@@ -15,8 +16,11 @@ const Modal = ({ id }) => {
 
   const ModalComponent = componentByType[modalType];
   const isModalType = Object.keys(componentByType).includes(modalType);
-  return isModalType
-    && <ModalComponent id={id} />;
+  return (isModalType
+    && <ModalB show={true}>
+      <ModalComponent id={id} />
+    </ModalB>
+  );
 };
 
 export default Modal;
