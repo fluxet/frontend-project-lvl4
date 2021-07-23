@@ -8,7 +8,7 @@ import {
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { setType } from '../modalTypeSlice';
+import { setVisibility } from '../modalTypeSlice';
 import { ContextWs } from '../../../contextWs';
 
 const Rename = (props) => {
@@ -30,7 +30,7 @@ const Rename = (props) => {
   return (
     <>
       <Modal.Dialog>
-        <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
+        <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
           <Modal.Title>{t('modals.rename.title')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -42,7 +42,7 @@ const Rename = (props) => {
                 name: values.name,
                 id,
               }, () => {
-                dispatch(setType('closing'));
+                dispatch(setVisibility(false));
               });
             }}
           >
@@ -50,7 +50,7 @@ const Rename = (props) => {
               <FormGroup>
                 <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
                 <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
-                <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(setType('closing'))}>{t('modals.cancel')}</button>
+                <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</button>
                 <button type="submit" className="btn btn-primary">{t('modals.rename.submit')}</button>
               </FormGroup>
             </Form>

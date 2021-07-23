@@ -10,11 +10,11 @@ import { useTranslation } from 'react-i18next';
 // import i18next from 'i18next';
 import { useDispatch } from 'react-redux';
 import { ContextWs } from '../../../contextWs';
-import { setType } from '../modalTypeSlice';
+import { setVisibility } from '../modalTypeSlice';
 import { setCurrentChannelId } from '../channelsSlice';
 
 const Add = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const ctx = useContext(ContextWs);
   const socket = ctx.wsClient;
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Add = () => {
   return (
     <>
       <Modal.Dialog>
-        <Modal.Header closeButton onClick={() => dispatch(setType('closing'))}>
+        <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
           <Modal.Title>{t('modals.add.title')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -42,7 +42,7 @@ const Add = () => {
               socket.emit('newChannel', {
                 name: values.name,
               }, (response) => {
-                dispatch(setType('closing'));
+                dispatch(setVisibility(false));
                 dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
               });
             }}
@@ -51,7 +51,7 @@ const Add = () => {
               <FormGroup>
                 <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
                 <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
-                <button type="button" onClick={() => dispatch(setType('closing'))} className="me-2 btn btn-secondary">{t('modals.cancel')}</button>
+                <button type="button" onClick={() => dispatch(setVisibility(false))} className="me-2 btn btn-secondary">{t('modals.cancel')}</button>
                 <button type="submit" className="btn btn-primary">{t('modals.add.submit')}</button>
               </FormGroup>
             </Form>
