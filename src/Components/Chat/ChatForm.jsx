@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
+import { InputGroup, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ContextWs } from '../../contextWs';
 import { Context } from '../../context';
@@ -40,11 +41,11 @@ const ChatForm = () => {
           actions.resetForm();
         }}
       >
-        <Form noValidate="" className="">
-          <div className="input-group">
+         <Form>
+          <InputGroup>
             <Field innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" data-testid="new-message" required />
-            <div className="input-group-append"><button type="submit" className="btn btn-primary">{t('chatForm.submit')}</button></div>
-          </div>
+            <div className="input-group-append"><Button type="submit" className="btn btn-primary">{t('chatForm.submit')}</Button></div>
+          </InputGroup>
         </Form>
       </Formik>
     </div>

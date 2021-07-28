@@ -14,9 +14,9 @@ import { Button, Navbar, Nav } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 // import initTranslation from './initTranslation.js';
 
-import Authorization from './Authorization.jsx';
+import Authorization from './Components/Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
-import Signup from './Signup.jsx';
+import Signup from './Components/Signup.jsx';
 import { Context } from './context';
 import routes from './routes.js';
 
