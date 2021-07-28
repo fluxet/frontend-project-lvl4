@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Modal, FormGroup } from 'react-bootstrap';
+import { Modal, FormGroup, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -33,8 +33,8 @@ const Remove = (props) => {
             <Form>
               <FormGroup>
                 <div>{t('modals.remove.warning')}</div>
-                <button type="button" onClick={() => dispatch(setVisibility(false))} className="me-2 btn btn-secondary">{t('modals.cancel')}</button>
-                <button type="submit" className="btn btn-danger">{t('modals.remove.submit')}</button>
+                <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
+                <Button type="submit">{t('modals.add.submit')}</Button>
               </FormGroup>
             </Form>
           </Formik>

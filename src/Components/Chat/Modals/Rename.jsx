@@ -1,7 +1,7 @@
 import React, {
   useRef, useEffect, useContext,
 } from 'react';
-import { Modal, FormGroup } from 'react-bootstrap';
+import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -50,8 +50,8 @@ const Rename = (props) => {
               <FormGroup>
                 <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
                 <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
-                <button type="button" className="me-2 btn btn-secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</button>
-                <button type="submit" className="btn btn-primary">{t('modals.rename.submit')}</button>
+                <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
+                <Button type="submit">{t('modals.add.submit')}</Button>
               </FormGroup>
             </Form>
           </Formik>
