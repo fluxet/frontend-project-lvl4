@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { Context } from '../../context';
+import Context from '../../context';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';

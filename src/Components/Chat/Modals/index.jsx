@@ -18,9 +18,11 @@ const Modal = ({ id }) => {
   const ModalComponent = componentByType[modalType];
   const isModalType = Object.keys(componentByType).includes(modalType);
   return (isModalType && isOpened
-    && <ModalB show={true}>
+    && (
+    <ModalB show>
       <ModalComponent id={id} />
     </ModalB>
+    )
   );
 };
 

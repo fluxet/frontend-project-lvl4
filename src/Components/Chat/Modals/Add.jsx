@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 // import i18next from 'i18next';
 import { useDispatch } from 'react-redux';
-import { ContextWs } from '../../../contextWs';
+import ContextWs from '../../../contextWs';
 import { setVisibility } from '../modalTypeSlice';
 import { setCurrentChannelId } from '../channelsSlice';
 
@@ -50,7 +50,7 @@ const Add = () => {
             <Form>
               <FormGroup>
                 <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
-                <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
+                <ErrorMessage name="name" component="span" className="error-tooltip" />
                 <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
                 <Button type="submit">{t('modals.add.submit')}</Button>
               </FormGroup>

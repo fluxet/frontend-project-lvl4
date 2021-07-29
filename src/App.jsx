@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import Authorization from './Components/Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Components/Signup.jsx';
-import { Context } from './context';
+import Context from './context';
 import routes from './routes.js';
 
 const ContextProvider = ({ children }) => {
@@ -38,7 +38,8 @@ const ContextProvider = ({ children }) => {
       username,
       setToken,
       setUsername,
-    }}>
+    }}
+    >
       {children}
     </Context.Provider>
   );
@@ -50,7 +51,8 @@ const ChatRoute = ({ path }) => {
   const { token } = ctx;
 
   return (
-    <Route path={path}
+    <Route
+      path={path}
       render={() => ((token === 'null') ? <Redirect to="/login" /> : <Home />)}
     />
   );
@@ -81,8 +83,7 @@ const App = () => {
           <Route path={routes.signupPathName()}>
             <Signup />
           </Route>
-          <ChatRoute path ="/">
-          </ChatRoute>
+          <ChatRoute path="/" />
         </Switch>
       </Router>
     </ContextProvider>

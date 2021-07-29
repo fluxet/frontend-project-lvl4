@@ -1,3 +1,4 @@
 import React from 'react';
 
-export const ContextWs = React.createContext({});
+const ContextWs = React.createContext({});
+export default ContextWs;

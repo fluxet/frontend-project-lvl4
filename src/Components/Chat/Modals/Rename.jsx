@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { setVisibility } from '../modalTypeSlice';
-import { ContextWs } from '../../../contextWs';
+import ContextWs from '../../../contextWs';
 
 const Rename = (props) => {
   const { t } = useTranslation();
@@ -49,7 +49,7 @@ const Rename = (props) => {
             <Form>
               <FormGroup>
                 <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
-                <ErrorMessage name="name" component="span" className="error-tooltip"></ErrorMessage>
+                <ErrorMessage name="name" component="span" className="error-tooltip" />
                 <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
                 <Button type="submit">{t('modals.add.submit')}</Button>
               </FormGroup>

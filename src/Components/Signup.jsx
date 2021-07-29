@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
 
 import './Signup.scss';
-import { Context } from '../context.js';
+import Context from '../context.js';
 import routes from '../routes.js';
 
 const Signup = () => {
@@ -73,7 +73,8 @@ const Signup = () => {
                 <Form as={FormFormik} className="p-3">
                   <Form.Group>
                     <Form.Label htmlFor="username">{t('signupComponent.username')}</Form.Label>
-                    <Form.Control as = {Field}
+                    <Form.Control
+                      as={Field}
                       placeholder={t('signupComponent.usernamePlaceholder')}
                       name="username"
                       autoComplete="username"
@@ -84,9 +85,12 @@ const Signup = () => {
                   </Form.Group>
                   <Form.Group>
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
-                    <Form.Control as={Field}
+                    <Form.Control
+                      as={Field}
                       placeholder={t('signupComponent.passwordPlaceholder')}
-                      name="password" onKeyUp={onPasswordChange} autoComplete="new-password"
+                      name="password"
+                      onKeyUp={onPasswordChange}
+                      autoComplete="new-password"
                       type="password"
                       id="password"
                       className={errors.password && touched.password && 'field-error'}
@@ -95,7 +99,8 @@ const Signup = () => {
                   </Form.Group>
                   <Form.Group>
                     <Form.Label htmlFor="confirmPassword">{t('signupComponent.confirmPassword')}</Form.Label>
-                    <Form.Control as={Field}
+                    <Form.Control
+                      as={Field}
                       placeholder={t('signupComponent.confirmPasswordFeedback')}
                       name="confirmPassword"
                       autoComplete="new-password"

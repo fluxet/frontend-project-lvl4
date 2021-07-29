@@ -1,6 +1,5 @@
 // @ts-check
 import React from 'react';
-import ReactDom from 'react-dom';
 import { Provider, useDispatch } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n.js';
@@ -11,7 +10,7 @@ import { addMessage } from './Components/Chat/messagesSlice.js';
 import {
   addChannel, removeChannel, setCurrentChannelId, renameChannel,
 } from './Components/Chat/channelsSlice.js';
-import { ContextWs } from './contextWs.js';
+import ContextWs from './contextWs.js';
 
 const WsProvider = ({ wsClient }) => {
   const dispatch = useDispatch();
@@ -46,7 +45,7 @@ export default async (wsClient) => {
   const vdom = (
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
-        <WsProvider wsClient={wsClient}/>
+        <WsProvider wsClient={wsClient} />
       </Provider>
     </I18nextProvider>
   );

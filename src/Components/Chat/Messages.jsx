@@ -14,7 +14,14 @@ const Messages = () => {
   return (
     <ScrollProvider>
       <div id="messages-box" className="chat-messages overflow-auto mb-3">
-        {messages && messages.map(({ data: { attributes: { message, username } }, id }) => <div key={id} className="text-break"><b>{username}</b>: {message}</div>)}
+        {messages && messages.map(({ data: { attributes: { message, username } }, id }) => (
+          <div key={id} className="text-break">
+            <b>{username}</b>
+            :
+            {' '}
+            {message}
+          </div>
+        ))}
       </div>
     </ScrollProvider>
   );

@@ -1,14 +1,13 @@
 // @ts-check
 
 import Rollbar from 'rollbar';
-import React from 'react';
 import ReactDom from 'react-dom';
 
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 import '../assets/application.scss';
 import io from 'socket.io-client';
-import init from './init.js';
+import init from './init.jsx';
 
 const rollbar = new Rollbar({
   accessToken: process.env.TOKEN,

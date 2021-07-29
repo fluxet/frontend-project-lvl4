@@ -5,7 +5,7 @@ import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId } from './channelsSlice';
 import { setType } from './modalTypeSlice';
-import Modal from './Modals/index';
+import Modal from './Modals/index.jsx';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -23,13 +23,15 @@ const Channels = () => {
     return (
       <Dropdown key={id} as={ButtonGroup} onClick={onChannelClick(id)}>
         <Button variant={btnVariant}>{name}</Button>
-        {removable && <>
-          <Dropdown.Toggle split variant={btnVariant}/>
+        {removable && (
+        <>
+          <Dropdown.Toggle split variant={btnVariant} />
           <Dropdown.Menu>
             <Dropdown.Item onClick={() => dispatch(setType('removing'))} href="#">{t('channels.remove')}</Dropdown.Item>
             <Dropdown.Item onClick={() => dispatch(setType('renaming'))} href="#">{t('channels.rename')}</Dropdown.Item>
           </Dropdown.Menu>
-        </>}
+        </>
+        )}
       </Dropdown>
     );
   };
