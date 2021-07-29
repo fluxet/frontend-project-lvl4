@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 export const messagesSlice = createSlice({
@@ -6,10 +7,9 @@ export const messagesSlice = createSlice({
     value: [],
   },
   reducers: {
-    setMessages: (state, action) => ({
-      ...state,
-      value: action.payload,
-    }),
+    setMessages: (state, action) => {
+      state.value = action.payload;
+    },
     addMessage: (state, action) => {
       state.value.push(action.payload);
     },

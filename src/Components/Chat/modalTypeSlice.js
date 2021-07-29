@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 export const modalSlice = createSlice({
@@ -9,20 +10,15 @@ export const modalSlice = createSlice({
     },
   },
   reducers: {
-    setType: (state, action) => ({
-      ...state,
-      value: {
+    setType: (state, action) => {
+      state.value = {
         type: action.payload,
         isOpened: true,
-      },
-    }),
-    setVisibility: (state, action) => ({
-      ...state,
-      value: {
-        ...state.value,
-        isOpened: action.payload,
-      },
-    }),
+      };
+    },
+    setVisibility: (state, action) => {
+      state.value.isOpened = action.payload;
+    },
   },
 });
 
