@@ -9,13 +9,13 @@ const Messages = () => {
   const idName = 'messages-box';
 
   useEffect(() => {
-    scroll.scrollToBottom({ containerId: idName });
+    scroll.scrollToBottom({ containerId: 'container-messages' });
     console.log('scroll.scrollTobottom: ', scroll.scrollToBottom);
   }, [messages]);
 
   return (
-    <ScrollProvider className="d-flex flex-column h-100">
-      <div id={idName} className="chat-messages mb-3 overflow-auto">
+    <ScrollProvider id="container-messages" className="d-flex flex-column h-100 overflow-auto">
+      <div id={idName} className="chat-messages mb-3">
         {messages && messages.map(({ data: { attributes: { message, username } }, id }) => (
           <div key={id} className="text-break">
             <b>{username}</b>

@@ -36,10 +36,10 @@ const Home = () => {
   }, [status]);
 
   const vdomResponseSuccess = (
-    <Container className="overflow-hidden my-4 h-100 rounded-shadow">
+    <Container className="overflow-hidden my-4 h-100 rounded shadow">
       <Row className="flex-md-row h-100">
         <Channels />
-        <Col className="p-3 h-100">
+        <Col className="p-3 h-100 d-flex flex-column">
           <Messages />
           <ChatForm />
         </Col>

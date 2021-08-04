@@ -22,7 +22,7 @@ const ChatForm = () => {
   });
 
   return (
-    <div className="mt-auto">
+    <div className="mt-auto py-4">
       <Formik
         initialValues={{ body: '' }}
         onSubmit={({ body }, actions) => {
