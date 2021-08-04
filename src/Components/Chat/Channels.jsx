@@ -38,7 +38,7 @@ const Channels = () => {
 
   return (
     <>
-      <div className="col-3 border-right">
+      <div className="col-4 col-md-2 border-right pt-5 bg-light">
         <div className="d-flex mb-2">
           <span>{t('channels.channelsTitle')}</span>
           <button type="button" className="ml-auto p-0 btn btn-link" onClick={() => dispatch(setType('adding'))}>+</button>

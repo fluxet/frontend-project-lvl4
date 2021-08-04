@@ -1,7 +1,7 @@
 import React, {
   useRef, useEffect, useContext,
 } from 'react';
-import { Modal, FormGroup, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -29,36 +29,35 @@ const Add = () => {
   });
 
   return (
-    <>
-      <Modal.Dialog>
-        <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
-          <Modal.Title>{t('modals.add.title')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Formik
-            initialValues={{ name: '' }}
-            validationSchema={fieldSchema}
-            onSubmit={(values) => {
-              socket.emit('newChannel', {
-                name: values.name,
-              }, (response) => {
-                dispatch(setVisibility(false));
-                dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
-              });
-            }}
-          >
-            <Form>
-              <FormGroup>
-                <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
-                <ErrorMessage name="name" component="span" className="error-tooltip" />
-                <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
-                <Button type="submit">{t('modals.add.submit')}</Button>
-              </FormGroup>
-            </Form>
-          </Formik>
-        </Modal.Body>
-      </Modal.Dialog>
-    </>
+    <Modal show>
+      <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
+        <Modal.Title>{t('modals.add.title')}</Modal.Title>
+      </Modal.Header>
+      <Formik
+        initialValues={{ name: '' }}
+        validationSchema={fieldSchema}
+        onSubmit={(values) => {
+          socket.emit('newChannel', {
+            name: values.name,
+          }, (response) => {
+            dispatch(setVisibility(false));
+            dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
+          });
+        }}
+      >
+        <Form>
+          <Modal.Body>
+            <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
+            <ErrorMessage name="name" component="span" className="error-tooltip" />
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
+            <Button type="submit">{t('modals.add.submit')}</Button>
+          </Modal.Footer>
+        </Form>
+      </Formik>
+    </Modal>
   );
 };
 

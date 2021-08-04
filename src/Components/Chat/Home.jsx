@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Row, Col, Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Context from '../../context';
@@ -13,35 +14,37 @@ import routes from '../../routes.js';
 
 const Home = () => {
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   const ctx = useContext(Context);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
   const [status, setStatus] = useState('disconnected');
 
   useEffect(async () => {
-    const resp = await axios.get(routes.dataPath(), options);
     try {
+      const resp = await axios.get(routes.dataPath(), options);
       console.log('----------------------------home get response: ', resp);
       dispatch(setChannels(resp.data));
       dispatch(setMessages(resp.data.messages));
       setStatus('connected');
     } catch (err) {
       console.log('home get error: ', err);
+      location.pathname = routes.loginPathName();
+      history.push(routes.loginPathName());
       setStatus('disconnected');
-      history.replace({ pathname: '/' });
     }
   }, [status]);
 
   const vdomResponseSuccess = (
-    <div className="row flex-grow-1 h-75 pb-3">
-      <Channels />
-      <div className="col h-100">
-        <div className="d-flex flex-column h-100">
+    <Container className="overflow-hidden my-4 h-100 rounded-shadow">
+      <Row className="flex-md-row h-100">
+        <Channels />
+        <Col className="p-3 h-100">
           <Messages />
           <ChatForm />
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 
   const vdomWaiting = <div>...Loading</div>;

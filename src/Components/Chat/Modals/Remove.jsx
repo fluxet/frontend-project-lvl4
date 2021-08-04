@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Modal, FormGroup, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -14,33 +14,31 @@ const Remove = (props) => {
   const dispatch = useDispatch();
 
   return (
-    <>
-      <Modal.Dialog>
-        <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
-          <Modal.Title>{t('modals.remove.title')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Formik
-            initialValues={{ name: '' }}
-            onSubmit={() => {
-              socket.emit('removeChannel', {
-                id,
-              }, () => {
-                dispatch(setVisibility(false));
-              });
-            }}
-          >
-            <Form>
-              <FormGroup>
-                <div>{t('modals.remove.warning')}</div>
-                <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
-                <Button type="submit">{t('modals.add.submit')}</Button>
-              </FormGroup>
-            </Form>
-          </Formik>
-        </Modal.Body>
-      </Modal.Dialog>
-    </>
+    <Modal show>
+      <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
+        <Modal.Title>{t('modals.remove.title')}</Modal.Title>
+      </Modal.Header>
+      <Formik
+        initialValues={{ name: '' }}
+        onSubmit={() => {
+          socket.emit('removeChannel', {
+            id,
+          }, () => {
+            dispatch(setVisibility(false));
+          });
+        }}
+      >
+        <Form>
+          <Modal.Body>
+            <div>{t('modals.remove.warning')}</div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
+            <Button variant="danger" type="submit">{t('modals.remove.submit')}</Button>
+          </Modal.Footer>
+        </Form>
+      </Formik>
+    </Modal>
   );
 };
 

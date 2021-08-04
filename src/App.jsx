@@ -10,7 +10,9 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import { Button, Navbar, Nav } from 'react-bootstrap';
+import {
+  Button, Navbar, Nav,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 // import initTranslation from './initTranslation.js';
 
@@ -66,27 +68,27 @@ const App = () => {
   };
 
   return (
-    <ContextProvider>
-      <Router>
-        <div className="d-flex flex-column">
+    <div className="h-100 d-flex flex-column">
+      <ContextProvider>
+        <Router>
           <Navbar>
             <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
             <Nav>
               <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={onExitClick}>{t('nav.exit')}</Button>
             </Nav>
           </Navbar>
-        </div>
-        <Switch>
-          <Route path={routes.loginPathName()}>
-            <Authorization />
-          </Route>
-          <Route path={routes.signupPathName()}>
-            <Signup />
-          </Route>
-          <ChatRoute path="/" />
-        </Switch>
-      </Router>
-    </ContextProvider>
+          <Switch>
+            <Route path={routes.loginPathName()}>
+              <Authorization />
+            </Route>
+            <Route path={routes.signupPathName()}>
+              <Signup />
+            </Route>
+            <ChatRoute path="/" />
+          </Switch>
+        </Router>
+      </ContextProvider>
+    </div>
   );
 };
 
