@@ -11,7 +11,7 @@ import Context from '../../context';
 
 const ChatForm = () => {
   const { t } = useTranslation();
-  const channelId = useSelector((state) => state.channels.value.currentChannelId);
+  const channelId = useSelector((state) => state.channels.currentChannelId);
   const { username } = useContext(Context);
   const { wsClient } = useContext(ContextWs);
   const socket = wsClient;

@@ -4,20 +4,16 @@ import { createSlice } from '@reduxjs/toolkit';
 export const modalSlice = createSlice({
   name: 'modalType',
   initialState: {
-    value: {
-      type: '',
-      isOpened: false,
-    },
+    type: '',
+    isOpened: false,
   },
   reducers: {
     setType: (state, action) => {
-      state.value = {
-        type: action.payload,
-        isOpened: true,
-      };
+      state.type = action.payload;
+      state.isOpened = true;
     },
     setVisibility: (state, action) => {
-      state.value.isOpened = action.payload;
+      state.isOpened = action.payload;
     },
   },
 });

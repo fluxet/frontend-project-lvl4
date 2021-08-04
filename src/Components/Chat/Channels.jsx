@@ -11,7 +11,9 @@ import Modal from './Modals/index.jsx';
 
 const Channels = () => {
   const { t } = useTranslation();
-  const data = useSelector((state) => state.channels.value);
+  const dataAll = useSelector((state) => state);
+  const data = dataAll.channels;
+  console.log('data: ', data);
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
 
@@ -23,7 +25,7 @@ const Channels = () => {
     const { name, id, removable } = item;
     const btnVariant = (id === currentChannelId) ? 'secondary' : '';
     return (
-      <Dropdown key={id} as={ButtonGroup} onClick={onChannelClick(id)} className="nav-item w-100">
+      <Dropdown key={id} as={ButtonGroup} onClick={onChannelClick(id)} className="w-100">
         <Button variant={btnVariant} className="w-100 text-start text-truncate">{name}</Button>
         {removable && (
         <Nav.Item>
@@ -46,7 +48,7 @@ const Channels = () => {
           <Button variant="outline-primary" className="ml-auto p-0" onClick={() => dispatch(setType('adding'))}>+</Button>
         </div>
         <Nav variant="pills" className="flex-column">
-          {!!data.channels && data.channels.map((item) => renderChannelItem(item))}
+          {!!data.channels.length && data.channels.map((item) => renderChannelItem(item))}
         </Nav>
       </div>
 

@@ -4,30 +4,31 @@ import { createSlice } from '@reduxjs/toolkit';
 export const channelsSlice = createSlice({
   name: 'channels',
   initialState: {
-    value: {},
+    channels: [],
+    currentChannelId: '',
   },
   reducers: {
     setChannels: (state, action) => {
-      state.value = {
-        channels: action.payload.channels,
-        currentChannelId: action.payload.currentChannelId,
-      };
+      state.channels = action.payload.channels;
+      state.currentChannelId = action.payload.currentChannelId;
+
+      console.log('state: ', state);
     },
     addChannel: (state, action) => {
-      state.value.channels.push(action.payload);
+      state.channels.push(action.payload);
     },
     removeChannel: (state, action) => {
-      state.value.channels = state.value.channels
+      state.channels = state.channels
         .filter((channel) => channel.id !== action.payload.id);
     },
     renameChannel: (state, action) => {
       console.log('renamed channel: ', action.payload);
       const channelId = action.payload.id;
-      const currentIndex = state.value.channels.findIndex((channel) => channel.id === channelId);
-      state.value.channels[currentIndex] = action.payload;
+      const currentIndex = state.channels.findIndex((channel) => channel.id === channelId);
+      state.channels[currentIndex] = action.payload;
     },
     setCurrentChannelId: (state, action) => {
-      state.value.currentChannelId = action.payload.currentChannelId;
+      state.currentChannelId = action.payload.currentChannelId;
     },
   },
 });

@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import { Element as ScrollProvider, animateScroll as scroll } from 'react-scroll';
 
 const Messages = () => {
-  const data = useSelector((state) => state.messages.value);
-  const channelId = useSelector((state) => state.channels.value.currentChannelId);
+  const data = useSelector((state) => state.messages);
+  console.log('*** messages data: ', data);
+  const channelId = useSelector((state) => state.channels.currentChannelId);
   const messages = data.filter((message) => message.data.attributes.channelId === channelId);
   const idName = 'messages-box';
 
   useEffect(() => {
     scroll.scrollToBottom({ containerId: 'container-messages' });
-    console.log('scroll.scrollTobottom: ', scroll.scrollToBottom);
   }, [messages]);
 
   return (
