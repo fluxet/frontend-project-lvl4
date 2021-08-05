@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 // import i18next from 'i18next';
 import { useDispatch } from 'react-redux';
 import ContextWs from '../../../contextWs';
-import { setVisibility } from '../modalTypeSlice';
-import { setCurrentChannelId } from '../channelsSlice';
+import { setVisibility } from '../../../stateSlices/modalTypeSlice.js';
+import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
 
 const Add = () => {
   const { t } = useTranslation();

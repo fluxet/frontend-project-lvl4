@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import React, {
-  useState, useContext, useEffect,
+  useState, useContext,
 } from 'react';
 import {
   BrowserRouter as Router,
@@ -25,14 +25,6 @@ import routes from './routes.js';
 const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || 'null');
   const [username, setUsername] = useState(localStorage.getItem('username') || 'null');
-
-  useEffect(() => {
-    localStorage.setItem('token', token);
-  }, [token]);
-
-  useEffect(() => {
-    localStorage.setItem('username', username);
-  }, [username]);
 
   return (
     <Context.Provider value={{

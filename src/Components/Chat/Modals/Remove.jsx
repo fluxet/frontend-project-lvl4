@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { setVisibility } from '../modalTypeSlice';
+import { setVisibility } from '../../../stateSlices/modalTypeSlice.js';
 import ContextWs from '../../../contextWs';
 
 const Remove = (props) => {

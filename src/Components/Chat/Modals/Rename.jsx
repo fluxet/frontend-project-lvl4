@@ -8,7 +8,7 @@ import {
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { setVisibility } from '../modalTypeSlice';
+import { setVisibility } from '../../../stateSlices/modalTypeSlice.js';
 import ContextWs from '../../../contextWs';
 
 const Rename = (props) => {

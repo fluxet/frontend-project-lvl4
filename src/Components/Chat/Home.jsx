@@ -8,8 +8,8 @@ import Context from '../../context';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';
-import { setChannels } from './channelsSlice';
-import { setMessages } from './messagesSlice';
+import { setChannels } from '../../stateSlices/channelsSlice.js';
+import { setMessages } from '../../stateSlices/messagesSlice.js';
 import routes from '../../routes.js';
 
 const Home = () => {

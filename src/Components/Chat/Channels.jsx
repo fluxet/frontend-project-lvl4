@@ -5,8 +5,8 @@ import {
 } from 'react-bootstrap';
 // import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { setCurrentChannelId } from './channelsSlice';
-import { setType } from './modalTypeSlice';
+import { setCurrentChannelId } from '../../stateSlices/channelsSlice.js';
+import { setType } from '../../stateSlices/modalTypeSlice.js';
 import Modal from './Modals/index.jsx';
 
 const Channels = () => {

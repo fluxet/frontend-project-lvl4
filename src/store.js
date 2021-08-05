@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import channels from './Components/Chat/channelsSlice.js';
-import messages from './Components/Chat/messagesSlice.js';
-import modalType from './Components/Chat/modalTypeSlice.js';
+import channels from './stateSlices/channelsSlice.js';
+import messages from './stateSlices/messagesSlice.js';
+import modalType from './stateSlices/modalTypeSlice.js';
 
 const reducer = combineReducers({
   channels, messages, modalType,

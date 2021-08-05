@@ -1,18 +1,19 @@
 // @ts-check
 import React from 'react';
 import { Provider, useDispatch } from 'react-redux';
-import { I18nextProvider } from 'react-i18next';
-import i18n from './i18n.js';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import i18next from 'i18next';
+import ru from './locales/ru.js';
 
 import store from './store.js';
 import App from './App.jsx';
-import { addMessage } from './Components/Chat/messagesSlice.js';
+import { addMessage } from './stateSlices/messagesSlice.js';
 import {
   addChannel, removeChannel, setCurrentChannelId, renameChannel,
-} from './Components/Chat/channelsSlice.js';
+} from './stateSlices/channelsSlice.js';
 import ContextWs from './contextWs.js';
 
-const WsProvider = ({ wsClient }) => {
+const WsProvider = ({ wsClient, children }) => {
   const dispatch = useDispatch();
   const socket = wsClient;
 
@@ -31,9 +32,7 @@ const WsProvider = ({ wsClient }) => {
   });
 
   return (
-    <ContextWs.Provider value={{ wsClient }}>
-      <App />
-    </ContextWs.Provider>
+    <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>
   );
 };
 
@@ -42,10 +41,21 @@ export default async (wsClient) => {
     localStorage.debug = 'chat:*';
   }
 
+  const i18Instance = i18next
+    .createInstance({
+      lng: 'ru',
+      debug: true,
+      resources: {
+        ru,
+      },
+    }, (err, t) => ((err) ? console.log('i18next error: ', err) : t('key')));
+
   const vdom = (
-    <I18nextProvider i18n={i18n}>
+    <I18nextProvider i18n={i18Instance.use(initReactI18next)}>
       <Provider store={store}>
-        <WsProvider wsClient={wsClient} />
+        <WsProvider wsClient={wsClient}>
+          <App />
+        </WsProvider>
       </Provider>
     </I18nextProvider>
   );
