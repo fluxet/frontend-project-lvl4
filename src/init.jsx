@@ -31,12 +31,10 @@ const WsProvider = ({ wsClient, children }) => {
     dispatch(renameChannel(channel));
   });
 
-  return (
-    <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>
-  );
+  return <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>;
 };
 
-export default async (wsClient) => {
+export default (wsClient) => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }

@@ -24,7 +24,6 @@ const Authorization = () => {
   const onSignupClick = (evt) => {
     location.pathname = routes.signupPathName();
     history.push(routes.signupPathName());
-    console.log('location.state: ', location);
     evt.preventDefault();
   };
 
@@ -53,7 +52,6 @@ const Authorization = () => {
                   // ----------------------------------------------------------
                   history.replace(from);
                 } catch (e) {
-                  console.log('error from catch: ', e);
                   handlers.setErrors({
                     username: '',
                     password: t('authorizationComponent.invalidFeedback'),

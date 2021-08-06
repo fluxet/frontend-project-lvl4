@@ -40,18 +40,14 @@ const Signup = () => {
             validationSchema={signupSchema}
             onSubmit={(values, handlers) => {
               const message = _.omit(values, 'confirmPassword');
-              console.log('signup message: ', message);
-
               const signupUser = async () => {
                 try {
                   const response = await axios.post(routes.signupPath(), message);
                   const { from } = location.state || { from: { pathname: '/' } };
                   ctx.setToken(response.data.token);
                   ctx.setUsername(values.username);
-                  console.log('signup ctx: ', ctx);
                   history.replace(from);
                 } catch (e) {
-                  console.log('error from catch', e);
                   const statusCode = +e.message.split(' ').reverse()[0];
                   if (statusCode === 409) {
                     handlers.setErrors({

@@ -34,9 +34,7 @@ const ChatForm = () => {
                 channelId,
               },
             },
-          }, (response) => {
-            console.log('socket emit response: ', response);
-          });
+          }, () => {});
 
           actions.resetForm();
         }}

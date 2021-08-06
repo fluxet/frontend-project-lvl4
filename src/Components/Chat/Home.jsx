@@ -23,12 +23,10 @@ const Home = () => {
   useEffect(async () => {
     try {
       const resp = await axios.get(routes.dataPath(), options);
-      console.log('----------------------------home get response: ', resp);
       dispatch(setChannels(resp.data));
       dispatch(setMessages(resp.data.messages));
       setStatus('connected');
     } catch (err) {
-      console.log('home get error: ', err);
       location.pathname = routes.loginPathName();
       history.push(routes.loginPathName());
       setStatus('disconnected');

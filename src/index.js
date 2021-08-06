@@ -9,14 +9,14 @@ import '../assets/application.scss';
 import io from 'socket.io-client';
 import init from './init.jsx';
 
-const rollbar = new Rollbar({
-  accessToken: process.env.TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-});
-rollbar.log('rollbar debug v1');
-
 const rendering = async () => {
+  const rollbar = new Rollbar({
+    accessToken: process.env.TOKEN,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+  });
+  rollbar.log('rollbar debug v1');
+
   const socket = io();
   const vdom = await init(socket);
 

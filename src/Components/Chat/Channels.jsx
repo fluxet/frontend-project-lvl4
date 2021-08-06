@@ -13,7 +13,6 @@ const Channels = () => {
   const { t } = useTranslation();
   const dataAll = useSelector((state) => state);
   const data = dataAll.channels;
-  console.log('data: ', data);
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
 

@@ -14,8 +14,6 @@ import {
   Button, Navbar, Nav,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-// import initTranslation from './initTranslation.js';
-
 import Authorization from './Components/Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Components/Signup.jsx';
@@ -41,7 +39,6 @@ const ContextProvider = ({ children }) => {
 
 const ChatRoute = ({ path }) => {
   const ctx = useContext(Context);
-  console.log('context: ', ctx);
   const { token } = ctx;
 
   return (
