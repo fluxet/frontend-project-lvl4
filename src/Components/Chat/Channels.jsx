@@ -30,8 +30,8 @@ const Channels = () => {
         <Nav.Item>
           <Dropdown.Toggle split variant={btnVariant} />
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => dispatch(setType('removing'))} href="#">{t('channels.remove')}</Dropdown.Item>
-            <Dropdown.Item onClick={() => dispatch(setType('renaming'))} href="#">{t('channels.rename')}</Dropdown.Item>
+            <Dropdown.Item active={false} onClick={() => dispatch(setType('removing'))} href="#">{t('channels.remove')}</Dropdown.Item>
+            <Dropdown.Item active={false} onClick={() => dispatch(setType('renaming'))} href="#">{t('channels.rename')}</Dropdown.Item>
           </Dropdown.Menu>
         </Nav.Item>
         )}
