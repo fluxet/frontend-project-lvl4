@@ -18,6 +18,10 @@ export const channelsSlice = createSlice({
     removeChannel: (state, action) => {
       state.channels = state.channels
         .filter((channel) => channel.id !== action.payload.id);
+
+      if (state.currentChannelId === action.payload.id) {
+        state.currentChannelId = 1;
+      }
     },
     renameChannel: (state, action) => {
       const channelId = action.payload.id;

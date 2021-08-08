@@ -9,7 +9,7 @@ import store from './store.js';
 import App from './App.jsx';
 import { addMessage } from './stateSlices/messagesSlice.js';
 import {
-  addChannel, removeChannel, setCurrentChannelId, renameChannel,
+  addChannel, removeChannel, renameChannel,
 } from './stateSlices/channelsSlice.js';
 import ContextWs from './contextWs.js';
 
@@ -25,7 +25,7 @@ const WsProvider = ({ wsClient, children }) => {
   });
   socket.on('removeChannel', (channel) => {
     dispatch(removeChannel(channel));
-    dispatch(setCurrentChannelId({ currentChannelId: 1 }));
+    // dispatch(setCurrentChannelId({ currentChannelId: 1 }));
   });
   socket.on('renameChannel', (channel) => {
     dispatch(renameChannel(channel));
