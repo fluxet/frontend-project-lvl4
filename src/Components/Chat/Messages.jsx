@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Element as ScrollProvider, animateScroll as scroll } from 'react-scroll';
+import channelMessageSelector from '../../stateSelectors/channelMessagesSelector.js';
 
 const Messages = () => {
-  const data = useSelector((state) => state.messages);
-  const channelId = useSelector((state) => state.channels.currentChannelId);
-  const messages = data.filter((message) => message.data.attributes.channelId === channelId);
-  const idName = 'messages-box';
+  const containerId = 'container-messages';
+  const messages = useSelector(channelMessageSelector);
 
   useEffect(() => {
-    scroll.scrollToBottom({ containerId: 'container-messages' });
+    scroll.scrollToBottom({ containerId });
   }, [messages]);
 
   return (
-    <ScrollProvider id="container-messages" className="d-flex flex-column h-100 overflow-auto">
-      <div id={idName} className="chat-messages mb-3">
+    <ScrollProvider id={containerId} className="d-flex flex-column h-100 overflow-auto">
+      <div id="'messages-box'" className="chat-messages mb-3">
         {messages && messages.map(({ data: { attributes: { message, username } }, id }) => (
           <div key={id} className="text-break">
             <b>{username}</b>

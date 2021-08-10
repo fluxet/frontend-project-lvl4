@@ -32,6 +32,7 @@ module.exports = (env) => {
       publicPath: '/assets/',
       historyApiFallback: true,
     },
+    devtool: 'source-map',
     plugins: [
       new MiniCssExtractPlugin(),
       // new webpack.DefinePlugin(envKeys),
