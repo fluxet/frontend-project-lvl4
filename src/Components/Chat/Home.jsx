@@ -31,7 +31,7 @@ const Home = () => {
       history.push(routes.loginPathName());
       setStatus('disconnected');
     }
-  }, [status]);
+  }, [history]);
 
   const vdomResponseSuccess = (
     <Container className="overflow-hidden my-4 h-100 rounded shadow">
