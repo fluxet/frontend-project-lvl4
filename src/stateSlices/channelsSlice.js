@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 export const channelsSlice = createSlice({
   name: 'channels',
@@ -24,9 +25,8 @@ export const channelsSlice = createSlice({
       }
     },
     renameChannel: (state, action) => {
-      const channelId = action.payload.id;
-      const currentIndex = state.channels.findIndex((channel) => channel.id === channelId);
-      state.channels[currentIndex] = action.payload;
+      _.remove(state.channels, (channel) => (channel.id === action.payload.id));
+      state.channels.push(action.payload);
     },
     setCurrentChannelId: (state, action) => {
       state.currentChannelId = action.payload.currentChannelId;
