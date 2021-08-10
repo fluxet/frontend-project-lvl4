@@ -5,6 +5,7 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
 import ru from './locales/ru.js';
 
+import debug from '../lib/logger.js';
 import store from './store.js';
 import App from './App.jsx';
 import { addMessage } from './stateSlices/messagesSlice.js';
@@ -12,6 +13,9 @@ import {
   addChannel, removeChannel, renameChannel,
 } from './stateSlices/channelsSlice.js';
 import ContextWs from './contextWs.js';
+
+const log = debug('init');
+log.enabled = true;
 
 const WsProvider = ({ wsClient, children }) => {
   const dispatch = useDispatch();
@@ -46,7 +50,7 @@ export default (wsClient) => {
       resources: {
         ru,
       },
-    }, (err, t) => ((err) ? console.log('i18next error: ', err) : t('key')));
+    }, (err, t) => ((err) ? log('i18next error: ', err) : t('key')));
 
   const vdom = (
     <I18nextProvider i18n={i18Instance.use(initReactI18next)}>

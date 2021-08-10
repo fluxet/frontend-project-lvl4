@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { setVisibility } from '../../../stateSlices/modalTypeSlice.js';
+import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
 import ContextWs from '../../../contextWs';
 
 const Remove = (props) => {
@@ -15,7 +15,7 @@ const Remove = (props) => {
 
   return (
     <Modal show>
-      <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
+      <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.remove.title')}</Modal.Title>
       </Modal.Header>
       <Formik
@@ -24,7 +24,7 @@ const Remove = (props) => {
           socket.emit('removeChannel', {
             id,
           }, () => {
-            dispatch(setVisibility(false));
+            dispatch(closeModal());
           });
         }}
       >
@@ -33,7 +33,7 @@ const Remove = (props) => {
             <div>{t('modals.remove.warning')}</div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
+            <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
             <Button variant="danger" type="submit">{t('modals.remove.submit')}</Button>
           </Modal.Footer>
         </Form>

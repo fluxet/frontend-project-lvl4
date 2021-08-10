@@ -8,7 +8,7 @@ import {
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { setVisibility } from '../../../stateSlices/modalTypeSlice.js';
+import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
 import ContextWs from '../../../contextWs';
 
 const Rename = (props) => {
@@ -31,7 +31,7 @@ const Rename = (props) => {
 
   return (
     <Modal show>
-      <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
+      <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.rename.title')}</Modal.Title>
       </Modal.Header>
       <Formik
@@ -42,7 +42,7 @@ const Rename = (props) => {
             name: values.name,
             id,
           }, () => {
-            dispatch(setVisibility(false));
+            dispatch(closeModal());
           });
         }}
       >
@@ -52,7 +52,7 @@ const Rename = (props) => {
             <ErrorMessage render={renderErrorContent} name="name" component="span" className="error-tooltip" />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
+            <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
             <Button type="submit">{t('modals.add.submit')}</Button>
           </Modal.Footer>
         </Form>

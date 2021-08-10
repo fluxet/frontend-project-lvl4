@@ -6,7 +6,7 @@ import {
 // import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId } from '../../stateSlices/channelsSlice.js';
-import { setType } from '../../stateSlices/modalTypeSlice.js';
+import { openModal } from '../../stateSlices/modalTypeSlice.js';
 import Modal from './Modals/index.jsx';
 
 const Channels = () => {
@@ -30,8 +30,8 @@ const Channels = () => {
         <Nav.Item>
           <Dropdown.Toggle split variant={btnVariant} />
           <Dropdown.Menu>
-            <Dropdown.Item active={false} onClick={() => dispatch(setType('removing'))} href="#">{t('channels.remove')}</Dropdown.Item>
-            <Dropdown.Item active={false} onClick={() => dispatch(setType('renaming'))} href="#">{t('channels.rename')}</Dropdown.Item>
+            <Dropdown.Item active={false} onClick={() => dispatch(openModal('removing'))} href="#">{t('channels.remove')}</Dropdown.Item>
+            <Dropdown.Item active={false} onClick={() => dispatch(openModal('renaming'))} href="#">{t('channels.rename')}</Dropdown.Item>
           </Dropdown.Menu>
         </Nav.Item>
         )}
@@ -44,7 +44,7 @@ const Channels = () => {
       <div className="col-4 col-md-2 border-right pt-5 bg-light w-100">
         <div className="d-flex mb-2">
           <span>{t('channels.channelsTitle')}</span>
-          <Button variant="outline-primary" className="ml-auto p-0" onClick={() => dispatch(setType('adding'))}>+</Button>
+          <Button variant="outline-primary" className="ml-auto p-0" onClick={() => dispatch(openModal('adding'))}>+</Button>
         </div>
         <Nav variant="pills" className="flex-column">
           {!!data.channels.length && data.channels.map((item) => renderChannelItem(item))}

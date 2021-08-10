@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import debug from '../../../../lib/logger.js';
 
 import ContextWs from '../../../contextWs';
-import { setVisibility } from '../../../stateSlices/modalTypeSlice.js';
+import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
 import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
 
 const log = debug('Add');
@@ -38,7 +38,7 @@ const Add = () => {
 
   return (
     <Modal show>
-      <Modal.Header closeButton onClick={() => dispatch(setVisibility(false))}>
+      <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
       <Formik
@@ -48,7 +48,7 @@ const Add = () => {
           socket.emit('newChannel', {
             name: values.name,
           }, (response) => {
-            dispatch(setVisibility(false));
+            dispatch(closeModal());
             dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
           });
         }}
@@ -60,7 +60,7 @@ const Add = () => {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => dispatch(setVisibility(false))}>{t('modals.cancel')}</Button>
+            <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
             <Button type="submit">{t('modals.add.submit')}</Button>
           </Modal.Footer>
         </Form>
