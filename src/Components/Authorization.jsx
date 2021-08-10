@@ -17,8 +17,8 @@ const Authorization = () => {
   const location = useLocation();
 
   const authorizationSchema = yup.object().shape({
-    username: yup.string().required().min(3, t('signupComponent.usernamePlaceholder')).max(20, t('signupComponent.usernamePlaceholder')),
-    password: yup.string().required().min(3, t('signupComponent.passwordPlaceholder')).max(20),
+    username: yup.string().required().min(3, 'signupComponent.usernamePlaceholder').max(20, 'signupComponent.usernamePlaceholder'),
+    password: yup.string().required().min(3, 'signupComponent.passwordPlaceholder').max(20),
   });
 
   const onSignupClick = (evt) => {
@@ -26,6 +26,8 @@ const Authorization = () => {
     history.push(routes.signupPathName());
     evt.preventDefault();
   };
+
+  const renderErrorContent = (msg) => t(msg);
 
   return (
     <div className="container-fluid">
@@ -66,12 +68,12 @@ const Authorization = () => {
               <Form.Group>
                 <Form.Label htmlFor="username">{t('authorizationComponent.username')}</Form.Label>
                 <Field id="username" data-testid="username" type="text" name="username" className="form-control" autoComplete="username" required />
-                <ErrorMessage name="username" component="div" className="error-tooltip" />
+                <ErrorMessage name="username" component="div" render={renderErrorContent} className="error-tooltip" />
               </Form.Group>
               <Form.Group>
                 <Form.Label htmlFor="password">{t('password')}</Form.Label>
                 <Field name="password" data-testid="password" autoComplete="current-password" required type="password" id="password" className="form-control" />
-                <ErrorMessage name="password" component="div" className="error-tooltip" />
+                <ErrorMessage name="password" component="div" render={renderErrorContent} className="error-tooltip" />
               </Form.Group>
               <Button type="submit" className="w-100 mb-3">{t('authorizationComponent.login')}</Button>
               <div className="d-flex flex-column align-items-center">

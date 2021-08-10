@@ -22,14 +22,16 @@ const Signup = () => {
   const [passValue, setPassValue] = useState(null);
 
   const signupSchema = yup.object().shape({
-    username: yup.string().required().min(3, t('signupComponent.usernamePlaceholder')).max(20, t('signupComponent.usernamePlaceholder')),
-    password: yup.string().required().min(6, t('signupComponent.passwordPlaceholder')),
-    confirmPassword: yup.string().oneOf([passValue], t('signupComponent.confirmPasswordFeedback')),
+    username: yup.string().required().min(3, 'signupComponent.usernamePlaceholder').max(20, 'signupComponent.usernamePlaceholder'),
+    password: yup.string().required().min(6, 'signupComponent.passwordPlaceholder'),
+    confirmPassword: yup.string().oneOf([passValue], 'signupComponent.confirmPasswordFeedback'),
   });
 
   const onPasswordChange = (evt) => {
     setPassValue(evt.target.value);
   };
+
+  const renderErrorContent = (msg) => t(msg);
 
   return (
     <div className="container-fluid">
@@ -77,7 +79,7 @@ const Signup = () => {
                       id="username"
                       className={errors.username && touched.username && 'field-error'}
                     />
-                    <ErrorMessage name="username" className="error-tooltip" component="div" />
+                    <ErrorMessage render={renderErrorContent} name="username" className="error-tooltip" component="div" />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
@@ -91,7 +93,7 @@ const Signup = () => {
                       id="password"
                       className={errors.password && touched.password && 'field-error'}
                     />
-                    <ErrorMessage name="password" className="error-tooltip" component="div" />
+                    <ErrorMessage render={renderErrorContent} name="password" className="error-tooltip" component="div" />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label htmlFor="confirmPassword">{t('signupComponent.confirmPassword')}</Form.Label>
@@ -104,7 +106,7 @@ const Signup = () => {
                       id="confirmPassword"
                       className={errors.confirmPassword && touched.confirmPassword && 'field-error'}
                     />
-                    <ErrorMessage name="confirmPassword" className="error-tooltip" component="div" />
+                    <ErrorMessage render={renderErrorContent} name="confirmPassword" className="error-tooltip" component="div" />
                   </Form.Group>
                   <Button type="submit" className="w-100">{t('signupComponent.signup')}</Button>
                 </Form>

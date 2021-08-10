@@ -31,8 +31,10 @@ const Add = () => {
   }, []);
 
   const fieldSchema = yup.object().shape({
-    name: yup.string().required().max(20, t('modals.maxNameLength')),
+    name: yup.string().required().max(20, 'modals.maxNameLength'),
   });
+
+  const renderErrorContent = (msg) => t(msg);
 
   return (
     <Modal show>
@@ -54,7 +56,7 @@ const Add = () => {
         <Form>
           <Modal.Body>
             <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
-            <ErrorMessage name="name" component="span" className="error-tooltip" />
+            <ErrorMessage render={renderErrorContent} name="name" component="span" className="error-tooltip" />
           </Modal.Body>
 
           <Modal.Footer>
