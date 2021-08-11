@@ -27,7 +27,7 @@ const Rename = (props) => {
     name: yup.string().required().max(20, 'modals.maxNameLength'),
   });
 
-  const renderErrorContent = (msg) => t(msg);
+  const renderErrorContent = (msg) => <div className="error-tooltip">{t(msg)}</div>;
 
   return (
     <Modal show>
@@ -49,7 +49,7 @@ const Rename = (props) => {
         <Form>
           <Modal.Body>
             <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
-            <ErrorMessage render={renderErrorContent} name="name" component="span" className="error-tooltip" />
+            <ErrorMessage render={renderErrorContent} name="name" component="span" />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>

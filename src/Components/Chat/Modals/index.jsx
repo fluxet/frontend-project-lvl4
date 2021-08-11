@@ -15,8 +15,7 @@ const Modal = ({ id }) => {
   const isOpened = useSelector((state) => state.modalType.isOpened);
 
   const ModalComponent = componentByType[modalType];
-  const isModalType = Object.keys(componentByType).includes(modalType);
-  return (isModalType && isOpened
+  return (isOpened
     && (
     <>
       <ModalComponent id={id} />
