@@ -34,10 +34,10 @@ const Add = () => {
     name: yup.string().required().max(20, 'modals.maxNameLength'),
   });
 
-  const renderErrorContent = (msg) => t(msg);
+  const renderErrorContent = (msg) => t(msg); //fdsfds
 
   return (
-    <>
+    <Modal show> 
       <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
@@ -65,7 +65,7 @@ const Add = () => {
           </Modal.Footer>
         </Form>
       </Formik>
-    </>
+    </Modal>
   );
 };
 
