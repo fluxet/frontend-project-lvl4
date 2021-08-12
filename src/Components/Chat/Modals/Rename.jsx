@@ -30,7 +30,7 @@ const Rename = (props) => {
   const renderErrorContent = (msg) => <div className="error-tooltip">{t(msg)}</div>;
 
   return (
-    <Modal show>
+    <>
       <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.rename.title')}</Modal.Title>
       </Modal.Header>
@@ -57,7 +57,7 @@ const Rename = (props) => {
           </Modal.Footer>
         </Form>
       </Formik>
-    </Modal>
+    </>
   );
 };
 

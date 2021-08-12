@@ -14,7 +14,7 @@ const Remove = (props) => {
   const dispatch = useDispatch();
 
   return (
-    <Modal show>
+    <>
       <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.remove.title')}</Modal.Title>
       </Modal.Header>
@@ -38,7 +38,7 @@ const Remove = (props) => {
           </Modal.Footer>
         </Form>
       </Formik>
-    </Modal>
+    </>
   );
 };
 

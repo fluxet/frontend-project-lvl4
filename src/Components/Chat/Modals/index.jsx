@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Modal as ModalB } from 'react-bootstrap';
 import Rename from './Rename.jsx';
 import Remove from './Remove.jsx';
 import Add from './Add.jsx';
@@ -15,13 +16,11 @@ const Modal = ({ id }) => {
   const isOpened = useSelector((state) => state.modalType.isOpened);
 
   const ModalComponent = componentByType[modalType];
-  return (isOpened
-    && (
-    <>
+  return (!!ModalComponent && (
+    <ModalB show={isOpened}>
       <ModalComponent id={id} />
-    </>
-    )
-  );
+    </ModalB>
+  ));
 };
 
 export default Modal;
