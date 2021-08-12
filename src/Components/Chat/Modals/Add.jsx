@@ -34,7 +34,7 @@ const Add = () => {
     name: yup.string().required().max(20, 'modals.maxNameLength'),
   });
 
-  const renderErrorContent = (msg) => t(msg);
+  const renderErrorContent = (msg) => <div className="error-tooltip">{t(msg)}</div>;
 
   return (
     <Modal show>

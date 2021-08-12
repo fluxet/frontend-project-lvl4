@@ -31,7 +31,7 @@ const Signup = () => {
     setPassValue(evt.target.value);
   };
 
-  const renderErrorContent = (msg) => t(msg);
+  const renderErrorContent = (msg) => <div className="error-tooltip">{t(msg)}</div>;
 
   return (
     <div className="container-fluid">
