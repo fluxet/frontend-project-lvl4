@@ -37,7 +37,7 @@ const Add = () => {
   const renderErrorContent = (msg) => <div className="error-tooltip">{t(msg)}</div>;
 
   return (
-    <Modal show>
+    <>
       <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
@@ -65,7 +65,7 @@ const Add = () => {
           </Modal.Footer>
         </Form>
       </Formik>
-    </Modal>
+    </>
   );
 };
 
