@@ -27,7 +27,7 @@ const Authorization = () => {
     evt.preventDefault();
   };
 
-  const renderErrorContent = (msg) => <div className="error-tooltip">{t(msg)}</div>;
+  const renderErrorContent = (msg) => t(msg);
 
   return (
     <div className="container-fluid">
