@@ -8,7 +8,7 @@ import Context from '../../context';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';
-import { setChannels, setDefaultChannelid } from '../../stateSlices/channelsSlice.js';
+import { setChannels } from '../../stateSlices/channelsSlice.js';
 import { setMessages } from '../../stateSlices/messagesSlice.js';
 import routes from '../../routes.js';
 
@@ -23,13 +23,8 @@ const Home = () => {
   useEffect(async () => {
     try {
       const resp = await axios.get(routes.dataPath(), options);
-      const defaultChannelId = resp.data.channels
-        .find(({ name }) => name === 'general').id;
-      console.log('defId: ', defaultChannelId);
-
       dispatch(setChannels(resp.data));
       dispatch(setMessages(resp.data.messages));
-      dispatch(setDefaultChannelid({ id: defaultChannelId }));
       setStatus('connected');
     } catch (err) {
       location.pathname = routes.loginPathName();

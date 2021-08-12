@@ -34,10 +34,10 @@ const Add = () => {
     name: yup.string().required().max(20, 'modals.maxNameLength'),
   });
 
-  const renderErrorContent = (msg) => t(msg); //fdsfds
+  const renderErrorContent = (msg) => t(msg);
 
   return (
-    <Modal show> 
+    <Modal show>
       <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
@@ -56,7 +56,7 @@ const Add = () => {
         <Form>
           <Modal.Body>
             <Field innerRef={inputEl} name="name" autoFocus data-testid="add-channel" className="mb-2 form-control" required />
-            <ErrorMessage render={renderErrorContent} name="name" component="span" />
+            <ErrorMessage render={renderErrorContent} name="name" component="span" className="error-tooltip" />
           </Modal.Body>
 
           <Modal.Footer>

@@ -30,7 +30,7 @@ const Rename = (props) => {
   const renderErrorContent = (msg) => t(msg);
 
   return (
-    <>
+    <Modal show>
       <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.rename.title')}</Modal.Title>
       </Modal.Header>
@@ -49,7 +49,7 @@ const Rename = (props) => {
         <Form>
           <Modal.Body>
             <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
-            <ErrorMessage render={renderErrorContent} name="name" component="span" />
+            <ErrorMessage render={renderErrorContent} name="name" component="span" className="error-tooltip" />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
@@ -57,7 +57,7 @@ const Rename = (props) => {
           </Modal.Footer>
         </Form>
       </Formik>
-    </>
+    </Modal>
   );
 };
 

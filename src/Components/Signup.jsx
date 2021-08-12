@@ -50,9 +50,7 @@ const Signup = () => {
                   ctx.setUsername(values.username);
                   history.replace(from);
                 } catch (e) {
-                  const statusCode = +e.response.status;
-                  console.log('statusCode: ', statusCode);
-
+                  const statusCode = +e.message.split(' ').reverse()[0];
                   if (statusCode === 409) {
                     handlers.setErrors({
                       username: ' ',
@@ -81,7 +79,7 @@ const Signup = () => {
                       id="username"
                       className={errors.username && touched.username && 'field-error'}
                     />
-                    <ErrorMessage render={renderErrorContent} name="username" component="div" />
+                    <ErrorMessage render={renderErrorContent} name="username" className="error-tooltip" component="div" />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
@@ -95,7 +93,7 @@ const Signup = () => {
                       id="password"
                       className={errors.password && touched.password && 'field-error'}
                     />
-                    <ErrorMessage render={renderErrorContent} name="password" component="div" />
+                    <ErrorMessage render={renderErrorContent} name="password" className="error-tooltip" component="div" />
                   </Form.Group>
                   <Form.Group>
                     <Form.Label htmlFor="confirmPassword">{t('signupComponent.confirmPassword')}</Form.Label>
@@ -108,7 +106,7 @@ const Signup = () => {
                       id="confirmPassword"
                       className={errors.confirmPassword && touched.confirmPassword && 'field-error'}
                     />
-                    <ErrorMessage render={renderErrorContent} name="confirmPassword" component="div" />
+                    <ErrorMessage render={renderErrorContent} name="confirmPassword" className="error-tooltip" component="div" />
                   </Form.Group>
                   <Button type="submit" className="w-100">{t('signupComponent.signup')}</Button>
                 </Form>
