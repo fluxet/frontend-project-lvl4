@@ -12,7 +12,7 @@ import { addMessage } from './stateSlices/messagesSlice.js';
 import {
   addChannel, removeChannel, renameChannel,
 } from './stateSlices/channelsSlice.js';
-import ContextWs from './contextWs.js';
+import { ContextWs } from './context.js';
 
 const log = debug('init');
 log.enabled = true;

@@ -6,13 +6,12 @@ import { useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { InputGroup, Button, FormControl } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import ContextWs from '../../contextWs';
-import Context from '../../context';
+import { ContextAuth, ContextWs } from '../../context';
 
 const ChatForm = () => {
   const { t } = useTranslation();
   const channelId = useSelector((state) => state.channels.currentChannelId);
-  const { username } = useContext(Context);
+  const { username } = useContext(ContextAuth);
   const { wsClient } = useContext(ContextWs);
   const socket = wsClient;
 

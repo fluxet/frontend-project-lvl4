@@ -1,4 +1,4 @@
 import React from 'react';
 
-const Context = React.createContext({});
-export default Context;
+export const ContextAuth = React.createContext({});
+export const ContextWs = React.createContext({});

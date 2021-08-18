@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import Context from '../../context';
+import { ContextAuth } from '../../context';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';
@@ -16,7 +16,7 @@ const Home = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
-  const ctx = useContext(Context);
+  const ctx = useContext(ContextAuth);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
   const [status, setStatus] = useState('disconnected');
 

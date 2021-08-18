@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
-import ContextWs from '../../../contextWs';
+import { ContextWs } from '../../../context.js';
 
 const Rename = (props) => {
   const { t } = useTranslation();

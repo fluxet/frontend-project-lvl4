@@ -7,12 +7,12 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import Context from '../context.js';
+import { ContextAuth } from '../context.js';
 import routes from '../routes.js';
 
 const Authorization = () => {
   const { t } = useTranslation();
-  const ctx = useContext(Context);
+  const ctx = useContext(ContextAuth);
   const history = useHistory();
   const location = useLocation();
 

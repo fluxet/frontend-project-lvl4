@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import debug from '../../../../lib/logger.js';
 
-import ContextWs from '../../../contextWs';
+import { ContextWs } from '../../../context.js';
 import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
 import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
 

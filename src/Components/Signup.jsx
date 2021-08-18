@@ -11,12 +11,12 @@ import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
 
 import './Signup.scss';
-import Context from '../context.js';
+import { ContextAuth } from '../context.js';
 import routes from '../routes.js';
 
 const Signup = () => {
   const { t } = useTranslation();
-  const ctx = useContext(Context);
+  const ctx = useContext(ContextAuth);
   const history = useHistory();
   const location = useLocation();
   const [passValue, setPassValue] = useState(null);

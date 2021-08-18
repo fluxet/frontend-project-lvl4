@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import Authorization from './Components/Authorization.jsx';
 import Home from './Components/Chat/Home.jsx';
 import Signup from './Components/Signup.jsx';
-import Context from './context';
+import { ContextAuth } from './context';
 import routes from './routes.js';
 
 const AuthProvider = ({ children }) => {
@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
   const [username, setUsername] = useState(localStorage.getItem('username') || 'null');
 
   return (
-    <Context.Provider value={{
+    <ContextAuth.Provider value={{
       token,
       username,
       setToken,
@@ -34,12 +34,12 @@ const AuthProvider = ({ children }) => {
     }}
     >
       {children}
-    </Context.Provider>
+    </ContextAuth.Provider>
   );
 };
 
 const ChatRoute = ({ path }) => {
-  const ctx = useContext(Context);
+  const ctx = useContext(ContextAuth);
   const { token } = ctx;
 
   return (

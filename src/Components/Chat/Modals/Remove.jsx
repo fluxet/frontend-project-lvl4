@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
-import ContextWs from '../../../contextWs';
+import { ContextWs } from '../../../context.js';
 
 const Remove = (props) => {
   const { t } = useTranslation();
