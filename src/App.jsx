@@ -22,15 +22,16 @@ import { ContextAuth } from './context';
 import routes from './routes.js';
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('token') || 'null');
-  const [username, setUsername] = useState(localStorage.getItem('username') || 'null');
+  const [user, setUser] = useState({
+    token: localStorage.getItem('token'),
+    name: localStorage.getItem('username'),
+  });
 
   return (
     <ContextAuth.Provider value={{
-      token,
-      username,
-      setToken,
-      setUsername,
+      token: user.token,
+      username: user.name,
+      setUser,
     }}
     >
       {children}
@@ -45,7 +46,7 @@ const ChatRoute = ({ path }) => {
   return (
     <Route
       path={path}
-      render={() => ((token === 'null') ? <Redirect to="/login" /> : <Home />)}
+      render={() => ((!token) ? <Redirect to="/login" /> : <Home />)}
     />
   );
 };

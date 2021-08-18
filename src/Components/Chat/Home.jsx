@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import { ContextAuth } from '../../context';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
@@ -13,6 +14,7 @@ import { setMessages } from '../../stateSlices/messagesSlice.js';
 import routes from '../../routes.js';
 
 const Home = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ const Home = () => {
     </Container>
   );
 
-  const vdomWaiting = <div>...Loading</div>;
+  const vdomWaiting = <div>{t('loading')}</div>;
 
   return (status === 'connected') ? vdomResponseSuccess : vdomWaiting;
 };

@@ -49,8 +49,10 @@ const Authorization = () => {
                   // ----------------useEffect ?---------------------------
                   localStorage.setItem('token', response.data.token);
                   localStorage.setItem('username', values.username);
-                  ctx.setToken(response.data.token);
-                  ctx.setUsername(values.username);
+                  ctx.setUser({
+                    username: values.username,
+                    token: response.data.token,
+                  });
                   // ----------------------------------------------------------
                   history.replace(from);
                 } catch (e) {

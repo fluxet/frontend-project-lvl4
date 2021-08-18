@@ -1,6 +1,8 @@
 export default {
   translation: {
     password: 'Пароль',
+    pageNotFound: 'Страница не найдена',
+    loading: '...Загрузка',
 
     authorizationComponent: {
       username: 'Ваш ник',
