@@ -11,7 +11,11 @@ import { ContextAuth, ContextWs } from '../../context';
 const ChatForm = () => {
   const { t } = useTranslation();
   const channelId = useSelector((state) => state.channels.currentChannelId);
-  const { username } = useContext(ContextAuth);
+  const ctx = useContext(ContextAuth);
+  console.log('ctx: ', ctx);
+
+  const { username } = ctx;
+  console.log('---username from Chatform: ', username);
   const { wsClient } = useContext(ContextWs);
   const socket = wsClient;
 

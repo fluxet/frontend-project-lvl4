@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -16,7 +16,6 @@ import routes from '../../routes.js';
 const Home = () => {
   const { t } = useTranslation();
   const history = useHistory();
-  const location = useLocation();
   const dispatch = useDispatch();
   const ctx = useContext(ContextAuth);
   const options = { headers: { Authorization: `Bearer ${ctx.token}` } };
@@ -29,7 +28,6 @@ const Home = () => {
       dispatch(setMessages(resp.data.messages));
       setStatus('connected');
     } catch (err) {
-      location.pathname = routes.loginPathName();
       history.push(routes.loginPathName());
       setStatus('disconnected');
     }

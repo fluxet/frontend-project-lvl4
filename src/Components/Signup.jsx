@@ -47,8 +47,8 @@ const Signup = () => {
                   const response = await axios.post(routes.signupPath(), message);
                   const { from } = location.state || { from: { pathname: '/' } };
                   ctx.setUser({
-                    username: values.username,
                     token: response.data.token,
+                    name: values.username,
                   });
                   history.replace(from);
                 } catch (e) {

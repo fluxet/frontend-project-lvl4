@@ -22,6 +22,7 @@ const WsProvider = ({ wsClient, children }) => {
   const socket = wsClient;
 
   socket.on('newMessage', (message) => {
+    console.log('***message: ', message);
     dispatch((addMessage(message)));
   });
   socket.on('newChannel', (channel) => {

@@ -8,10 +8,11 @@ const reducer = combineReducers({
   channels, messages, modalType,
 });
 
-export default configureStore({
+const store = configureStore({
   reducer,
 });
 
+export default store;
 // export default configureStore({
 //   reducer: {
 //     channels: channelsReducer,

@@ -48,10 +48,10 @@ const Authorization = () => {
                   const { from } = location.state || { from: { pathname: '/' } };
                   // ----------------useEffect ?---------------------------
                   localStorage.setItem('token', response.data.token);
-                  localStorage.setItem('username', values.username);
+                  localStorage.setItem('username', response.data.username);
                   ctx.setUser({
-                    username: values.username,
                     token: response.data.token,
+                    name: response.data.username,
                   });
                   // ----------------------------------------------------------
                   history.replace(from);
