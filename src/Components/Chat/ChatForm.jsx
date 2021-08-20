@@ -7,15 +7,13 @@ import { Formik, Field, Form } from 'formik';
 import { InputGroup, Button, FormControl } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ContextAuth, ContextWs } from '../../context';
+import channelSelector from '../../stateSelectors/channelSelector.js';
 
 const ChatForm = () => {
   const { t } = useTranslation();
-  const channelId = useSelector((state) => state.channels.currentChannelId);
+  const channelId = useSelector(channelSelector);
   const ctx = useContext(ContextAuth);
-  console.log('ctx: ', ctx);
-
   const { username } = ctx;
-  console.log('---username from Chatform: ', username);
   const { wsClient } = useContext(ContextWs);
   const socket = wsClient;
 
