@@ -46,10 +46,7 @@ const Signup = () => {
                 try {
                   const response = await axios.post(routes.signupPath(), message);
                   const { from } = location.state || { from: { pathname: '/' } };
-                  ctx.setUser({
-                    token: response.data.token,
-                    name: values.username,
-                  });
+                  ctx.authorizeUser(response);
                   history.replace(from);
                 } catch (e) {
                   const statusCode = +e.message.split(' ').reverse()[0];

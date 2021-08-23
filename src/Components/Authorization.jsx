@@ -47,12 +47,7 @@ const Authorization = () => {
                   const response = await axios.post(routes.loginPath(), messagePost);
                   const { from } = location.state || { from: { pathname: '/' } };
                   // ----------------useEffect ?---------------------------
-                  localStorage.setItem('token', response.data.token);
-                  localStorage.setItem('username', response.data.username);
-                  ctx.setUser({
-                    token: response.data.token,
-                    name: response.data.username,
-                  });
+                  ctx.authorizeUser(response);
                   // ----------------------------------------------------------
                   history.replace(from);
                 } catch (e) {

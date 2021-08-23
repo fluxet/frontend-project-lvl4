@@ -27,11 +27,23 @@ const AuthProvider = ({ children }) => {
     name: localStorage.getItem('username'),
   });
 
+  const authorizeUser = (response) => {
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('username', response.data.username);
+    setUser({
+      token: response.data.token,
+      name: response.data.username,
+    });
+  };
+
+  const userRequestOptions = { headers: { Authorization: `Bearer ${user.token}` } };
+
   return (
     <ContextAuth.Provider value={{
       token: user.token,
       username: user.name,
-      setUser,
+      authorizeUser,
+      userRequestOptions,
     }}
     >
       {children}
