@@ -1,24 +1,36 @@
 // @ts-check
 import React from 'react';
 import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
 import io from 'socket.io-client';
 import ru from './locales/ru.js';
 
 import debug from '../lib/logger.js';
-import store from './store.js';
-import App from './App.jsx';
-import { ContextWs } from './context.js';
-import {
+// import store from './store.js';
+import channels, {
   addChannel, removeChannel, renameChannel,
 } from './stateSlices/channelsSlice.js';
-import { addMessage } from './stateSlices/messagesSlice.js';
+import messages, { addMessage } from './stateSlices/messagesSlice.js';
+import modalType from './stateSlices/modalTypeSlice.js';
+import App from './App.jsx';
+import { ContextWs } from './context.js';
 
 const log = debug('init');
 log.enabled = true;
 
+const reducer = combineReducers({
+  channels, messages, modalType,
+});
+
+const store = configureStore({
+  reducer,
+});
+
 const socket = io();
+
 socket.on('newMessage', (message) => {
   store.dispatch((addMessage(message)));
 });
@@ -35,6 +47,7 @@ socket.on('renameChannel', (channel) => {
 const WsProvider = ({ wsClient, children }) => (
   <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>
 );
+
 export default (wsClient) => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
