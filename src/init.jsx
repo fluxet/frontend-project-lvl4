@@ -21,34 +21,34 @@ import { ContextWs } from './context.js';
 const log = debug('init');
 log.enabled = true;
 
-const reducer = combineReducers({
-  channels, messages, modalType,
-});
-
-const store = configureStore({
-  reducer,
-});
-
-const socket = io();
-
-socket.on('newMessage', (message) => {
-  store.dispatch((addMessage(message)));
-});
-socket.on('newChannel', (channel) => {
-  store.dispatch(addChannel(channel));
-});
-socket.on('removeChannel', (channel) => {
-  store.dispatch(removeChannel(channel));
-});
-socket.on('renameChannel', (channel) => {
-  store.dispatch(renameChannel(channel));
-});
-
 const WsProvider = ({ wsClient, children }) => (
   <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>
 );
 
 export default (wsClient) => {
+  const socket = io();
+
+  const reducer = combineReducers({
+    channels, messages, modalType,
+  });
+
+  const store = configureStore({
+    reducer,
+  });
+
+  socket.on('newMessage', (message) => {
+    store.dispatch((addMessage(message)));
+  });
+  socket.on('newChannel', (channel) => {
+    store.dispatch(addChannel(channel));
+  });
+  socket.on('removeChannel', (channel) => {
+    store.dispatch(removeChannel(channel));
+  });
+  socket.on('renameChannel', (channel) => {
+    store.dispatch(renameChannel(channel));
+  });
+
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }

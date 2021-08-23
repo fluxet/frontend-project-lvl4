@@ -27,7 +27,7 @@ const ChatForm = () => {
       <Formik
         initialValues={{ body: '' }}
         onSubmit={({ body }, actions) => {
-          socket.emit('newMessage', {
+          const messageBody = {
             data: {
               attributes: {
                 message: body,
@@ -35,7 +35,10 @@ const ChatForm = () => {
                 channelId,
               },
             },
-          }, () => {});
+          };
+          socket.emit('newMessage', messageBody, () => {});
+          // ctx.sendMessage(messageBody)
+          //   .then((response) => console.log('newMessage response: ', response));
 
           actions.resetForm();
         }}
