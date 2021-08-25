@@ -38,12 +38,15 @@ const Rename = (props) => {
         initialValues={{ name: '' }}
         validationSchema={fieldSchema}
         onSubmit={(values) => {
-          socket.emit('renameChannel', {
+          const messageBody = {
             name: values.name,
             id,
-          }, () => {
-            dispatch(closeModal());
-          });
+          };
+          socket
+            .renameChannel(messageBody)
+            .then(() => {
+              dispatch(closeModal());
+            });
         }}
       >
         <Form>

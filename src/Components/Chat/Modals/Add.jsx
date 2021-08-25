@@ -45,12 +45,15 @@ const Add = () => {
         initialValues={{ name: '' }}
         validationSchema={fieldSchema}
         onSubmit={(values) => {
-          socket.emit('newChannel', {
+          const messageBody = {
             name: values.name,
-          }, (response) => {
-            dispatch(closeModal());
-            dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
-          });
+          };
+          socket
+            .addChannel(messageBody)
+            .then((response) => {
+              dispatch(closeModal());
+              dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
+            });
         }}
       >
         <Form>

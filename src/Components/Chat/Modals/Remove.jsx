@@ -21,11 +21,14 @@ const Remove = (props) => {
       <Formik
         initialValues={{ name: '' }}
         onSubmit={() => {
-          socket.emit('removeChannel', {
+          const messageBody = {
             id,
-          }, () => {
-            dispatch(closeModal());
-          });
+          };
+          socket
+            .removeChannel(messageBody)
+            .then(() => {
+              dispatch(closeModal());
+            });
         }}
       >
         <Form>

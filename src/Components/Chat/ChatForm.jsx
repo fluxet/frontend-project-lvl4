@@ -36,10 +36,8 @@ const ChatForm = () => {
               },
             },
           };
-          socket.emit('newMessage', messageBody, () => {});
-          // ctx.sendMessage(messageBody)
-          //   .then((response) => console.log('newMessage response: ', response));
-
+          socket.sendMessage(messageBody);
+          // .then((response) => console.log('newMessage response: ', response));
           actions.resetForm();
         }}
       >

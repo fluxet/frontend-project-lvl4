@@ -5,7 +5,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
-import io from 'socket.io-client';
 import ru from './locales/ru.js';
 
 import debug from '../lib/logger.js';
@@ -21,12 +20,12 @@ import { ContextWs } from './context.js';
 const log = debug('init');
 log.enabled = true;
 
-const WsProvider = ({ wsClient, children }) => (
+const ApiProvider = ({ wsClient, children }) => (
   <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>
 );
 
 export default (wsClient) => {
-  const socket = io();
+  const socket = wsClient;
 
   const reducer = combineReducers({
     channels, messages, modalType,
@@ -53,6 +52,23 @@ export default (wsClient) => {
     localStorage.debug = 'chat:*';
   }
 
+  const socketEmitPromisify = (typeEmit) => (messageBody) => {
+    const promise = new Promise((resolve, reject) => {
+      socket.emit(typeEmit, messageBody, (resp) => ((resp.error)
+        ? reject(resp)
+        : resolve(resp)));
+    });
+
+    return promise;
+  };
+
+  const chatApi = {
+    sendMessage: socketEmitPromisify('newMessage'),
+    addChannel: socketEmitPromisify('newChannel'),
+    renameChannel: socketEmitPromisify('renameChannel'),
+    removeChannel: socketEmitPromisify('removeChannel'),
+  };
+
   const i18Instance = i18next
     .createInstance({
       lng: 'ru',
@@ -65,9 +81,9 @@ export default (wsClient) => {
   const vdom = (
     <I18nextProvider i18n={i18Instance.use(initReactI18next)}>
       <Provider store={store}>
-        <WsProvider wsClient={wsClient}>
+        <ApiProvider wsClient={chatApi}>
           <App />
-        </WsProvider>
+        </ApiProvider>
       </Provider>
     </I18nextProvider>
   );
