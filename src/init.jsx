@@ -1,19 +1,16 @@
 // @ts-check
 import React from 'react';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
 import ru from './locales/ru.js';
 
 import debug from '../lib/logger.js';
-// import store from './store.js';
-import channels, {
+import store from './store.js';
+import {
   addChannel, removeChannel, renameChannel,
 } from './stateSlices/channelsSlice.js';
-import messages, { addMessage } from './stateSlices/messagesSlice.js';
-import modalType from './stateSlices/modalTypeSlice.js';
+import { addMessage } from './stateSlices/messagesSlice.js';
 import App from './App.jsx';
 import { ContextWs } from './context.js';
 
@@ -25,15 +22,11 @@ const ApiProvider = ({ wsClient, children }) => (
 );
 
 export default (wsClient) => {
+  if (process.env.NODE_ENV !== 'production') {
+    localStorage.debug = 'chat:*';
+  }
+
   const socket = wsClient;
-
-  const reducer = combineReducers({
-    channels, messages, modalType,
-  });
-
-  const store = configureStore({
-    reducer,
-  });
 
   socket.on('newMessage', (message) => {
     store.dispatch((addMessage(message)));
@@ -47,10 +40,6 @@ export default (wsClient) => {
   socket.on('renameChannel', (channel) => {
     store.dispatch(renameChannel(channel));
   });
-
-  if (process.env.NODE_ENV !== 'production') {
-    localStorage.debug = 'chat:*';
-  }
 
   const socketEmitPromisify = (typeEmit) => (messageBody) => {
     const promise = new Promise((resolve, reject) => {

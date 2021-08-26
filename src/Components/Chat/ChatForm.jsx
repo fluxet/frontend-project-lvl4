@@ -37,7 +37,6 @@ const ChatForm = () => {
             },
           };
           socket.sendMessage(messageBody);
-          // .then((response) => console.log('newMessage response: ', response));
           actions.resetForm();
         }}
       >
