@@ -36,6 +36,11 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  const onExit = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+  };
+
   const userRequestOptions = { headers: { Authorization: `Bearer ${user.token}` } };
 
   return (
@@ -44,6 +49,7 @@ const AuthProvider = ({ children }) => {
       username: user.name,
       authorizeUser,
       userRequestOptions,
+      onExit,
     }}
     >
       {children}
@@ -65,14 +71,11 @@ const ChatRoute = ({ path }) => {
 
 const ExitButton = () => {
   const { t } = useTranslation();
+  const ctx = useContext(ContextAuth);
   const location = useLocation();
   const isOnHomePage = location.pathname === '/';
 
-  const onExitClick = () => {
-    localStorage.clear();
-  };
-
-  return isOnHomePage && <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={onExitClick}>{t('nav.exit')}</Button>;
+  return isOnHomePage && <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={ctx.onExit}>{t('nav.exit')}</Button>;
 };
 
 const App = () => (
