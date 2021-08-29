@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Dropdown, Button, ButtonGroup, Nav,
@@ -16,16 +16,21 @@ const Channels = () => {
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
 
+  const [modalId, setModalId] = useState(currentChannelId);
+
   const onChannelClick = (id) => () => {
     dispatch(setCurrentChannelId({ currentChannelId: id }));
+  };
+  const onDropDownClick = (id) => () => {
+    setModalId(id);
   };
 
   const renderChannelItem = (item) => {
     const { name, id, removable } = item;
     const btnVariant = (id === currentChannelId) ? 'secondary' : '';
     return (
-      <Dropdown key={id} as={ButtonGroup} onClick={onChannelClick(id)} className="w-100">
-        <Button variant={btnVariant} className="w-100 text-start text-truncate">{name}</Button>
+      <Dropdown key={id} as={ButtonGroup} onClick={onDropDownClick(id)} className="w-100">
+        <Button variant={btnVariant} onClick={onChannelClick(id)} className="w-100 text-start text-truncate">{name}</Button>
         {removable && (
         <Nav.Item>
           <Dropdown.Toggle split variant={btnVariant} />
@@ -51,7 +56,7 @@ const Channels = () => {
         </Nav>
       </div>
 
-      <Modal id={currentChannelId} />
+      <Modal id={modalId} />
     </>
   );
 };
