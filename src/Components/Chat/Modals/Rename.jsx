@@ -24,7 +24,7 @@ const Rename = (props) => {
   }, []);
 
   const fieldSchema = yup.object().shape({
-    name: yup.string().required().max(20, 'modals.maxNameLength'),
+    name: yup.string().required('modals.requiredField').max(20, 'modals.maxNameLength'),
   });
 
   const renderErrorContent = (msg) => <div className="error-tooltip">{t(msg)}</div>;

@@ -32,6 +32,7 @@ export default {
     modals: {
       cancel: 'Отменить',
       maxNameLength: 'до 20 символов',
+      requiredField: 'обязательное поле',
       add: {
         title: 'Добавить канал',
         submit: 'Отправить',
