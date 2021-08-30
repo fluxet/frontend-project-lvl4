@@ -40,12 +40,14 @@ const ChatForm = () => {
           actions.resetForm();
         }}
       >
-        <Form>
-          <InputGroup>
-            <FormControl as={Field} innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" data-testid="new-message" required />
-            <Button type="submit">{t('chatForm.submit')}</Button>
-          </InputGroup>
-        </Form>
+        {({ isSubmitting }) => (
+          <Form>
+            <InputGroup>
+              <FormControl as={Field} innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" data-testid="new-message" required />
+              <Button type="submit" disabled={isSubmitting}>{t('chatForm.submit')}</Button>
+            </InputGroup>
+          </Form>
+        )}
       </Formik>
     </div>
   );

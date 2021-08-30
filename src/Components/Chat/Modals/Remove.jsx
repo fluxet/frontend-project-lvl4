@@ -31,15 +31,17 @@ const Remove = (props) => {
             });
         }}
       >
-        <Form>
-          <Modal.Body>
-            <div>{t('modals.remove.warning')}</div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
-            <Button variant="danger" type="submit">{t('modals.remove.submit')}</Button>
-          </Modal.Footer>
-        </Form>
+        {({ isSubmitting }) => (
+          <Form>
+            <Modal.Body>
+              <div>{t('modals.remove.warning')}</div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
+              <Button variant="danger" type="submit" disabled={isSubmitting}>{t('modals.remove.submit')}</Button>
+            </Modal.Footer>
+          </Form>
+        )}
       </Formik>
     </>
   );

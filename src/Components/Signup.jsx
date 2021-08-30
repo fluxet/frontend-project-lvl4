@@ -64,7 +64,7 @@ const Signup = () => {
             }}
           >
             {(props) => {
-              const { errors, touched } = props;
+              const { errors, touched, isSubmitting } = props;
 
               return (
                 <Form as={FormFormik} className="p-3">
@@ -107,7 +107,7 @@ const Signup = () => {
                     />
                     <ErrorMessage render={renderErrorContent} name="confirmPassword" className="error-tooltip" component="div" />
                   </Form.Group>
-                  <Button type="submit" className="w-100">{t('signupComponent.signup')}</Button>
+                  <Button type="submit" className="w-100" disabled={isSubmitting}>{t('signupComponent.signup')}</Button>
                 </Form>
               );
             }}

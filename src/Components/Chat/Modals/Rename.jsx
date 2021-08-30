@@ -49,16 +49,18 @@ const Rename = (props) => {
             });
         }}
       >
-        <Form>
-          <Modal.Body>
-            <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
-            <ErrorMessage render={renderErrorContent} name="name" component="span" className="error-tooltip" />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
-            <Button type="submit">{t('modals.add.submit')}</Button>
-          </Modal.Footer>
-        </Form>
+        {({ isSubmitting }) => (
+          <Form>
+            <Modal.Body>
+              <Field innerRef={inputEl} name="name" autoFocus data-testid="rename-channel" className="mb-2 form-control" required />
+              <ErrorMessage render={renderErrorContent} name="name" component="span" className="error-tooltip" />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
+              <Button type="submit" disabled={isSubmitting}>{t('modals.add.submit')}</Button>
+            </Modal.Footer>
+          </Form>
+        )}
       </Formik>
     </>
   );

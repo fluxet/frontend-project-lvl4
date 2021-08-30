@@ -46,9 +46,8 @@ const Authorization = () => {
                 try {
                   const response = await axios.post(routes.loginPath(), messagePost);
                   const { from } = location.state || { from: { pathname: '/' } };
-                  // ----------------useEffect ?---------------------------
+
                   ctx.authorizeUser(response);
-                  // ----------------------------------------------------------
                   history.replace(from);
                 } catch (e) {
                   handlers.setErrors({
@@ -61,23 +60,25 @@ const Authorization = () => {
               authorizeUser();
             }}
           >
-            <Form as={FormFormik} className="p-3">
-              <Form.Group>
-                <Form.Label htmlFor="username">{t('authorizationComponent.username')}</Form.Label>
-                <Field id="username" data-testid="username" type="text" name="username" className="form-control" autoComplete="username" required />
-                <ErrorMessage name="username" component="div" render={renderErrorContent} className="error-tooltip" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label htmlFor="password">{t('password')}</Form.Label>
-                <Field name="password" data-testid="password" autoComplete="current-password" required type="password" id="password" className="form-control" />
-                <ErrorMessage name="password" component="div" render={renderErrorContent} className="error-tooltip" />
-              </Form.Group>
-              <Button type="submit" className="w-100 mb-3">{t('authorizationComponent.login')}</Button>
-              <div className="d-flex flex-column align-items-center">
-                <span className="small mb-2">{t('authorizationComponent.noAccount')}</span>
-                <a onClick={onSignupClick} href="/signup">{t('authorizationComponent.signup')}</a>
-              </div>
-            </Form>
+            {({ isSubmittion }) => (
+              <Form as={FormFormik} className="p-3">
+                <Form.Group>
+                  <Form.Label htmlFor="username">{t('authorizationComponent.username')}</Form.Label>
+                  <Field id="username" data-testid="username" type="text" name="username" className="form-control" autoComplete="username" required />
+                  <ErrorMessage name="username" component="div" render={renderErrorContent} className="error-tooltip" />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label htmlFor="password">{t('password')}</Form.Label>
+                  <Field name="password" data-testid="password" autoComplete="current-password" required type="password" id="password" className="form-control" />
+                  <ErrorMessage name="password" component="div" render={renderErrorContent} className="error-tooltip" />
+                </Form.Group>
+                <Button type="submit" className="w-100 mb-3" disabled={isSubmittion}>{t('authorizationComponent.login')}</Button>
+                <div className="d-flex flex-column align-items-center">
+                  <span className="small mb-2">{t('authorizationComponent.noAccount')}</span>
+                  <a onClick={onSignupClick} href="/signup">{t('authorizationComponent.signup')}</a>
+                </div>
+              </Form>
+            )}
           </Formik>
 
         </div>
