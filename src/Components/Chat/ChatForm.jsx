@@ -59,7 +59,7 @@ const ChatForm = () => {
         {({ isSubmitting }) => (
           <Form>
             <InputGroup>
-              <FormControl as={Field} innerRef={inputEl} type="text" name="body" aria-label="body" className="form-control" data-testid="new-message" required />
+              <FormControl as={Field} innerRef={inputEl} autoComplete="off" type="text" name="body" aria-label="body" className="form-control" data-testid="new-message" required />
               <Button type="submit" disabled={isSubmitting}>{t('chatForm.submit')}</Button>
             </InputGroup>
           </Form>
