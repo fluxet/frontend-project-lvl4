@@ -49,7 +49,7 @@ const Signup = () => {
                   ctx.authorizeUser(response);
                   history.replace(from);
                 } catch (e) {
-                  const statusCode = +e.message.split(' ').reverse()[0];
+                  const statusCode = e.response.status;
                   if (statusCode === 409) {
                     handlers.setErrors({
                       username: ' ',

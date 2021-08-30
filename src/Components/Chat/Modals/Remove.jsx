@@ -28,7 +28,8 @@ const Remove = (props) => {
             .removeChannel(messageBody)
             .then(() => {
               dispatch(closeModal());
-            });
+            })
+            .catch((err) => console.error(err));
         }}
       >
         {({ isSubmitting }) => (

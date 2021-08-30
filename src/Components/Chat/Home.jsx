@@ -25,8 +25,12 @@ const Home = () => {
       dispatch(setChannels(resp.data));
       dispatch(setMessages(resp.data.messages));
       setStatus('connected');
-    } catch (err) {
-      history.push(routes.loginPathName());
+    } catch (e) {
+      const statusCode = e.response.status;
+      if (statusCode === 401) {
+        history.push(routes.loginPathName());
+      }
+      console.error(e);
       setStatus('disconnected');
     }
   }, [history]);

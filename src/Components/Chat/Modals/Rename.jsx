@@ -46,7 +46,8 @@ const Rename = (props) => {
             .renameChannel(messageBody)
             .then(() => {
               dispatch(closeModal());
-            });
+            })
+            .catch((err) => console.error(err));
         }}
       >
         {({ isSubmitting }) => (

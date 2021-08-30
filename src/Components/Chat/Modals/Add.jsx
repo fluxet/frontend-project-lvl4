@@ -8,19 +8,14 @@ import {
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import debug from '../../../../lib/logger.js';
 
 import { ContextWs } from '../../../context.js';
 import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
 import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
 
-const log = debug('Add');
-log.enabled = true;
-
 const Add = () => {
   const { t } = useTranslation();
   const ctx = useContext(ContextWs);
-  log('ctx: ', ctx);
   const socket = ctx.wsClient;
   const dispatch = useDispatch();
 
@@ -52,7 +47,8 @@ const Add = () => {
             .then((response) => {
               dispatch(closeModal());
               dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
-            });
+            })
+            .catch((err) => console.error(err));
         }}
       >
         {({ isSubmitting }) => (
