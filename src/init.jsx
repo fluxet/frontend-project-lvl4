@@ -21,7 +21,7 @@ const ApiProvider = ({ wsClient, children }) => (
   <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>
 );
 
-export default (wsClient) => {
+export default async (wsClient) => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }
@@ -58,17 +58,19 @@ export default (wsClient) => {
     removeChannel: socketEmitPromisify('removeChannel'),
   };
 
-  const i18Instance = i18next
-    .createInstance({
+  const i18Instance = i18next.createInstance();
+  await i18Instance
+    .use(initReactI18next)
+    .init({
       lng: 'ru',
       debug: true,
       resources: {
         ru,
       },
-    }, (err, t) => ((err) ? log('i18next error: ', err) : t('key')));
+    });
 
   const vdom = (
-    <I18nextProvider i18n={i18Instance.use(initReactI18next)}>
+    <I18nextProvider i18n={i18Instance}>
       <Provider store={store}>
         <ApiProvider wsClient={chatApi}>
           <App />
