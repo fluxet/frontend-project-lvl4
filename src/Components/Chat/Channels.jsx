@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Dropdown, Button, ButtonGroup, Nav,
@@ -6,8 +6,7 @@ import {
 // import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId } from '../../stateSlices/channelsSlice.js';
-import { openModal } from '../../stateSlices/modalTypeSlice.js';
-import Modal from './Modals/index.jsx';
+import { openModal, setModalId } from '../../stateSlices/modalTypeSlice.js';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -16,13 +15,11 @@ const Channels = () => {
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
 
-  const [modalId, setModalId] = useState(currentChannelId);
-
   const onChannelClick = (id) => () => {
     dispatch(setCurrentChannelId({ currentChannelId: id }));
   };
   const onDropDownClick = (id) => () => {
-    setModalId(id);
+    dispatch(setModalId(id));
   };
 
   const renderChannelItem = (item) => {
@@ -55,8 +52,6 @@ const Channels = () => {
           {!!data.channels.length && data.channels.map((item) => renderChannelItem(item))}
         </Nav>
       </div>
-
-      <Modal id={modalId} />
     </>
   );
 };

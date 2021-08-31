@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { ContextAuth } from '../../context';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import ChatForm from './ChatForm.jsx';
+import Modal from './Modals/index.jsx';
 import { setChannels } from '../../stateSlices/channelsSlice.js';
 import { setMessages } from '../../stateSlices/messagesSlice.js';
 import routes from '../../routes.js';
@@ -18,6 +19,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const ctx = useContext(ContextAuth);
   const [status, setStatus] = useState('disconnected');
+  const modalId = useSelector((state) => state.modalType.id);
 
   useEffect(async () => {
     try {
@@ -44,6 +46,8 @@ const Home = () => {
           <ChatForm />
         </Col>
       </Row>
+
+      <Modal id={modalId} />
     </Container>
   );
 
