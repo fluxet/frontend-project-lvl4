@@ -4,12 +4,11 @@ import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
-import { ContextWs } from '../../../context.js';
+import { ContextChatApi } from '../../../context.js';
 
 const Remove = (props) => {
   const { t } = useTranslation();
-  const ctx = useContext(ContextWs);
-  const socket = ctx.wsClient;
+  const { chatApi } = useContext(ContextChatApi);
   const { id } = props;
   const dispatch = useDispatch();
 
@@ -24,7 +23,7 @@ const Remove = (props) => {
           const messageBody = {
             id,
           };
-          socket
+          chatApi
             .removeChannel(messageBody)
             .then(() => {
               dispatch(closeModal());

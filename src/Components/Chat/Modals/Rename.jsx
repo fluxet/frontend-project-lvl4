@@ -9,12 +9,11 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
-import { ContextWs } from '../../../context.js';
+import { ContextChatApi } from '../../../context.js';
 
 const Rename = (props) => {
   const { t } = useTranslation();
-  const ctx = useContext(ContextWs);
-  const socket = ctx.wsClient;
+  const { chatApi } = useContext(ContextChatApi);
   const { id } = props;
   const dispatch = useDispatch();
 
@@ -42,7 +41,7 @@ const Rename = (props) => {
             name: values.name,
             id,
           };
-          socket
+          chatApi
             .renameChannel(messageBody)
             .then(() => {
               dispatch(closeModal());

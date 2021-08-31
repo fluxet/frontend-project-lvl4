@@ -12,13 +12,13 @@ import {
 } from './stateSlices/channelsSlice.js';
 import { addMessage } from './stateSlices/messagesSlice.js';
 import App from './App.jsx';
-import { ContextWs } from './context.js';
+import { ContextChatApi } from './context.js';
 
 const log = debug('init');
 log.enabled = true;
 
-const ApiProvider = ({ wsClient, children }) => (
-  <ContextWs.Provider value={{ wsClient }}>{children}</ContextWs.Provider>
+const ApiProvider = ({ chatApi, children }) => (
+  <ContextChatApi.Provider value={{ chatApi }}>{children}</ContextChatApi.Provider>
 );
 
 export default async (wsClient) => {
@@ -72,7 +72,7 @@ export default async (wsClient) => {
   const vdom = (
     <I18nextProvider i18n={i18Instance}>
       <Provider store={store}>
-        <ApiProvider wsClient={chatApi}>
+        <ApiProvider chatApi={chatApi}>
           <App />
         </ApiProvider>
       </Provider>

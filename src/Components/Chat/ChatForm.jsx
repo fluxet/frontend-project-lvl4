@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { InputGroup, Button, FormControl } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { ContextAuth, ContextWs } from '../../context';
+import { ContextAuth, ContextChatApi } from '../../context';
 import channelSelector from '../../stateSelectors/channelSelector.js';
 import routes from '../../routes';
 
@@ -17,8 +17,7 @@ const ChatForm = () => {
   const channelId = useSelector(channelSelector);
   const ctx = useContext(ContextAuth);
   const { username } = ctx;
-  const { wsClient } = useContext(ContextWs);
-  const socket = wsClient;
+  const { chatApi } = useContext(ContextChatApi);
 
   const inputEl = useRef('');
   useEffect(() => {
@@ -42,7 +41,7 @@ const ChatForm = () => {
 
           const sendChatMessage = async () => {
             try {
-              await socket.sendMessage(messageBody);
+              await chatApi.sendMessage(messageBody);
             } catch (e) {
               const statusCode = e.response.status;
               if (statusCode === 401) {

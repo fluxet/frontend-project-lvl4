@@ -9,14 +9,13 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-import { ContextWs } from '../../../context.js';
+import { ContextChatApi } from '../../../context.js';
 import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
 import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
 
 const Add = () => {
   const { t } = useTranslation();
-  const ctx = useContext(ContextWs);
-  const socket = ctx.wsClient;
+  const { chatApi } = useContext(ContextChatApi);
   const dispatch = useDispatch();
 
   const inputEl = useRef(null);
@@ -42,7 +41,7 @@ const Add = () => {
           const messageBody = {
             name: values.name,
           };
-          socket
+          chatApi
             .addChannel(messageBody)
             .then((response) => {
               dispatch(closeModal());
