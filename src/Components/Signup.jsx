@@ -16,7 +16,7 @@ import routes from '../routes.js';
 
 const Signup = () => {
   const { t } = useTranslation();
-  const ctx = useContext(ContextAuth);
+  const { authorizeUser } = useContext(ContextAuth);
   const history = useHistory();
   const location = useLocation();
   const [passValue, setPassValue] = useState(null);
@@ -46,7 +46,7 @@ const Signup = () => {
                 try {
                   const response = await axios.post(routes.signupPath(), message);
                   const { from } = location.state || { from: { pathname: '/' } };
-                  ctx.authorizeUser(response);
+                  authorizeUser(response);
                   history.replace(from);
                 } catch (e) {
                   const statusCode = e.response.status;

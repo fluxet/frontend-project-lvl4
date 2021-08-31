@@ -17,13 +17,13 @@ const Home = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
-  const ctx = useContext(ContextAuth);
+  const { userRequestOptions } = useContext(ContextAuth);
   const [status, setStatus] = useState('disconnected');
   const modalId = useSelector((state) => state.modalType.id);
 
   useEffect(async () => {
     try {
-      const resp = await axios.get(routes.dataPath(), ctx.userRequestOptions);
+      const resp = await axios.get(routes.dataPath(), userRequestOptions);
       dispatch(setChannels(resp.data));
       dispatch(setMessages(resp.data.messages));
       setStatus('connected');

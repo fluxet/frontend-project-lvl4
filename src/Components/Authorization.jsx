@@ -12,7 +12,7 @@ import routes from '../routes.js';
 
 const Authorization = () => {
   const { t } = useTranslation();
-  const ctx = useContext(ContextAuth);
+  const { authorizeUser } = useContext(ContextAuth);
   const history = useHistory();
   const location = useLocation();
 
@@ -42,12 +42,12 @@ const Authorization = () => {
                 password: values.password,
               };
 
-              const authorizeUser = async () => {
+              const authorize = async () => {
                 try {
                   const response = await axios.post(routes.loginPath(), messagePost);
                   const { from } = location.state || { from: { pathname: '/' } };
 
-                  ctx.authorizeUser(response);
+                  authorizeUser(response);
                   history.replace(from);
                 } catch (e) {
                   handlers.setErrors({
@@ -57,7 +57,7 @@ const Authorization = () => {
                 }
               };
 
-              authorizeUser();
+              authorize();
             }}
           >
             {({ isSubmittion }) => (

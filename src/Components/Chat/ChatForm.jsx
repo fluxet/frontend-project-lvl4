@@ -15,8 +15,7 @@ const ChatForm = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const channelId = useSelector(channelSelector);
-  const ctx = useContext(ContextAuth);
-  const { username } = ctx;
+  const { username } = useContext(ContextAuth);
   const { chatApi } = useContext(ContextChatApi);
 
   const inputEl = useRef('');

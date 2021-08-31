@@ -58,8 +58,7 @@ const AuthProvider = ({ children }) => {
 };
 
 const ChatRoute = ({ path }) => {
-  const ctx = useContext(ContextAuth);
-  const { token } = ctx;
+  const { token } = useContext(ContextAuth);
 
   return (
     <Route
@@ -71,11 +70,11 @@ const ChatRoute = ({ path }) => {
 
 const ExitButton = () => {
   const { t } = useTranslation();
-  const ctx = useContext(ContextAuth);
+  const { onExit } = useContext(ContextAuth);
   const location = useLocation();
   const isOnHomePage = location.pathname === '/';
 
-  return isOnHomePage && <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={ctx.onExit}>{t('nav.exit')}</Button>;
+  return isOnHomePage && <Button variant="primary" as={Link} to={routes.loginPathName()} onClick={onExit}>{t('nav.exit')}</Button>;
 };
 
 const App = () => (
