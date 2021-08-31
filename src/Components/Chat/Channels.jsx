@@ -3,15 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Dropdown, Button, ButtonGroup, Nav,
 } from 'react-bootstrap';
-// import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId } from '../../stateSlices/channelsSlice.js';
 import { openModal, setModalId } from '../../stateSlices/modalTypeSlice.js';
 
 const Channels = () => {
   const { t } = useTranslation();
-  const dataAll = useSelector((state) => state);
-  const data = dataAll.channels;
+  const data = useSelector((state) => state.channels);
   const dispatch = useDispatch();
   const currentChannelId = data?.currentChannelId;
 

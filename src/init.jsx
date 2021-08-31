@@ -1,4 +1,3 @@
-// @ts-check
 import React from 'react';
 import { Provider } from 'react-redux';
 import { I18nextProvider, initReactI18next } from 'react-i18next';

@@ -1,5 +1,3 @@
-// @ts-check
-
 import Rollbar from 'rollbar';
 import ReactDom from 'react-dom';
 
