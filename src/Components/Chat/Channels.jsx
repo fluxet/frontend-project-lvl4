@@ -9,8 +9,8 @@ import { openModal, setModalId } from '../../stateSlices/modalSlice.js';
 
 const Channels = () => {
   const { t } = useTranslation();
-  const data = useSelector((state) => state.channels);
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.channels);
   const currentChannelId = data?.currentChannelId;
 
   const onChannelClick = (id) => () => {

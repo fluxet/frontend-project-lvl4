@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-const channelMessagesSelector = createSelector(
+const messagesSelector = createSelector(
   (state) => ({
     messages: state.messages,
     currentChannelId: state.channels.currentChannelId,
@@ -9,4 +9,4 @@ const channelMessagesSelector = createSelector(
     .filter((message) => message.data.attributes.channelId === currentChannelId),
 );
 
-export default channelMessagesSelector;
+export default messagesSelector;
