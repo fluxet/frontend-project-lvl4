@@ -21,7 +21,7 @@ const ChatForm = () => {
   const inputEl = useRef('');
   useEffect(() => {
     inputEl.current.focus();
-  });
+  }, [channelId]);
 
   return (
     <div className="mt-auto py-4">
