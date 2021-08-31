@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
+import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
 
 const Remove = (props) => {

@@ -8,7 +8,7 @@ import {
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
+import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
 
 const Rename = (props) => {

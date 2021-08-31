@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId } from '../../stateSlices/channelsSlice.js';
-import { openModal, setModalId } from '../../stateSlices/modalTypeSlice.js';
+import { openModal, setModalId } from '../../stateSlices/modalSlice.js';
 
 const Channels = () => {
   const { t } = useTranslation();

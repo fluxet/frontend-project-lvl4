@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import { ContextChatApi } from '../../../context.js';
-import { closeModal } from '../../../stateSlices/modalTypeSlice.js';
+import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
 
 const Add = () => {

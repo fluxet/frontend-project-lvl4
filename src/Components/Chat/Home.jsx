@@ -19,7 +19,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { userRequestOptions } = useContext(ContextAuth);
   const [status, setStatus] = useState('disconnected');
-  const modalId = useSelector((state) => state.modalType.id);
+  const modalId = useSelector((state) => state.modal.channelId);
 
   useEffect(async () => {
     try {

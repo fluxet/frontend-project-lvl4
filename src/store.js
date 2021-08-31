@@ -3,10 +3,10 @@ import { combineReducers } from 'redux';
 
 import channels from './stateSlices/channelsSlice.js';
 import messages from './stateSlices/messagesSlice.js';
-import modalType from './stateSlices/modalTypeSlice.js';
+import modal from './stateSlices/modalSlice.js';
 
 const reducer = combineReducers({
-  channels, messages, modalType,
+  channels, messages, modal,
 });
 
 const store = configureStore({

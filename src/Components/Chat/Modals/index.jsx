@@ -12,8 +12,8 @@ const componentByType = {
 };
 
 const Modal = ({ id }) => {
-  const modalType = useSelector((state) => state.modalType.type);
-  const isOpened = useSelector((state) => state.modalType.isOpened);
+  const modalType = useSelector((state) => state.modal.type);
+  const isOpened = useSelector((state) => state.modal.isOpened);
 
   const ModalComponent = componentByType[modalType];
   return (!!ModalComponent && (

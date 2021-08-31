@@ -2,9 +2,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const modalSlice = createSlice({
-  name: 'modalType',
+  name: 'modal',
   initialState: {
-    id: null,
+    channelId: null,
     type: '',
     isOpened: false,
   },
@@ -17,7 +17,7 @@ export const modalSlice = createSlice({
       state.isOpened = false;
     },
     setModalId: (state, action) => {
-      state.id = action.payload;
+      state.channelId = action.payload;
     },
   },
 });
