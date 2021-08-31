@@ -12,6 +12,7 @@ import Modal from './Modals/index.jsx';
 import { setChannels } from '../../stateSlices/channelsSlice.js';
 import { setMessages } from '../../stateSlices/messagesSlice.js';
 import routes from '../../routes.js';
+import { modalIdSelector } from '../../stateSelectors/modalsSelectors';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { userRequestOptions } = useContext(ContextAuth);
   const [status, setStatus] = useState('disconnected');
-  const modalId = useSelector((state) => state.modal.channelId);
+  const modalId = useSelector(modalIdSelector);
 
   useEffect(async () => {
     try {

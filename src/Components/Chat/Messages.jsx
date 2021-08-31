@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Element as ScrollProvider, animateScroll as scroll } from 'react-scroll';
-import messagesSelector from '../../stateSelectors/messagesSelector.js';
+import messagesSelector from '../../stateSelectors/messagesSelectors.js';
 
 const Messages = () => {
   const containerId = 'container-messages';

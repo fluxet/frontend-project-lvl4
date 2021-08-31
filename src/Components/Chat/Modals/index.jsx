@@ -4,6 +4,7 @@ import { Modal as ModalB } from 'react-bootstrap';
 import Rename from './Rename.jsx';
 import Remove from './Remove.jsx';
 import Add from './Add.jsx';
+import { modalTypeSelector, isOpenedSelector } from '../../../stateSelectors/modalsSelectors.js';
 
 const componentByType = {
   adding: Add,
@@ -12,8 +13,8 @@ const componentByType = {
 };
 
 const Modal = ({ id }) => {
-  const modalType = useSelector((state) => state.modal.type);
-  const isOpened = useSelector((state) => state.modal.isOpened);
+  const modalType = useSelector(modalTypeSelector);
+  const isOpened = useSelector(isOpenedSelector);
 
   const ModalComponent = componentByType[modalType];
   return (!!ModalComponent && (

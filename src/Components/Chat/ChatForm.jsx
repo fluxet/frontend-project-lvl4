@@ -7,13 +7,13 @@ import { Formik, Field, Form } from 'formik';
 import { InputGroup, Button, FormControl } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ContextAuth, ContextChatApi } from '../../context';
-import channelSelector from '../../stateSelectors/channelSelector.js';
+import { channelIdSelector } from '../../stateSelectors/channelsSelectors.js';
 import routes from '../../routes';
 
 const ChatForm = () => {
   const { t } = useTranslation();
   const history = useHistory();
-  const channelId = useSelector(channelSelector);
+  const channelId = useSelector(channelIdSelector);
   const { username } = useContext(ContextAuth);
   const { chatApi } = useContext(ContextChatApi);
 

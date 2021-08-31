@@ -6,11 +6,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import { setCurrentChannelId } from '../../stateSlices/channelsSlice.js';
 import { openModal, setModalId } from '../../stateSlices/modalSlice.js';
+import { channelsSelector } from '../../stateSelectors/channelsSelectors.js';
 
 const Channels = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.channels);
+  const data = useSelector(channelsSelector);
   const currentChannelId = data?.currentChannelId;
 
   const onChannelClick = (id) => () => {
