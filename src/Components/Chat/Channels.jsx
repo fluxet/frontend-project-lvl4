@@ -11,7 +11,6 @@ import { channelsSelector } from '../../stateSelectors/channelsSelectors.js';
 const Channels = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
   const data = useSelector(channelsSelector);
   const currentChannelId = data?.currentChannelId;
 

@@ -35,7 +35,7 @@ module.exports = (env) => {
     devtool: 'source-map',
     plugins: [
       new MiniCssExtractPlugin(),
-      // new webpack.DefinePlugin(envKeys),
+      new webpack.DefinePlugin(envKeys),
       new Dotenv(),
     ],
     module: {
