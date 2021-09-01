@@ -1,17 +1,16 @@
 // @ts-check
 
 const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
+// const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 
 module.exports = (env) => {
-  const envKeys = Object.keys(env).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(env[next]);
-    return prev;
-  }, {});
+  const envKeys = {
+    'process.env': JSON.stringify(process.env),
+  };
 
   return {
     mode,
@@ -36,7 +35,7 @@ module.exports = (env) => {
     plugins: [
       new MiniCssExtractPlugin(),
       new webpack.DefinePlugin(envKeys),
-      new Dotenv(),
+      // new Dotenv(),
     ],
     module: {
       rules: [
