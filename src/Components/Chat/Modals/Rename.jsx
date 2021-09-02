@@ -6,19 +6,20 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
 import debug from '../../../../lib/logger.js';
+import { modalIdSelector } from '../../../stateSelectors/modalsSelectors.js';
 
 const log = debug('Rename');
 log.enabled = true;
 
-const Rename = (props) => {
+const Rename = () => {
   const { t } = useTranslation();
   const { chatApi } = useContext(ContextChatApi);
-  const { id } = props;
+  const id = useSelector(modalIdSelector);
   const dispatch = useDispatch();
 
   const inputEl = useRef(null);

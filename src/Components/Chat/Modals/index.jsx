@@ -12,14 +12,14 @@ const componentByType = {
   renaming: Rename,
 };
 
-const Modal = ({ id }) => {
+const Modal = () => {
   const modalType = useSelector(modalTypeSelector);
   const isOpened = useSelector(isOpenedSelector);
 
   const ModalComponent = componentByType[modalType];
   return (!!ModalComponent && (
     <ModalB show={isOpened}>
-      <ModalComponent id={id} />
+      <ModalComponent />
     </ModalB>
   ));
 };

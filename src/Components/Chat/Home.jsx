@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Row, Col, Container } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { ContextAuth } from '../../context';
@@ -12,7 +12,6 @@ import Modal from './Modals/index.jsx';
 import { setChannels } from '../../stateSlices/channelsSlice.js';
 import { setMessages } from '../../stateSlices/messagesSlice.js';
 import routes from '../../routes.js';
-import { modalIdSelector } from '../../stateSelectors/modalsSelectors';
 import debug from '../../../lib/logger.js';
 
 const log = debug('Home');
@@ -24,7 +23,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const { userRequestOptions } = useContext(ContextAuth);
   const [status, setStatus] = useState('disconnected');
-  const modalId = useSelector(modalIdSelector);
 
   useEffect(async () => {
     try {
@@ -52,7 +50,7 @@ const Home = () => {
         </Col>
       </Row>
 
-      <Modal id={modalId} />
+      <Modal />
     </Container>
   );
 

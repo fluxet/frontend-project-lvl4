@@ -2,18 +2,19 @@ import React, { useContext } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
 import debug from '../../../../lib/logger.js';
+import { modalIdSelector } from '../../../stateSelectors/modalsSelectors.js';
 
 const log = debug('Remove');
 log.enabled = true;
 
-const Remove = (props) => {
+const Remove = () => {
   const { t } = useTranslation();
   const { chatApi } = useContext(ContextChatApi);
-  const { id } = props;
+  const id = useSelector(modalIdSelector);
   const dispatch = useDispatch();
 
   return (
