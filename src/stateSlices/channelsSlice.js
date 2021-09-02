@@ -25,9 +25,8 @@ export const channelsSlice = createSlice({
       }
     },
     renameChannel: (state, { payload: { id, name } }) => {
-      state.channels.forEach((channel) => {
-        channel.name = (channel.id === id) ? name : channel.name;
-      });
+      const channelIndex = state.channels.findIndex((channel) => channel.id === id);
+      state.channels[channelIndex].name = name;
     },
     setCurrentChannelId: (state, action) => {
       state.currentChannelId = action.payload.currentChannelId;
