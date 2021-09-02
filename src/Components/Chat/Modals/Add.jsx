@@ -12,6 +12,10 @@ import { useDispatch } from 'react-redux';
 import { ContextChatApi } from '../../../context.js';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
+import debug from '../../../../lib/logger.js';
+
+const log = debug('Add');
+log.enabled = true;
 
 const Add = () => {
   const { t } = useTranslation();
@@ -47,7 +51,7 @@ const Add = () => {
               dispatch(closeModal());
               dispatch(setCurrentChannelId({ currentChannelId: response.data.id }));
             })
-            .catch((err) => console.error(err));
+            .catch(log);
         }}
       >
         {({ isSubmitting }) => (

@@ -10,6 +10,10 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
+import debug from '../../../../lib/logger.js';
+
+const log = debug('Rename');
+log.enabled = true;
 
 const Rename = (props) => {
   const { t } = useTranslation();
@@ -46,7 +50,7 @@ const Rename = (props) => {
             .then(() => {
               dispatch(closeModal());
             })
-            .catch((err) => console.error(err));
+            .catch(log);
         }}
       >
         {({ isSubmitting }) => (

@@ -9,6 +9,10 @@ import { useTranslation } from 'react-i18next';
 import { ContextAuth, ContextChatApi } from '../../context';
 import { channelIdSelector } from '../../stateSelectors/channelsSelectors.js';
 import routes from '../../routes';
+import debug from '../../../lib/logger.js';
+
+const log = debug('ChatForm');
+log.enabled = true;
 
 const ChatForm = () => {
   const { t } = useTranslation();
@@ -45,7 +49,7 @@ const ChatForm = () => {
               if (statusCode === 401) {
                 history.push(routes.loginPathName());
               }
-              console.error(e);
+              log(e);
             }
           };
 

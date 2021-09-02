@@ -13,6 +13,10 @@ import { setChannels } from '../../stateSlices/channelsSlice.js';
 import { setMessages } from '../../stateSlices/messagesSlice.js';
 import routes from '../../routes.js';
 import { modalIdSelector } from '../../stateSelectors/modalsSelectors';
+import debug from '../../../lib/logger.js';
+
+const log = debug('Home');
+log.enabled = true;
 
 const Home = () => {
   const { t } = useTranslation();
@@ -33,7 +37,7 @@ const Home = () => {
       if (statusCode === 401) {
         history.push(routes.loginPathName());
       }
-      console.error(e);
+      log(e);
       setStatus('disconnected');
     }
   }, [history]);

@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
+import debug from '../../../../lib/logger.js';
+
+const log = debug('Remove');
+log.enabled = true;
 
 const Remove = (props) => {
   const { t } = useTranslation();
@@ -28,7 +32,7 @@ const Remove = (props) => {
             .then(() => {
               dispatch(closeModal());
             })
-            .catch((err) => console.error(err));
+            .catch(log);
         }}
       >
         {({ isSubmitting }) => (
