@@ -7,11 +7,12 @@ import {
 } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ContextChatApi } from '../../../context.js';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { setCurrentChannelId } from '../../../stateSlices/channelsSlice.js';
+import errorMessageSelector from '../../../stateSelectors/errorsSelectors.js';
 import debug from '../../../../lib/logger.js';
 
 const log = debug('Add');
@@ -21,6 +22,7 @@ const Add = () => {
   const { t } = useTranslation();
   const { chatApi } = useContext(ContextChatApi);
   const dispatch = useDispatch();
+  const errorMessage = useSelector(errorMessageSelector);
 
   const inputEl = useRef(null);
   useEffect(() => {
@@ -41,7 +43,13 @@ const Add = () => {
       <Formik
         initialValues={{ name: '' }}
         validationSchema={fieldSchema}
-        onSubmit={(values) => {
+        onSubmit={(values, handlers) => {
+          if (errorMessage) {
+            handlers.setErrors({
+              name: errorMessage,
+            });
+          }
+
           const messageBody = {
             name: values.name,
           };

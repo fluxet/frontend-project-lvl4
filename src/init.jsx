@@ -10,6 +10,7 @@ import {
   addChannel, removeChannel, renameChannel,
 } from './stateSlices/channelsSlice.js';
 import { addMessage } from './stateSlices/messagesSlice.js';
+import { setErrorMessage } from './stateSlices/errorSlice.js';
 import App from './App.jsx';
 import { ContextChatApi } from './context.js';
 
@@ -26,7 +27,9 @@ export default async (wsClient) => {
   }
 
   const socket = wsClient;
-
+  socket.on('connect_error', () => {
+    store.dispatch((setErrorMessage({ errorMessage: 'errors.network' })));
+  });
   socket.on('newMessage', (message) => {
     store.dispatch((addMessage(message)));
   });

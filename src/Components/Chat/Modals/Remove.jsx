@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
+import errorMessageSelector from '../../../stateSelectors/errorsSelectors.js';
 import debug from '../../../../lib/logger.js';
 import { modalIdSelector } from '../../../stateSelectors/modalsSelectors.js';
 
@@ -16,6 +17,8 @@ const Remove = () => {
   const { chatApi } = useContext(ContextChatApi);
   const id = useSelector(modalIdSelector);
   const dispatch = useDispatch();
+  const errorMessage = useSelector(errorMessageSelector);
+  const Error = () => errorMessage && <div className="error-tooltip">{t(errorMessage)}</div>;
 
   return (
     <>
@@ -40,10 +43,11 @@ const Remove = () => {
           <Form>
             <Modal.Body>
               <div>{t('modals.remove.warning')}</div>
+              <Error />
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
-              <Button variant="danger" type="submit" disabled={isSubmitting}>{t('modals.remove.submit')}</Button>
+              <Button variant="danger" type="submit" disabled={isSubmitting || errorMessage}>{t('modals.remove.submit')}</Button>
             </Modal.Footer>
           </Form>
         )}

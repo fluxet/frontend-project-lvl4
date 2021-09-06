@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
 import { ContextChatApi } from '../../../context.js';
+import errorMessageSelector from '../../../stateSelectors/errorsSelectors.js';
 import debug from '../../../../lib/logger.js';
 import { modalIdSelector } from '../../../stateSelectors/modalsSelectors.js';
 
@@ -21,6 +22,7 @@ const Rename = () => {
   const { chatApi } = useContext(ContextChatApi);
   const id = useSelector(modalIdSelector);
   const dispatch = useDispatch();
+  const errorMessage = useSelector(errorMessageSelector);
 
   const inputEl = useRef(null);
   useEffect(() => {
@@ -41,7 +43,13 @@ const Rename = () => {
       <Formik
         initialValues={{ name: '' }}
         validationSchema={fieldSchema}
-        onSubmit={(values) => {
+        onSubmit={(values, handlers) => {
+          if (errorMessage) {
+            handlers.setErrors({
+              name: errorMessage,
+            });
+          }
+
           const messageBody = {
             name: values.name,
             id,

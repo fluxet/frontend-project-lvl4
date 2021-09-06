@@ -49,6 +49,10 @@ export default {
     },
     chatForm: {
       submit: 'Отправить',
+      requiredField: 'обязательное поле',
+    },
+    errors: {
+      network: 'Ошибка соединения. Проверьте сетевые настройки.',
     },
   },
 };
