@@ -64,6 +64,7 @@ const Signup = () => {
             }}
           >
             {(props) => {
+              console.log('props: ', props);
               const { errors, touched, isSubmitting } = props;
 
               return (

@@ -20,14 +20,18 @@ import { ContextAuth } from './context';
 import routes from './routes.js';
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    token: localStorage.getItem('token'),
-    name: localStorage.getItem('username'),
-  });
+  const userEmpty = { token: null, username: null };
+  const [user, setUser] = useState(() => (
+    JSON.parse(localStorage.getItem('user'))
+    || userEmpty
+  ));
 
   const authorizeUser = (response) => {
-    localStorage.setItem('token', response.data.token);
-    localStorage.setItem('username', response.data.username);
+    localStorage.setItem('user', JSON.stringify({
+      token: response.data.token,
+      username: response.data.username,
+    }));
+
     setUser({
       token: response.data.token,
       name: response.data.username,
@@ -35,8 +39,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const onExit = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    localStorage.removeItem('user');
+    setUser(userEmpty);
   };
 
   const userRequestOptions = { headers: { Authorization: `Bearer ${user.token}` } };
