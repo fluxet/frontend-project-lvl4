@@ -5,7 +5,7 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     channelId: null,
-    type: '',
+    type: null,
     isOpened: false,
   },
   reducers: {

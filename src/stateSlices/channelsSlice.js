@@ -5,7 +5,7 @@ export const channelsSlice = createSlice({
   name: 'channels',
   initialState: {
     channels: [],
-    currentChannelId: '',
+    currentChannelId: null,
     defaultChannelId: 1,
   },
   reducers: {
