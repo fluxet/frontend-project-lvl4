@@ -1,8 +1,7 @@
 [![Github Actions Status](https://github.com/hexlet-components/projects-frontend-l4-server/workflows/Node%20CI/badge.svg)](https://github.com/hexlet-components/projects-frontend-l4-server/actions)
 
-## Requirements
 
-* [Heroku CLI](https://gentle-meadow-56740.herokuapp.com/)
+ [Chat](https://gentle-meadow-56740.herokuapp.com/)
 
 ## Install
 
