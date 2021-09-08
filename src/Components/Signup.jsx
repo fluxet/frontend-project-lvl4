@@ -10,9 +10,13 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash';
 
+import debug from '../../lib/logger';
 import './Signup.scss';
 import { ContextAuth } from '../context.js';
 import routes from '../routes.js';
+
+const log = debug('init');
+log.enabled = true;
 
 const Signup = () => {
   const { t } = useTranslation();
@@ -64,8 +68,8 @@ const Signup = () => {
             }}
           >
             {(props) => {
-              console.log('props: ', props);
-              const { errors, touched, isSubmitting } = props;
+              log('props: ', props);
+              const { errors, isSubmitting } = props;
 
               return (
                 <Form as={FormFormik} className="p-3">
@@ -77,7 +81,7 @@ const Signup = () => {
                       name="username"
                       autoComplete="username"
                       id="username"
-                      className={errors.username && touched.username && 'field-error'}
+                      className={errors.username && 'field-error'}
                     />
                     <ErrorMessage render={renderErrorContent} name="username" className="error-tooltip" component="div" />
                   </Form.Group>
@@ -91,7 +95,7 @@ const Signup = () => {
                       autoComplete="new-password"
                       type="password"
                       id="password"
-                      className={errors.password && touched.password && 'field-error'}
+                      className={errors.password && 'field-error'}
                     />
                     <ErrorMessage render={renderErrorContent} name="password" className="error-tooltip" component="div" />
                   </Form.Group>
@@ -104,7 +108,7 @@ const Signup = () => {
                       autoComplete="new-password"
                       type="password"
                       id="confirmPassword"
-                      className={errors.confirmPassword && touched.confirmPassword && 'field-error'}
+                      className={errors.confirmPassword && 'field-error'}
                     />
                     <ErrorMessage render={renderErrorContent} name="confirmPassword" className="error-tooltip" component="div" />
                   </Form.Group>

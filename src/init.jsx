@@ -10,7 +10,6 @@ import {
   addChannel, removeChannel, renameChannel,
 } from './stateSlices/channelsSlice.js';
 import { addMessage } from './stateSlices/messagesSlice.js';
-import { setErrorMessage } from './stateSlices/errorSlice.js';
 import App from './App.jsx';
 import { ContextChatApi } from './context.js';
 
@@ -27,24 +26,38 @@ export default async (wsClient) => {
   }
 
   const socket = wsClient;
-  socket.on('connect_error', () => {
-    store.dispatch((setErrorMessage({ errorMessage: 'errors.network' })));
-  });
+  const netState = {
+    status: 'connectionOk', // ['connectionOk', 'connectionError']
+  };
+
   socket.on('newMessage', (message) => {
+    netState.status = 'connectionOk';
     store.dispatch((addMessage(message)));
   });
   socket.on('newChannel', (channel) => {
+    netState.status = 'connectionOk';
     store.dispatch(addChannel(channel));
   });
   socket.on('removeChannel', (channel) => {
+    netState.status = 'connectionOk';
     store.dispatch(removeChannel(channel));
   });
   socket.on('renameChannel', (channel) => {
+    netState.status = 'connectionOk';
     store.dispatch(renameChannel(channel));
+  });
+
+  socket.on('connect_error', () => {
+    netState.status = 'connectionError';
+    socket.connect();
   });
 
   const socketEmitPromisify = (typeEmit) => (messageBody) => {
     const promise = new Promise((resolve, reject) => {
+      if (netState.status === 'connectionError') {
+        const err = new Error('errors.network');
+        reject(err);
+      }
       socket.emit(typeEmit, messageBody, (resp) => ((resp.error)
         ? reject(resp)
         : resolve(resp)));

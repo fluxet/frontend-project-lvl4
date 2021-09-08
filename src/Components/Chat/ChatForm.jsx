@@ -11,7 +11,6 @@ import { InputGroup, Button, FormControl } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ContextAuth, ContextChatApi } from '../../context';
 import { channelIdSelector } from '../../stateSelectors/channelsSelectors.js';
-import errorMessageSelector from '../../stateSelectors/errorsSelectors.js';
 import routes from '../../routes';
 import debug from '../../../lib/logger.js';
 
@@ -24,7 +23,6 @@ const ChatForm = () => {
   const channelId = useSelector(channelIdSelector);
   const { username } = useContext(ContextAuth);
   const { chatApi } = useContext(ContextChatApi);
-  const errorMessage = useSelector(errorMessageSelector);
   const messageSchema = yup.object().shape({
     body: yup.string().trim().required('chatForm.requiredField'),
   });
@@ -41,6 +39,7 @@ const ChatForm = () => {
       <Formik
         initialValues={{ body: '' }}
         validationSchema={messageSchema}
+        validateOnBlur={false}
         onSubmit={(values, handlers) => {
           const messageBody = {
             data: {
@@ -55,23 +54,19 @@ const ChatForm = () => {
           const sendChatMessage = async () => {
             try {
               await chatApi.sendMessage(messageBody);
+              handlers.resetForm();
             } catch (e) {
-              const statusCode = e.response.status;
+              const statusCode = e?.response?.status;
               if (statusCode === 401) {
                 history.push(routes.loginPathName());
               }
-              log(e);
+              handlers.setErrors({
+                body: e.message,
+              });
             }
           };
 
-          if (errorMessage) {
-            handlers.setErrors({
-              body: errorMessage,
-            });
-          } else {
-            sendChatMessage();
-            handlers.resetForm();
-          }
+          sendChatMessage();
         }}
       >
         {({ isSubmitting }) => (
