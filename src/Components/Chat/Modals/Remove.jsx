@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { Formik, Form } from 'formik';
+import { Modal, Button, Form } from 'react-bootstrap';
+import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../stateSlices/modalSlice.js';
@@ -20,40 +20,42 @@ const Remove = () => {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState();
 
+  const formik = useFormik({
+    initialValues: { name: '' },
+    onSubmit: () => {
+      const messageBody = {
+        id,
+      };
+      chatApi
+        .removeChannel(messageBody)
+        .then(() => {
+          dispatch(closeModal());
+        })
+        .catch((err) => {
+          setErrorMessage(err.message);
+        });
+    },
+  });
+
+  chatApi.onReconnection(() => {
+    dispatch(closeModal());
+  });
+
   return (
     <>
       <Modal.Header closeButton onClick={() => dispatch(closeModal())}>
         <Modal.Title>{t('modals.remove.title')}</Modal.Title>
       </Modal.Header>
-      <Formik
-        initialValues={{ name: '' }}
-        onSubmit={() => {
-          const messageBody = {
-            id,
-          };
-          chatApi
-            .removeChannel(messageBody)
-            .then(() => {
-              dispatch(closeModal());
-            })
-            .catch((err) => {
-              setErrorMessage(err.message);
-            });
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <Modal.Body>
-              <div>{t('modals.remove.warning')}</div>
-              {errorMessage && <Error msg={t(errorMessage)} />}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
-              <Button variant="danger" type="submit" disabled={isSubmitting || errorMessage}>{t('modals.remove.submit')}</Button>
-            </Modal.Footer>
-          </Form>
-        )}
-      </Formik>
+      <Form onSubmit={formik.handleSubmit}>
+        <Modal.Body>
+          <div>{t('modals.remove.warning')}</div>
+          {errorMessage && <Error msg={t(errorMessage)} />}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => dispatch(closeModal())}>{t('modals.cancel')}</Button>
+          <Button variant="danger" type="submit" disabled={formik.isSubmitting || errorMessage}>{t('modals.remove.submit')}</Button>
+        </Modal.Footer>
+      </Form>
     </>
   );
 };

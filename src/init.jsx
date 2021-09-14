@@ -30,6 +30,10 @@ export default async (wsClient) => {
     status: 'connectionOk', // ['connectionOk', 'connectionError']
   };
 
+  socket.on('connect', () => {
+    netState.status = 'connectionOk';
+  });
+
   socket.on('newMessage', (message) => {
     netState.status = 'connectionOk';
     store.dispatch((addMessage(message)));
@@ -56,6 +60,9 @@ export default async (wsClient) => {
     const promise = new Promise((resolve, reject) => {
       if (netState.status === 'connectionError') {
         const err = new Error('errors.network');
+        err.response = {
+          status: 408,
+        };
         reject(err);
       }
       socket.emit(typeEmit, messageBody, (resp) => ((resp.error)
@@ -66,11 +73,24 @@ export default async (wsClient) => {
     return promise;
   };
 
+  const onReconnection = (cb) => {
+    const timerId = setTimeout(() => {
+      const { status } = netState;
+      if (status === 'connectionError') {
+        onReconnection(cb);
+      } else {
+        cb();
+      }
+      clearTimeout(timerId);
+    }, 1000);
+  };
+
   const chatApi = {
     sendMessage: socketEmitPromisify('newMessage'),
     addChannel: socketEmitPromisify('newChannel'),
     renameChannel: socketEmitPromisify('renameChannel'),
     removeChannel: socketEmitPromisify('removeChannel'),
+    onReconnection,
   };
 
   const i18Instance = i18next.createInstance();
