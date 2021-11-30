@@ -2,7 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
-import ru from './locales/ru.js';
+// import ru from './locales/ru.js';
+import en from './locales/en.js';
 
 import debug from '../lib/logger.js';
 import store from './store.js';
@@ -97,10 +98,10 @@ export default async (wsClient) => {
   await i18Instance
     .use(initReactI18next)
     .init({
-      lng: 'ru',
+      lng: 'en',
       debug: true,
       resources: {
-        ru,
+        en,
       },
     });
 
