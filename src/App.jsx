@@ -84,7 +84,7 @@ const App = () => (
     <AuthProvider>
       <Router>
         <Navbar>
-          <Link className="mr-auto navbar-brand" to="/">Hexlet Chat</Link>
+          <Link className="mr-auto navbar-brand" to="/">Fluxet Chat</Link>
           <Nav>
             <ExitButton />
           </Nav>
